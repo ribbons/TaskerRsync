@@ -4,6 +4,12 @@ PreCommit:
   ALL:
     problem_on_unmodified_line: warn
 
+  GradleCheck:
+    description: Run check task in Gradle
+    enabled: true
+    required_executable: ./gradlew
+    flags: check
+
   TrailingWhitespace:
     enabled: true
 
