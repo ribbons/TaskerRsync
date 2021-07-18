@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Rsync for Tasker</string>
     <string name="arguments">Arguments</string>
+    <string name="arguments_hint">whitespace separated command arguments</string>
     <string name="standard_error">Standard error</string>
     <string name="standard_error_desc">Output written to the standard error stream</string>
     <string name="standard_output">Standard output</string>
