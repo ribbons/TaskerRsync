@@ -6,14 +6,14 @@
 
 package com.nerdoftheherd.tasker.rsync
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.nerdoftheherd.tasker.rsync.databinding.RsyncConfigActivityBinding
 
-class RsyncConfigActivity : Activity(), TaskerPluginConfig<RsyncConfig> {
+class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig> {
     override val context: Context get() = applicationContext
     private val taskerHelper by lazy { RsyncHelper(this) }
     private lateinit var binding: RsyncConfigActivityBinding
