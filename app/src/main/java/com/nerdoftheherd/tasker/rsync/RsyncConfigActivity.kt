@@ -1,0 +1,39 @@
+/*
+ * Copyright © 2021 Matt Robinson
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+package com.nerdoftheherd.tasker.rsync
+
+import android.app.Activity
+import android.content.Context
+import android.os.Bundle
+import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
+import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.nerdoftheherd.tasker.rsync.databinding.RsyncConfigActivityBinding
+
+class RsyncConfigActivity : Activity(), TaskerPluginConfig<RsyncConfig> {
+    override val context: Context get() = applicationContext
+    private val taskerHelper by lazy { RsyncHelper(this) }
+    private lateinit var binding: RsyncConfigActivityBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = RsyncConfigActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        taskerHelper.onCreate()
+    }
+
+    override fun onBackPressed() {
+        taskerHelper.onBackPressed()
+    }
+
+    override fun assignFromInput(input: TaskerInput<RsyncConfig>) = input.regular.run {
+        binding.editTextArgs.setText(this.args)
+    }
+
+    override val inputForTasker get() = TaskerInput(RsyncConfig(binding.editTextArgs.text.toString()))
+}
