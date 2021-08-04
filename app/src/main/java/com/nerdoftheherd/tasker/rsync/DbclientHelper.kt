@@ -9,9 +9,9 @@ package com.nerdoftheherd.tasker.rsync
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfigHelper
 
-class RsyncHelper(config: TaskerPluginConfig<RsyncConfig>) :
-    TaskerPluginConfigHelper<RsyncConfig, CommandOutput, RsyncRunner>(config) {
-    override val runnerClass = RsyncRunner::class.java
-    override val inputClass = RsyncConfig::class.java
+class DbclientHelper(config: TaskerPluginConfig<DbclientConfig>) :
+    TaskerPluginConfigHelper<DbclientConfig, CommandOutput, DbclientRunner>(config) {
+    override val runnerClass = DbclientRunner::class.java
+    override val inputClass = DbclientConfig::class.java
     override val outputClass = CommandOutput::class.java
 }

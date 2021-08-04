@@ -10,7 +10,7 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputObject
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 
 @TaskerOutputObject
-class RsyncOutput(
+class CommandOutput(
     @get:TaskerOutputVariable("stdout", R.string.standard_output, R.string.standard_output_desc)
     var stdout: String?,
 

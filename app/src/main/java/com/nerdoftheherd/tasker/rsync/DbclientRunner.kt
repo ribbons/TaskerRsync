@@ -14,22 +14,22 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import java.io.BufferedReader
 
-class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
-    override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
-        Log.d(TAG, "About to run rsync")
+class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
+    override fun run(context: Context, input: TaskerInput<DbclientConfig>): TaskerPluginResult<CommandOutput> {
+        Log.d(TAG, "About to run dbclient")
         val libDir = context.applicationInfo.nativeLibraryDir
 
         val args = ArrayList<String?>()
-        args.add("$libDir/librsync.so")
+        args.add("$libDir/libdbclient.so")
         input.regular.args?.split(' ')?.let { args.addAll(it) }
 
-        val rsync = Runtime.getRuntime().exec(args.toTypedArray())
+        val dbclient = Runtime.getRuntime().exec(args.toTypedArray())
 
-        val result = rsync.waitFor()
+        val result = dbclient.waitFor()
 
         val output = CommandOutput(
-            rsync.inputStream.bufferedReader().use(BufferedReader::readText),
-            rsync.errorStream.bufferedReader().use(BufferedReader::readText),
+            dbclient.inputStream.bufferedReader().use(BufferedReader::readText),
+            dbclient.errorStream.bufferedReader().use(BufferedReader::readText),
         )
 
         Log.d(TAG, "Run completed, exit code $result")
