@@ -20,7 +20,7 @@ PreCommit:
   SingleNewlineAtEof:
     description: Check text files end with a single newline
     enabled: true
-    exclude: .idea/**
+    exclude: .idea/**/*
 
   Copyright:
     description: Check copyright notices are present and updated
