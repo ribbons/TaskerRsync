@@ -47,6 +47,8 @@ android {
 
     packagingOptions {
         exclude 'lib/*/libdropbear.so'
+        exclude 'lib/*/libdropbearconvert.so'
+        exclude 'lib/*/libscp.so'
     }
 }
 
