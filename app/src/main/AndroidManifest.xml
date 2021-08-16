@@ -32,5 +32,15 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".PrivateKeyConfigActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Generate Private Key">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

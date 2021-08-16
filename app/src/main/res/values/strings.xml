@@ -6,4 +6,8 @@
     <string name="standard_error_desc">Output written to the standard error stream</string>
     <string name="standard_output">Standard output</string>
     <string name="standard_output_desc">Output written to the standard output stream</string>
+    <string name="key_type">Key type</string>
+    <string name="key_size">Key size (bits)</string>
+    <string name="overwrite_key">Overwrite existing key</string>
+    <string name="key_exists">Private key already exists</string>
 </resources>

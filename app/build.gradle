@@ -60,4 +60,9 @@ dependencies {
     implementation 'com.joaomgcd:taskerpluginlibrary:0.4.1'
     implementation 'com.nerdoftheherd:android-dropbear:2020.81'
     implementation 'com.nerdoftheherd:android-rsync:3.2.3'
+
+    androidTestImplementation('androidx.test:runner:1.4.0')
+    androidTestImplementation('androidx.test:rules:1.4.0')
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
 }
