@@ -30,3 +30,25 @@ jobs:
           GIT_AUTHOR_EMAIL: dummy@example.com
           SKIP: GradleCheck
         run: overcommit --run
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 11
+
+      - name: Build
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: build
+          dependencies-cache-enabled: true
+        env:
+          PKG_USERNAME: github-actions
+          PKG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
