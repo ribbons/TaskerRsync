@@ -15,7 +15,7 @@ class PrivateKeyConfig @JvmOverloads constructor(
     var keyType: String = "Ed25519",
 
     @field:TaskerInputField("keysize", R.string.key_size)
-    var keySize: String = "256",
+    var keySize: Int = 256,
 
     @field:TaskerInputField("overwrite", R.string.overwrite_key)
     var overwrite: Boolean = false,

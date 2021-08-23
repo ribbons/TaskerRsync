@@ -22,8 +22,8 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
 
     private lateinit var binding: PrivateKeyConfigActivityBinding
     private lateinit var keyTypeAdapter: ArrayAdapter<String>
-    private lateinit var keySizeAdapter: ArrayAdapter<String>
-    private var initKeySize: String? = null
+    private lateinit var keySizeAdapter: ArrayAdapter<Int>
+    private var initKeySize: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
             binding.keyType.adapter = it
         }
 
-        keySizeAdapter = ArrayAdapter<String>(
+        keySizeAdapter = ArrayAdapter<Int>(
             this,
             R.layout.support_simple_spinner_dropdown_item
         ).also {
@@ -51,9 +51,9 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
                 keySizeAdapter.clear()
 
                 when (parent.getItemAtPosition(pos).toString()) {
-                    "Ed25519" -> keySizeAdapter.addAll("256")
-                    "ECDSA" -> keySizeAdapter.addAll("384", "521")
-                    "RSA" -> keySizeAdapter.addAll("2048", "4096")
+                    "Ed25519" -> keySizeAdapter.addAll(256)
+                    "ECDSA" -> keySizeAdapter.addAll(384, 521)
+                    "RSA" -> keySizeAdapter.addAll(2048, 4096)
                 }
 
                 if (initKeySize != null) {
@@ -81,7 +81,7 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
     override val inputForTasker get() = TaskerInput(
         PrivateKeyConfig(
             binding.keyType.selectedItem.toString(),
-            binding.keySize.selectedItem.toString(),
+            binding.keySize.selectedItem as Int,
             binding.overwrite.isChecked,
         )
     )

@@ -38,7 +38,7 @@ class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
             arrayOf(
                 "$libDir/libdropbearkey.so",
                 "-t", input.regular.keyType.lowercase(),
-                "-s", input.regular.keySize,
+                "-s", input.regular.keySize.toString(),
                 "-f", privateKey.absolutePath
             )
         )

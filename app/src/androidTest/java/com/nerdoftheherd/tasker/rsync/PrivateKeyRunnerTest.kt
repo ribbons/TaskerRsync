@@ -48,7 +48,7 @@ class PrivateKeyRunnerTest {
     @Test
     fun keyExistsOverwrite() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = TaskerInput(PrivateKeyConfig("Ed25519", "256", true))
+        val config = TaskerInput(PrivateKeyConfig("Ed25519", 256, true))
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.createNewFile()
