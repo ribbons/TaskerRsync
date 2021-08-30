@@ -14,7 +14,7 @@
         android:theme="@style/Theme.RsyncForTasker">
 
         <activity
-            android:name=".RsyncConfigActivity"
+            android:name=".activities.RsyncConfigActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="rsync">
@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name=".DbclientConfigActivity"
+            android:name=".activities.DbclientConfigActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="dbclient">
@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".PrivateKeyConfigActivity"
+            android:name=".activities.PrivateKeyConfigActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="Generate Private Key">
@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".PublicKeyConfigActivity"
+            android:name=".activities.PublicKeyConfigActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="Get Public Key">

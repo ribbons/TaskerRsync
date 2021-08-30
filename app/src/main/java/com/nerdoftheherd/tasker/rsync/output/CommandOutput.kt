@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package com.nerdoftheherd.tasker.rsync
+package com.nerdoftheherd.tasker.rsync.output
 
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputObject
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
+import com.nerdoftheherd.tasker.rsync.R
 
 @TaskerOutputObject
 class CommandOutput(

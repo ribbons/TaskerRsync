@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package com.nerdoftheherd.tasker.rsync
+package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfigNoInput
+import com.nerdoftheherd.tasker.rsync.helpers.PublicKeyHelper
 
 class PublicKeyConfigActivity : AppCompatActivity(), TaskerPluginConfigNoInput {
     override val context: Context get() = applicationContext

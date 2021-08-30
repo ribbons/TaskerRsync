@@ -12,6 +12,7 @@ import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerActionNoInput
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
+import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
 import java.io.BufferedReader
 import java.io.File
 import java.util.Scanner

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package com.nerdoftheherd.tasker.rsync
+package com.nerdoftheherd.tasker.rsync.activities
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -15,6 +15,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nerdoftheherd.tasker.rsync.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

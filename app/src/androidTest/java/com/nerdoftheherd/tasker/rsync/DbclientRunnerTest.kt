@@ -10,6 +10,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException

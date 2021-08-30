@@ -12,6 +12,8 @@ import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
+import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
+import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import java.io.BufferedReader
 
 class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {

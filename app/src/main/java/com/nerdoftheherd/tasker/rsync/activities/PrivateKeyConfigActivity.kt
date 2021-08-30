@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package com.nerdoftheherd.tasker.rsync
+package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -14,7 +14,10 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.nerdoftheherd.tasker.rsync.R
+import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import com.nerdoftheherd.tasker.rsync.databinding.PrivateKeyConfigActivityBinding
+import com.nerdoftheherd.tasker.rsync.helpers.PrivateKeyHelper
 
 class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<PrivateKeyConfig> {
     override val context: Context get() = applicationContext

@@ -13,6 +13,7 @@ import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultError
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
+import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import java.io.BufferedReader
 import java.io.File
 
