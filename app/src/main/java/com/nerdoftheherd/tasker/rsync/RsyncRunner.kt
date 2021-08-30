@@ -26,13 +26,15 @@ class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
         val rsync = Runtime.getRuntime().exec(args.toTypedArray())
 
         val result = rsync.waitFor()
-
-        val output = CommandOutput(
-            rsync.inputStream.bufferedReader().use(BufferedReader::readText),
-            rsync.errorStream.bufferedReader().use(BufferedReader::readText),
-        )
+        val stdout = rsync.inputStream.bufferedReader().use(BufferedReader::readText)
+        val stderr = rsync.errorStream.bufferedReader().use(BufferedReader::readText)
 
         Log.d(TAG, "Run completed, exit code $result")
-        return TaskerPluginResultSucess<CommandOutput>(output)
+
+        if (result == 0) {
+            return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+        }
+
+        throw RuntimeException(stderr)
     }
 }

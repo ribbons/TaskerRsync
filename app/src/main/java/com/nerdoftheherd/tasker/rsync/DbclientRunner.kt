@@ -26,13 +26,15 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
         val dbclient = Runtime.getRuntime().exec(args.toTypedArray())
 
         val result = dbclient.waitFor()
-
-        val output = CommandOutput(
-            dbclient.inputStream.bufferedReader().use(BufferedReader::readText),
-            dbclient.errorStream.bufferedReader().use(BufferedReader::readText),
-        )
+        val stdout = dbclient.inputStream.bufferedReader().use(BufferedReader::readText)
+        val stderr = dbclient.errorStream.bufferedReader().use(BufferedReader::readText)
 
         Log.d(TAG, "Run completed, exit code $result")
-        return TaskerPluginResultSucess<CommandOutput>(output)
+
+        if (result == 0) {
+            return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+        }
+
+        throw RuntimeException(stderr)
     }
 }
