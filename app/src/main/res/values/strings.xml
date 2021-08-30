@@ -10,4 +10,7 @@
     <string name="key_size">Key size (bits)</string>
     <string name="overwrite_key">Overwrite existing key</string>
     <string name="key_exists">Private key already exists</string>
+    <string name="public_key">Public key</string>
+    <string name="public_key_desc">The public key in OpenSSH format</string>
+    <string name="no_private_key_for_public">Unable to get public key, private key has not yet been generated.  Run the \'Generate Private Key\' action first.</string>
 </resources>
