@@ -10,6 +10,8 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultError
+import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.hamcrest.MatcherAssert.assertThat
@@ -43,6 +45,9 @@ class PrivateKeyRunnerTest {
 
         val result = PrivateKeyRunner().run(context, config)
         assertFalse(result.success)
+
+        val resultError = result as TaskerPluginResultError
+        assertEquals(context.getString(R.string.key_exists), resultError.message)
     }
 
     @Test
