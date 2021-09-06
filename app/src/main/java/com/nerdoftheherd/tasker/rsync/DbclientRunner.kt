@@ -21,22 +21,26 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
         Log.d(TAG, "About to run dbclient")
         val libDir = context.applicationInfo.nativeLibraryDir
 
-        val args = ArrayList<String?>()
+        val args = ArrayList<String>()
         args.add("$libDir/libdbclient.so")
         input.regular.args?.split(' ')?.let { args.addAll(it) }
 
-        val dbclient = Runtime.getRuntime().exec(args.toTypedArray())
+        val builder = ProcessBuilder(args)
 
-        val result = dbclient.waitFor()
-        val stdout = dbclient.inputStream.bufferedReader().use(BufferedReader::readText)
-        val stderr = dbclient.errorStream.bufferedReader().use(BufferedReader::readText)
+        ProcessEnv(context, builder).use {
+            val dbclient = builder.start()
 
-        Log.d(TAG, "Run completed, exit code $result")
+            val result = dbclient.waitFor()
+            val stdout = dbclient.inputStream.bufferedReader().use(BufferedReader::readText)
+            val stderr = dbclient.errorStream.bufferedReader().use(BufferedReader::readText)
 
-        if (result == 0) {
-            return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+            Log.d(TAG, "Run completed, exit code $result")
+
+            if (result == 0) {
+                return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+            }
+
+            throw RuntimeException(stderr)
         }
-
-        throw RuntimeException(stderr)
     }
 }

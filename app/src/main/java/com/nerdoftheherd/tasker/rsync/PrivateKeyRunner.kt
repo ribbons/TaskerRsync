@@ -15,12 +15,11 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultError
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import java.io.BufferedReader
-import java.io.File
 
 class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
     override fun run(context: Context, input: TaskerInput<PrivateKeyConfig>): TaskerPluginResult<Unit> {
         val libDir = context.applicationInfo.nativeLibraryDir
-        val privateKey = File(context.filesDir, "id_dropbear")
+        val privateKey = Utils.privateKeyFile(context)
 
         if (privateKey.exists()) {
             if (input.regular.overwrite) {

@@ -14,7 +14,6 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
 import java.io.BufferedReader
-import java.io.File
 import java.util.Scanner
 
 class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
@@ -23,7 +22,7 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
         input: TaskerInput<Unit>
     ): TaskerPluginResult<PublicKeyOutput> {
         val libDir = context.applicationInfo.nativeLibraryDir
-        val privateKey = File(context.filesDir, "id_dropbear")
+        val privateKey = Utils.privateKeyFile(context)
 
         if (!privateKey.exists()) {
             throw java.lang.RuntimeException(context.getString(R.string.no_private_key_for_public))

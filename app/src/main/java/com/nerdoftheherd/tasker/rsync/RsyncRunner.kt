@@ -21,22 +21,26 @@ class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
         Log.d(TAG, "About to run rsync")
         val libDir = context.applicationInfo.nativeLibraryDir
 
-        val args = ArrayList<String?>()
+        val args = ArrayList<String>()
         args.add("$libDir/librsync.so")
         input.regular.args?.split(' ')?.let { args.addAll(it) }
 
-        val rsync = Runtime.getRuntime().exec(args.toTypedArray())
+        val builder = ProcessBuilder(args)
 
-        val result = rsync.waitFor()
-        val stdout = rsync.inputStream.bufferedReader().use(BufferedReader::readText)
-        val stderr = rsync.errorStream.bufferedReader().use(BufferedReader::readText)
+        ProcessEnv(context, builder).use {
+            val rsync = builder.start()
 
-        Log.d(TAG, "Run completed, exit code $result")
+            val result = rsync.waitFor()
+            val stdout = rsync.inputStream.bufferedReader().use(BufferedReader::readText)
+            val stderr = rsync.errorStream.bufferedReader().use(BufferedReader::readText)
 
-        if (result == 0) {
-            return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+            Log.d(TAG, "Run completed, exit code $result")
+
+            if (result == 0) {
+                return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+            }
+
+            throw RuntimeException(stderr)
         }
-
-        throw RuntimeException(stderr)
     }
 }
