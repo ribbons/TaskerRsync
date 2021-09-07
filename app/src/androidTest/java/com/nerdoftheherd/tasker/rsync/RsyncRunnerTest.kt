@@ -15,11 +15,25 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
+import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class RsyncRunnerTest {
     @Rule @JvmField
     val expecter: ExpectedException = ExpectedException.none()
+
+    @Test
+    fun noPrivateKey() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = RsyncConfig("-h")
+
+        val keyFile = File(context.filesDir, "id_dropbear")
+        keyFile.delete()
+
+        expecter.expect(RuntimeException::class.java)
+        expecter.expectMessage(context.getString(R.string.no_private_key))
+        RsyncRunner().run(context, TaskerInput(config))
+    }
 
     @Test
     fun errorFromFailure() {

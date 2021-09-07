@@ -18,8 +18,13 @@ import java.io.BufferedReader
 
 class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
     override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
-        Log.d(TAG, "About to run rsync")
         val libDir = context.applicationInfo.nativeLibraryDir
+
+        if (!Utils.privateKeyFile(context).exists()) {
+            throw java.lang.RuntimeException(context.getString(R.string.no_private_key))
+        }
+
+        Log.d(TAG, "About to run rsync")
 
         val args = ArrayList<String>()
         args.add("$libDir/librsync.so")

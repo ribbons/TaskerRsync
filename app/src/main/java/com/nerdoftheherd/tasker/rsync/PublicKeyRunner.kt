@@ -25,7 +25,7 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
         val privateKey = Utils.privateKeyFile(context)
 
         if (!privateKey.exists()) {
-            throw java.lang.RuntimeException(context.getString(R.string.no_private_key_for_public))
+            throw java.lang.RuntimeException(context.getString(R.string.no_private_key))
         }
 
         Log.d(TAG, "About to run dropbearkey")

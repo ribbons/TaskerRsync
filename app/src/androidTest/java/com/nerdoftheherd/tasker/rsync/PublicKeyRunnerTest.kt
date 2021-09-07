@@ -34,7 +34,7 @@ class PublicKeyRunnerTest {
         keyFile.delete()
 
         expecter.expect(RuntimeException::class.java)
-        expecter.expectMessage(context.getString(R.string.no_private_key_for_public))
+        expecter.expectMessage(context.getString(R.string.no_private_key))
         PublicKeyRunner().run(context, TaskerInput(Unit))
     }
 

@@ -18,8 +18,13 @@ import java.io.BufferedReader
 
 class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
     override fun run(context: Context, input: TaskerInput<DbclientConfig>): TaskerPluginResult<CommandOutput> {
-        Log.d(TAG, "About to run dbclient")
         val libDir = context.applicationInfo.nativeLibraryDir
+
+        if (!Utils.privateKeyFile(context).exists()) {
+            throw java.lang.RuntimeException(context.getString(R.string.no_private_key))
+        }
+
+        Log.d(TAG, "About to run dbclient")
 
         val args = ArrayList<String>()
         args.add("$libDir/libdbclient.so")
