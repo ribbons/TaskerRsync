@@ -1,0 +1,26 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+    allow:
+      - dependency-name: reactivecircus/android-emulator-runner
+      - dependency-name: r0adkll/upload-google-play
+
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: gradle
+    directory: /app/
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
