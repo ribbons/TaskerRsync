@@ -72,7 +72,7 @@ jobs:
 
       - name: Run Tests
         # yamllint disable-line rule:line-length
-        uses: reactivecircus/android-emulator-runner@5de26e4bd23bf523e8a4b7f077df8bfb8e52b50e
+        uses: reactivecircus/android-emulator-runner@f71c6d1f84f7ccec53da56aa69c2b11fd56da227
         with:
           api-level: 29
           script: ./gradlew connectedCheck
