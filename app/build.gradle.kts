@@ -5,10 +5,33 @@
  */
 
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
+import java.io.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
     kotlin("android")
+}
+
+fun gitVersionCode(): Int {
+    val out = ByteArrayOutputStream()
+
+    exec {
+        commandLine = arrayListOf("git", "rev-list", "--count", "HEAD")
+        standardOutput = out
+    }
+
+    return out.toString().trimEnd().toInt()
+}
+
+fun gitVersionName(): String {
+    val out = ByteArrayOutputStream()
+
+    exec {
+        commandLine = arrayListOf("git", "describe", "--always")
+        standardOutput = out
+    }
+
+    return out.toString().trimEnd().replace("-g", "-")
 }
 
 android {
@@ -18,8 +41,8 @@ android {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 19
         targetSdk = 31
-        versionCode = 1
-        versionName = "0.1"
+        versionCode = gitVersionCode()
+        versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
