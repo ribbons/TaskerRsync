@@ -1,5 +1,12 @@
 ---
 version: 2
+registries:
+  github:
+    type: maven-repository
+    url: https://maven.pkg.github.com/ribbons/android-rsync
+    username: ribbons
+    password: ${{secrets.PKG_TOKEN}}
+
 updates:
   - package-ecosystem: github-actions
     directory: /
@@ -17,3 +24,5 @@ updates:
       interval: daily
     labels:
       - dependencies
+    registries:
+      - github
