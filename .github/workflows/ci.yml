@@ -60,6 +60,13 @@ jobs:
     needs:
       - overcommit
       - build
+    strategy:
+      matrix:
+        api-level:
+          - 19
+          - 29
+          - 30
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -74,7 +81,9 @@ jobs:
         # yamllint disable-line rule:line-length
         uses: reactivecircus/android-emulator-runner@f71c6d1f84f7ccec53da56aa69c2b11fd56da227
         with:
-          api-level: 29
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.api-level == 30 && 'google_apis' || 'default' }}
+          sdcard-path-or-size: ${{ matrix.api-level == 19 && '100M' || '' }}
           script: ./gradlew connectedCheck
         env:
           PKG_USERNAME: github-actions
