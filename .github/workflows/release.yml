@@ -45,7 +45,7 @@ jobs:
 
       - name: Upload bundle to Play Store
         # yamllint disable-line rule:line-length
-        uses: r0adkll/upload-google-play@9745ef904e395471bca5696056a6ce8a60d18cf8
+        uses: r0adkll/upload-google-play@8c2ebfdb6e1b439d3a31d35772b3f0f489d688c9
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.nerdoftheherd.tasker.rsync
