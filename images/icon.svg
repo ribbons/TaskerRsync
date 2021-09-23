@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="108"
+   height="108"
+   viewBox="0 0 108 108"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="256px"
+     inkscape:showpageshadow="true"
+     borderlayer="false"
+     showborder="true"
+     inkscape:snap-text-baseline="false"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="47.464543"
+     inkscape:cy="46.669048"
+     inkscape:window-width="1280"
+     inkscape:window-height="949"
+     inkscape:window-x="1280"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Background"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <rect
+       style="opacity:1;fill:#22550d;fill-opacity:1;stroke:none;stroke-width:0.354644;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect33"
+       width="108"
+       height="108"
+       x="0"
+       y="0" />
+    <rect
+       style="opacity:1;fill:#6a0c67;fill-opacity:1;stroke:none;stroke-width:0.182536;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect35"
+       width="108"
+       height="54"
+       x="0"
+       y="54" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Foreground"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.4484px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.1;mix-blend-mode:normal;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.05293957;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       x="6.0676813"
+       y="13.474903"
+       id="text1139"
+       transform="scale(3.7778927)"><tspan
+         sodipodi:role="line"
+         id="tspan1137"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.4484px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:none;fill-opacity:1;stroke-width:0.05293957;stroke:#000000;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+         x="6.0676813"
+         y="13.474903"
+         dx="0 -0.24215399 0.11014787 0.33015808 -0.088004068">rsync</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:31.9171px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.1;fill:#060606;fill-opacity:1;stroke:none;stroke-width:0.166235px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="22.923048"
+       y="51.907047"
+       id="text2530"><tspan
+         sodipodi:role="line"
+         id="tspan2528"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.9171px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:#060606;fill-opacity:1;stroke-width:0.166235px"
+         x="22.923048"
+         y="51.907047"
+         dx="0 -0.91483176 0.41612685 1.2473018 -0.33246991">rsync</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.4484px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.044002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="6.0676813"
+       y="13.474903"
+       id="text2798"
+       transform="scale(3.7778927)"><tspan
+         sodipodi:role="line"
+         id="tspan2796"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.4484px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:#ffffff;fill-opacity:1;stroke-width:0.044002px"
+         x="6.0676813"
+         y="13.474903"
+         dx="0 -0.24215399 0.11014787 0.33015808 -0.088004068">rsync</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.89251px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.1;mix-blend-mode:normal;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.05293957;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       x="8.5879164"
+       y="17.773294"
+       id="text1143"
+       transform="scale(3.7778927)"><tspan
+         sodipodi:role="line"
+         id="tspan1141"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.89251px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:none;fill-opacity:1;stroke-width:0.05293957;stroke:#000000;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+         x="8.5879164"
+         y="17.773294"
+         dx="0 -0.19462523 0.13229166 0 0 -0.48656303 0.048656307 0.066145837 0.017489526 0.13229166">for Tasker</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:14.7055px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.1;fill:#060606;fill-opacity:1;stroke:none;stroke-width:0.166235px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="32.444225"
+       y="68.145821"
+       id="text2534"><tspan
+         sodipodi:role="line"
+         id="tspan2532"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.7055px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:#060606;fill-opacity:1;stroke-width:0.166235px"
+         x="32.444225"
+         y="68.145821"
+         dx="0 -0.73527324 0.49978369 0 0 -1.8381829 0.18381831 0.24989188 0.066073552 0.49978369">for Tasker</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.89251px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.044002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="8.5879164"
+       y="17.773294"
+       id="text23707"
+       transform="scale(3.7778927)"><tspan
+         sodipodi:role="line"
+         id="tspan23705"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.89251px;font-family:Procopius;-inkscape-font-specification:Procopius;fill:#ffffff;fill-opacity:1;stroke-width:0.044002px"
+         x="8.5879164"
+         y="17.773294"
+         dx="0 -0.19462523 0.13229166 0 0 -0.48656303 0.048656307 0.066145837 0.017489526 0.13229166">for Tasker</tspan></text>
+  </g>
+  <metadata
+     id="metadata9">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="https://www.gnu.org/licenses/gpl-3.0.en.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <style
+     id="style138140"><![CDATA[
+#keylines circle, #keylines rect {
+   vector-effect: non-scaling-stroke;
+   fill: none;
+   stroke: #0000FF;
+}
+#mask path, #mask rect, #mask circle, #hatching path {
+   vector-effect: non-scaling-stroke;
+   fill: none;
+   stroke: #FF0000;
+}
+#keylines, #mask {
+   opacity: 0.5;
+}
+]]></style>
+</svg>

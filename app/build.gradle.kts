@@ -48,6 +48,7 @@ android {
 
     buildTypes {
         release {
+            isCrunchPngs = false // Legacy launcher icons are pre-crunched
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
