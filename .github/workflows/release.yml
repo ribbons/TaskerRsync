@@ -43,6 +43,12 @@ jobs:
                     app/build/outputs/bundle/release/app-release.aab upload
           rm upload.p12
 
+      - name: Write release notes to file
+        run: |
+          mkdir relnotes
+          echo '${{ github.event.release.body }}' \
+            | perl -pe 's/^ ?[+*-] /  • /' > relnotes/whatsnew-en-GB
+
       - name: Upload bundle to Play Store
         # yamllint disable-line rule:line-length
         uses: r0adkll/upload-google-play@9745ef904e395471bca5696056a6ce8a60d18cf8
@@ -50,4 +56,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.nerdoftheherd.tasker.rsync
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          whatsNewDirectory: relnotes
           track: internal
