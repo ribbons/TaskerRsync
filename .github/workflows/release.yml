@@ -43,6 +43,12 @@ jobs:
                     app/build/outputs/bundle/release/app-release.aab upload
           rm upload.p12
 
+      - name: Upload signed bundle as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: release
+          path: app/build/outputs/bundle/release/app-release.aab
+
       - name: Write release notes to file
         run: |
           mkdir relnotes
