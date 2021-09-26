@@ -8,8 +8,8 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/deploymentTargetDropDown.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
 /build
 /captures
 .externalNativeBuild
-.cxx
-local.properties
