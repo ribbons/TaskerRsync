@@ -84,7 +84,8 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.api-level == 30 && 'google_apis' || 'default' }}
           sdcard-path-or-size: ${{ matrix.api-level == 19 && '100M' || '' }}
-          script: ./gradlew connectedCheck
+          script: for i in {1..3}; do
+            ./gradlew connectedCheck && r=0 && break || r=$?; done; exit $r
         env:
           PKG_USERNAME: github-actions
           PKG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
