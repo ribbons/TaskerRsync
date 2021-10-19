@@ -13,7 +13,7 @@ import java.io.Closeable
 import java.io.File
 import java.util.UUID
 
-class ProcessEnv constructor(context: Context, private val builder: ProcessBuilder) : Closeable {
+class ProcessEnv constructor(context: Context, builder: ProcessBuilder) : Closeable {
     val home = File(context.cacheDir, UUID.randomUUID().toString())
     val pathDir = File(context.cacheDir, UUID.randomUUID().toString())
 
