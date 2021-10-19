@@ -68,4 +68,27 @@ class ProcessEnvTest {
             assertEquals(env.home.absolutePath, builder.environment()["HOME"])
         }
     }
+
+    @Test
+    fun sshExecutableInPath() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val builder = ProcessBuilder("sh", "-c", "ssh")
+
+        ProcessEnv(context, builder).use {
+            val ssh = builder.start()
+            assertEquals(1, ssh.waitFor())
+        }
+    }
+
+    @Test
+    fun removesPathDirOnClose() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        var pathDir: File
+
+        ProcessEnv(context, ProcessBuilder("test")).use { env ->
+            pathDir = env.pathDir
+        }
+
+        assertFalse(pathDir.exists())
+    }
 }
