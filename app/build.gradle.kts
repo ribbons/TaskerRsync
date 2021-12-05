@@ -27,7 +27,7 @@ fun gitVersionName(): String {
     val out = ByteArrayOutputStream()
 
     exec {
-        commandLine = arrayListOf("git", "describe", "--always")
+        commandLine = arrayListOf("git", "describe", "--tags", "--always")
         standardOutput = out
     }
 
