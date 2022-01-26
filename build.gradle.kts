@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.4")
+        classpath("com.android.tools.build:gradle:7.1.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }

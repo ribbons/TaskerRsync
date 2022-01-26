@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -75,12 +75,11 @@ android {
     }
 
     lint {
-        isWarningsAsErrors = true
+        warningsAsErrors = true
         textReport = true
-        textOutput("stdout")
 
         // https://github.com/joaomgcd/TaskerPluginSample/issues/7
-        disable("NonConstantResourceId")
+        disable += "NonConstantResourceId"
     }
 
     packagingOptions {
