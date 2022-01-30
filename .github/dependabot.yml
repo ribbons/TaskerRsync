@@ -16,7 +16,6 @@ updates:
       - dependencies
     allow:
       - dependency-name: reactivecircus/android-emulator-runner
-      - dependency-name: r0adkll/upload-google-play
 
   - package-ecosystem: gradle
     directory: /
