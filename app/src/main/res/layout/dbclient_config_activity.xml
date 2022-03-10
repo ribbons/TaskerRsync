@@ -17,6 +17,6 @@
         android:importantForAutofill="no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textNoSuggestions"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:scrollHorizontally="false" />
 </LinearLayout>
