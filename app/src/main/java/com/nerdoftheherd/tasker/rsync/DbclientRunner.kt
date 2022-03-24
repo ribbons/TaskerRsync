@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -28,7 +28,7 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
 
         val args = ArrayList<String>()
         args.add("$libDir/libdbclient.so")
-        input.regular.args?.split(' ')?.let { args.addAll(it) }
+        args.addAll(ArgumentParser.parse(input.regular.args))
 
         val builder = ProcessBuilder(args)
 

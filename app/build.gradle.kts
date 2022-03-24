@@ -82,6 +82,12 @@ android {
         disable += "NonConstantResourceId"
     }
 
+    testOptions {
+        tasks.withType<Test> {
+            useJUnitPlatform()
+        }
+    }
+
     packagingOptions {
         jniLibs.excludes.add("lib/*/libdropbear.so")
         jniLibs.excludes.add("lib/*/libdropbearconvert.so")
@@ -97,6 +103,8 @@ dependencies {
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.2")
     implementation("com.nerdoftheherd:android-dropbear:2020.81.1")
     implementation("com.nerdoftheherd:android-rsync:3.2.3")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
