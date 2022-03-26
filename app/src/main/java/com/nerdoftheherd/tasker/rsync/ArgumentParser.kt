@@ -13,7 +13,35 @@ class ArgumentParser {
                 return ArrayList()
             }
 
-            return args.split(" ")
+            var arg = ""
+            var inQuotes = false
+            val parsed = ArrayList<String>()
+
+            args.forEach { c ->
+                if (inQuotes) {
+                    if (c == '"') {
+                        inQuotes = false
+                    } else {
+                        arg += c
+                    }
+                } else {
+                    when (c) {
+                        '"' -> {
+                            inQuotes = true
+                        }
+                        ' ' -> {
+                            parsed.add(arg)
+                            arg = ""
+                        }
+                        else -> {
+                            arg += c
+                        }
+                    }
+                }
+            }
+
+            parsed.add(arg)
+            return parsed
         }
     }
 }

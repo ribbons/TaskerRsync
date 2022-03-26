@@ -15,4 +15,16 @@ class ArgumentParserTest {
         val args = ArgumentParser.parse("one two three")
         assertEquals(arrayListOf("one", "two", "three"), args)
     }
+
+    @Test
+    fun parseDoubleQuotes() {
+        val args = ArgumentParser.parse("\"one two\" three")
+        assertEquals(arrayListOf("one two", "three"), args)
+    }
+
+    @Test
+    fun parseEmbeddedDoubleQuotes() {
+        val args = ArgumentParser.parse("one\" two \"three")
+        assertEquals(arrayListOf("one two three"), args)
+    }
 }
