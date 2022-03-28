@@ -30,8 +30,10 @@ class ArgumentParser {
                             inQuotes = true
                         }
                         ' ' -> {
-                            parsed.add(arg)
-                            arg = ""
+                            if (arg.isNotEmpty()) {
+                                parsed.add(arg)
+                                arg = ""
+                            }
                         }
                         else -> {
                             arg += c
@@ -40,7 +42,10 @@ class ArgumentParser {
                 }
             }
 
-            parsed.add(arg)
+            if (arg.isNotEmpty()) {
+                parsed.add(arg)
+            }
+
             return parsed
         }
     }
