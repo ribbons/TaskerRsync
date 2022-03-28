@@ -14,20 +14,30 @@ class ArgumentParser {
             }
 
             var arg = ""
-            var inQuotes = false
+            var singleQuotes = false
+            var doubleQuotes = false
             val parsed = ArrayList<String>()
 
             args.forEach { c ->
-                if (inQuotes) {
+                if (singleQuotes) {
+                    if (c == '\'') {
+                        singleQuotes = false
+                    } else {
+                        arg += c
+                    }
+                } else if (doubleQuotes) {
                     if (c == '"') {
-                        inQuotes = false
+                        doubleQuotes = false
                     } else {
                         arg += c
                     }
                 } else {
                     when (c) {
+                        '\'' -> {
+                            singleQuotes = true
+                        }
                         '"' -> {
-                            inQuotes = true
+                            doubleQuotes = true
                         }
                         ' ' -> {
                             if (arg.isNotEmpty()) {
