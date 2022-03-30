@@ -23,6 +23,12 @@ class ArgumentParserTest {
     }
 
     @Test
+    fun parseOtherSeparators() {
+        val args = ArgumentParser.parse("\tone\ntwo\tthree\n")
+        assertEquals(arrayListOf("one", "two", "three"), args)
+    }
+
+    @Test
     fun parseEscaped() {
         val args = ArgumentParser.parse("\\\"one\\ two \\three")
         assertEquals(arrayListOf("\"one two", "three"), args)

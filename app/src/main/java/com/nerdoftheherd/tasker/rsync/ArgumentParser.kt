@@ -75,7 +75,7 @@ class ArgumentParser {
                         '"' -> {
                             doubleQuotes = true
                         }
-                        ' ' -> {
+                        ' ', '\t', '\n' -> {
                             if (arg.isNotEmpty()) {
                                 parsed.add(arg)
                                 arg = ""
