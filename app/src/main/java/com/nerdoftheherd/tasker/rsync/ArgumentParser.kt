@@ -14,6 +14,7 @@ class ArgumentParser {
             }
 
             var arg = ""
+            var escape = false
             var singleQuotes = false
             var doubleQuotes = false
             val parsed = ArrayList<String>()
@@ -26,13 +27,48 @@ class ArgumentParser {
                         arg += c
                     }
                 } else if (doubleQuotes) {
-                    if (c == '"') {
-                        doubleQuotes = false
-                    } else {
-                        arg += c
+                    if (escape) {
+                        escape = false
+
+                        when (c) {
+                            '\n' -> {
+                                return@forEach
+                            }
+                            '"', '\\' -> {
+                                arg += c
+                                return@forEach
+                            }
+                            else -> {
+                                arg += '\\'
+                            }
+                        }
+                    }
+
+                    when (c) {
+                        '"' -> {
+                            doubleQuotes = false
+                        }
+                        '\\' -> {
+                            escape = true
+                        }
+                        else -> {
+                            arg += c
+                        }
                     }
                 } else {
+                    if (escape) {
+                        if (c != '\n') {
+                            arg += c
+                        }
+
+                        escape = false
+                        return@forEach
+                    }
+
                     when (c) {
+                        '\\' -> {
+                            escape = true
+                        }
                         '\'' -> {
                             singleQuotes = true
                         }
