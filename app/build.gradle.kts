@@ -102,7 +102,7 @@ dependencies {
     implementation("com.google.android.material:material:1.5.0")
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.2")
     implementation("com.nerdoftheherd:android-dropbear:2022.82")
-    implementation("com.nerdoftheherd:android-rsync:3.2.3")
+    implementation("com.nerdoftheherd:android-rsync:3.2.4")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
