@@ -66,6 +66,7 @@ jobs:
           - 29
           - 30
       fail-fast: false
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v2
