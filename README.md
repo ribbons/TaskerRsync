@@ -5,7 +5,7 @@ Rsync for Tasker
 
 An Android app providing Tasker plugin actions to allow running rsync over SSH.
 
-[Tasker](1) is a very useful and widely used automation app for Android with a
+[Tasker][1] is a very useful and widely used automation app for Android with a
 plugin architecture that allows other apps (such as this one) to add extra
 functionality.
 
@@ -15,7 +15,7 @@ This app provides the following actions for use within Tasker:
  - rsync - Run an rsync command to synchronise files to or from the device
  - dbclient - Run an SSH command non-interactively (experimental)
 
-The packaged native binaries of [Dropbear](2) and [rsync](3) are my own builds
+The packaged native binaries of [Dropbear][2] and [rsync][3] are my own builds
 which I keep updated with new releases.
 
 [1]: https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm
