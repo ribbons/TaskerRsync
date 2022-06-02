@@ -80,6 +80,10 @@ android {
 
         // https://github.com/joaomgcd/TaskerPluginSample/issues/7
         disable += "NonConstantResourceId"
+
+        // Dependabot notifies us about new versions and failing the
+        // build causes problems updating single dependencies via PRs
+        disable += "GradleDependency"
     }
 
     testOptions {
