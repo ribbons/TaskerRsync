@@ -9,7 +9,9 @@ import java.io.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
+    id("kotlin-parcelize")
     kotlin("android")
+    kotlin("plugin.serialization") version("1.7.0")
 }
 
 fun gitVersionCode(): Int {
@@ -103,10 +105,13 @@ dependencies {
     implementation(kotlin("stdlib", KotlinCompilerVersion.VERSION))
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("com.google.android.material:material:1.6.1")
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.2")
     implementation("com.nerdoftheherd:android-dropbear:2022.82")
     implementation("com.nerdoftheherd:android-rsync:3.2.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 

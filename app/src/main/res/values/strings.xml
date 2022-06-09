@@ -13,4 +13,12 @@
     <string name="public_key">Public key</string>
     <string name="public_key_desc">The public key in OpenSSH format</string>
     <string name="no_private_key">Private key was not found.  Run the \'Generate Private Key\' action first.</string>
+    <string name="channel_updates">Updates</string>
+    <string name="update_available">Update available</string>
+    <string name="update_notif_text">Version %1$s of Rsync for Tasker is available</string>
+    <string name="update_summary">Version %1$s of Rsync for Tasker has been released.</string>
+    <string name="update_choices">Choose \'Update\' to download and install the latest version or \'More Info\' to see what has changed in this release.</string>
+    <string name="update_downloading">Downloading update…</string>
+    <string name="update">Update</string>
+    <string name="more_info">More Info</string>
 </resources>

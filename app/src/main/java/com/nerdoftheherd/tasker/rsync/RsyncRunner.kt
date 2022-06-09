@@ -18,6 +18,8 @@ import java.io.BufferedReader
 
 class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
     override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
+        UpdateNotifier.checkInBackground(context)
+
         val libDir = context.applicationInfo.nativeLibraryDir
 
         if (!Utils.privateKeyFile(context).exists()) {
