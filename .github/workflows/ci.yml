@@ -93,9 +93,9 @@ jobs:
           PKG_USERNAME: github-actions
           PKG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload test result file on failure
+      - name: Upload test results data on failure
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: instrumented-test-result-${{ matrix.api-level }}
-          path: app/build/outputs/androidTest-results/connected/test-result.pb
+          path: app/build/outputs/androidTest-results/connected/
