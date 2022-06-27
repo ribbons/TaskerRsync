@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -28,7 +28,7 @@ class RsyncRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("-h")
+        val config = RsyncConfig("-h", false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -41,7 +41,7 @@ class RsyncRunnerTest {
     @Test
     fun errorFromFailure() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("--invalid")
+        val config = RsyncConfig("--invalid", false)
 
         expecter.expect(RuntimeException::class.java)
         RsyncRunner().run(context, TaskerInput(config))
@@ -69,7 +69,10 @@ class RsyncRunnerTest {
         File(sourceDir, "testfile").createNewFile()
         targetDir.deleteRecursively()
 
-        val config = RsyncConfig("-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/")
+        val config = RsyncConfig(
+            "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
+            false
+        )
         RsyncRunner().run(context, TaskerInput(config))
 
         assertTrue(File(targetDir, "testfile").exists())

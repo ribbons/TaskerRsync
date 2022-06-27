@@ -18,7 +18,9 @@ import java.io.BufferedReader
 
 class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
     override fun run(context: Context, input: TaskerInput<DbclientConfig>): TaskerPluginResult<CommandOutput> {
-        UpdateNotifier.checkInBackground(context)
+        if (input.regular.checkForUpdates) {
+            UpdateNotifier.checkInBackground(context)
+        }
 
         val libDir = context.applicationInfo.nativeLibraryDir
 

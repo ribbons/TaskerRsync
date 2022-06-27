@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -14,4 +14,5 @@ import com.nerdoftheherd.tasker.rsync.R
 class RsyncConfig @JvmOverloads constructor(
     @field:TaskerInputField("args", R.string.arguments)
     var args: String? = "-rv /source/ user@example.com:dest/",
+    var checkForUpdates: Boolean = true
 )

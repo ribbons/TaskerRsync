@@ -18,7 +18,9 @@ import java.io.BufferedReader
 
 class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
     override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
-        UpdateNotifier.checkInBackground(context)
+        if (input.regular.checkForUpdates) {
+            UpdateNotifier.checkInBackground(context)
+        }
 
         val libDir = context.applicationInfo.nativeLibraryDir
 
