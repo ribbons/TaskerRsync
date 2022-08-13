@@ -37,12 +37,12 @@ fun gitVersionName(): String {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 19
-        targetSdk = 31
+        targetSdk = 32
         versionCode = gitVersionCode()
         versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
