@@ -109,7 +109,7 @@ dependencies {
     implementation("com.google.android.material:material:1.6.1")
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.2")
     implementation("com.nerdoftheherd:android-dropbear:2022.82")
-    implementation("com.nerdoftheherd:android-rsync:3.2.4")
+    implementation("com.nerdoftheherd:android-rsync:3.2.5")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
