@@ -110,7 +110,7 @@ dependencies {
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.2")
     implementation("com.nerdoftheherd:android-dropbear:2022.82")
     implementation("com.nerdoftheherd:android-rsync:3.2.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
