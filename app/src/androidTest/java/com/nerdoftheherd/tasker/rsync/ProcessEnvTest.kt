@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -22,7 +22,7 @@ class ProcessEnvTest {
     fun createsDirectoryForHome() {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
-        ProcessEnv(context, ProcessBuilder("test")).use { env ->
+        ProcessEnv(context, ProcessBuilder("test"), "").use { env ->
             assertTrue(env.home.exists())
         }
     }
@@ -32,7 +32,7 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         Utils.privateKeyFile(context).createNewFile()
 
-        ProcessEnv(context, ProcessBuilder("test")).use { env ->
+        ProcessEnv(context, ProcessBuilder("test"), "").use { env ->
             val sshDir = File(env.home, ".ssh")
             assertTrue(File(sshDir, "id_dropbear").exists())
         }
@@ -43,7 +43,25 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         Utils.privateKeyFile(context).delete()
 
-        ProcessEnv(context, ProcessBuilder("test")).use {}
+        ProcessEnv(context, ProcessBuilder("test"), "").use {}
+    }
+
+    @Test
+    fun writesKnownHostsToEnvHome() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val knownHosts = "example.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMBh0B+Tfy/wEJWyejoOHclat7UPGKTqKey+rfVQr94I"
+
+        ProcessEnv(context, ProcessBuilder("test"), knownHosts).use { env ->
+            val sshDir = File(env.home, ".ssh")
+            val content = File(sshDir, "known_hosts").readText()
+            assertEquals(knownHosts, content)
+        }
+    }
+
+    @Test
+    fun allowsNullKnownHosts() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        ProcessEnv(context, ProcessBuilder("test"), null).use { }
     }
 
     @Test
@@ -51,7 +69,7 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         var homeDir: File
 
-        ProcessEnv(context, ProcessBuilder("test")).use { env ->
+        ProcessEnv(context, ProcessBuilder("test"), "").use { env ->
             File(env.home, "newfile").createNewFile()
             homeDir = env.home
         }
@@ -64,7 +82,7 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val builder = ProcessBuilder("test")
 
-        ProcessEnv(context, builder).use { env ->
+        ProcessEnv(context, builder, "").use { env ->
             assertEquals(env.home.absolutePath, builder.environment()["HOME"])
         }
     }
@@ -74,7 +92,7 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val builder = ProcessBuilder("sh", "-c", "ssh")
 
-        ProcessEnv(context, builder).use {
+        ProcessEnv(context, builder, "").use {
             val ssh = builder.start()
             assertEquals(1, ssh.waitFor())
         }
@@ -85,7 +103,7 @@ class ProcessEnvTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         var pathDir: File
 
-        ProcessEnv(context, ProcessBuilder("test")).use { env ->
+        ProcessEnv(context, ProcessBuilder("test"), "").use { env ->
             pathDir = env.pathDir
         }
 

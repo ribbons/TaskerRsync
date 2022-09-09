@@ -28,7 +28,7 @@ class RsyncRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("-h", false)
+        val config = RsyncConfig("-h", "", false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -41,7 +41,7 @@ class RsyncRunnerTest {
     @Test
     fun errorFromFailure() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("--invalid", false)
+        val config = RsyncConfig("--invalid", "", false)
 
         expecter.expect(RuntimeException::class.java)
         RsyncRunner().run(context, TaskerInput(config))
@@ -71,7 +71,7 @@ class RsyncRunnerTest {
 
         val config = RsyncConfig(
             "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
-            false
+            "", false
         )
         RsyncRunner().run(context, TaskerInput(config))
 

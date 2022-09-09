@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,7 +13,11 @@ import java.io.Closeable
 import java.io.File
 import java.util.UUID
 
-class ProcessEnv constructor(context: Context, builder: ProcessBuilder) : Closeable {
+class ProcessEnv constructor(
+    context: Context,
+    builder: ProcessBuilder,
+    knownHosts: String?
+) : Closeable {
     val home = File(context.cacheDir, UUID.randomUUID().toString())
     val pathDir = File(context.cacheDir, UUID.randomUUID().toString())
 
@@ -29,6 +33,11 @@ class ProcessEnv constructor(context: Context, builder: ProcessBuilder) : Closea
 
         if (srcKey.exists()) {
             srcKey.copyTo(File(sshDir, "id_dropbear"))
+        }
+
+        if (knownHosts != null) {
+            val knownHostsFile = File(sshDir, "known_hosts")
+            knownHostsFile.writeText(knownHosts)
         }
 
         val target = "${context.applicationInfo.nativeLibraryDir}/libdbclient.so"

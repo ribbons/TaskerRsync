@@ -14,5 +14,7 @@ import com.nerdoftheherd.tasker.rsync.R
 class DbclientConfig @JvmOverloads constructor(
     @field:TaskerInputField("args", R.string.arguments)
     var args: String? = "user@example.com true",
+    @field:TaskerInputField("knownHosts", R.string.known_hosts)
+    var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
     var checkForUpdates: Boolean = true
 )

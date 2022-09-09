@@ -25,7 +25,7 @@ class DbclientRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("-h", false)
+        val config = DbclientConfig("-h", "", false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -38,7 +38,7 @@ class DbclientRunnerTest {
     @Test
     fun errorFromFailure() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("localhost", false)
+        val config = DbclientConfig("localhost", "", false)
 
         expecter.expect(RuntimeException::class.java)
         DbclientRunner().run(context, TaskerInput(config))

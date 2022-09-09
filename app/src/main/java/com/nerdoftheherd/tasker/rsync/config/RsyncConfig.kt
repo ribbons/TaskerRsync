@@ -14,5 +14,7 @@ import com.nerdoftheherd.tasker.rsync.R
 class RsyncConfig @JvmOverloads constructor(
     @field:TaskerInputField("args", R.string.arguments)
     var args: String? = "-rv /source/ user@example.com:dest/",
+    @field:TaskerInputField("knownHosts", R.string.known_hosts)
+    var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
     var checkForUpdates: Boolean = true
 )

@@ -20,4 +20,19 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine|textNoSuggestions"
         android:scrollHorizontally="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/known_hosts"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:hint="@string/known_hosts_hint"
+        android:id="@+id/editTextKnownHosts"
+        android:importantForAutofill="no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:minHeight="48dp" />
 </LinearLayout>

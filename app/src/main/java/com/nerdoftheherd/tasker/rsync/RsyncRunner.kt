@@ -36,7 +36,7 @@ class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
 
         val builder = ProcessBuilder(args)
 
-        ProcessEnv(context, builder).use {
+        ProcessEnv(context, builder, input.regular.knownHosts).use {
             val rsync = builder.start()
 
             val result = rsync.waitFor()

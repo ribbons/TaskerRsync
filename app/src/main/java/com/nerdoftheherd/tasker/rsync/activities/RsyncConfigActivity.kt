@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -35,7 +35,13 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
 
     override fun assignFromInput(input: TaskerInput<RsyncConfig>) = input.regular.run {
         binding.editTextArgs.setText(this.args)
+        binding.editTextKnownHosts.setText(this.knownHosts)
     }
 
-    override val inputForTasker get() = TaskerInput(RsyncConfig(binding.editTextArgs.text.toString()))
+    override val inputForTasker get() = TaskerInput(
+        RsyncConfig(
+            binding.editTextArgs.text.toString(),
+            binding.editTextKnownHosts.text.toString(),
+        )
+    )
 }

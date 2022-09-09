@@ -2,6 +2,8 @@
     <string name="app_name">Rsync for Tasker</string>
     <string name="arguments">Arguments</string>
     <string name="arguments_hint">whitespace separated command arguments</string>
+    <string name="known_hosts">Known host keys</string>
+    <string name="known_hosts_hint">ssh host keys, one per line</string>
     <string name="standard_error">Standard error</string>
     <string name="standard_error_desc">Output written to the standard error stream</string>
     <string name="standard_output">Standard output</string>

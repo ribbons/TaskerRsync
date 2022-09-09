@@ -36,7 +36,7 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
 
         val builder = ProcessBuilder(args)
 
-        ProcessEnv(context, builder).use {
+        ProcessEnv(context, builder, input.regular.knownHosts).use {
             val dbclient = builder.start()
 
             val result = dbclient.waitFor()
