@@ -7,7 +7,6 @@
     tools:context=".activities.RsyncConfigActivity">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/arguments" />
@@ -19,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine|textNoSuggestions"
-        android:scrollHorizontally="false" />
+        android:scrollHorizontally="false"
+        android:minHeight="48dp" />
 
     <TextView
         android:layout_width="match_parent"
