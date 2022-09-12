@@ -54,6 +54,9 @@ jobs:
 
       - name: Tag release
         run: |
+          git config user.name github-actions[bot]
+          git config user.email \
+                     41898282+github-actions[bot]@users.noreply.github.com
           git tag -a -m "${{ inputs.version }} release" "${{ inputs.version }}"
           git push --tags
 
