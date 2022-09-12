@@ -58,3 +58,15 @@ jobs:
           asset_name: com.nerdoftheherd.tasker.rsync_${{
             github.event.release.tag_name }}.apk
           asset_content_type: application/vnd.android.package-archive
+
+      - name: Trigger website update
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PUBLISH_NOTH_PAT }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: 'nerdoftheherd.com',
+              workflow_id: 'publish.yml',
+              ref: 'master'
+            })
