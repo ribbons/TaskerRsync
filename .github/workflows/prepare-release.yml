@@ -1,0 +1,75 @@
+---
+# Copyright © 2022 Matt Robinson
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: Prepare Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    name: Prepare Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Draft release notes
+        run: |
+          lasttag=$(git describe --abbrev=0 HEAD)
+          pattern='^Bump ([^ ]+) from [0-9.]+ to ([0-9.]+)$'
+
+          while read -r message; do
+            if [[ $message =~ $pattern ]]; then
+              ver=${BASH_REMATCH[2]}
+              case "${BASH_REMATCH[1]}" in
+                android-dropbear)
+                  echo "* Updated bundled Dropbear binaries to $ver."
+                  ;;
+                android-rsync)
+                  echo "* Updated bundled rsync binary to $ver."
+                  ;;
+                *)
+                  updated_deps=1
+                  ;;
+              esac
+            else
+              echo "* $message."
+            fi
+          done <<< "$(git log --format='%s' "$lasttag..HEAD")" > relnotes
+
+          if [ "$updated_deps" ]; then
+            echo "* Updated dependencies." >> relnotes
+          fi
+
+      - name: Tag release
+        run: |
+          git tag -a -m "${{ inputs.version }} release" "${{ inputs.version }}"
+          git push --tags
+
+      - name: Create draft release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+            const relnotes = fs.readFileSync('relnotes', 'utf8')
+
+            await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: '${{ inputs.version }}',
+                name: 'Rsync for Tasker ${{ inputs.version }}',
+                body: relnotes,
+                draft: true
+            });
