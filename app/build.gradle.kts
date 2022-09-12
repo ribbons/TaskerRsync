@@ -37,7 +37,7 @@ fun gitVersionName(): String {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"

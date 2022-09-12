@@ -11,6 +11,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.os.Build
 import android.util.AtomicFile
 import android.util.Log
@@ -30,7 +31,16 @@ class UpdateNotifier {
         private const val NOTIF_ID = 0
 
         private fun currentVersion(context: Context): Version {
-            val info = context.packageManager.getPackageInfo(context.packageName, 0)
+            val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    PackageInfoFlags.of(0)
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                context.packageManager.getPackageInfo(context.packageName, 0)
+            }
+
             return Version(info.versionName)
         }
 
