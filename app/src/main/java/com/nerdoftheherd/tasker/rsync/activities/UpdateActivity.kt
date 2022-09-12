@@ -8,6 +8,7 @@ package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -28,7 +29,13 @@ class UpdateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        info = intent.getParcelableExtra("info")!!
+
+        info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("info", VersionInfo::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("info")
+        }!!
 
         binding = UpdateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
