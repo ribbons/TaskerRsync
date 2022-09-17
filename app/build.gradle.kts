@@ -37,6 +37,7 @@ fun gitVersionName(): String {
 }
 
 android {
+    namespace = "com.nerdoftheherd.tasker.rsync"
     compileSdk = 33
 
     defaultConfig {
@@ -86,6 +87,9 @@ android {
         // Dependabot notifies us about new versions and failing the
         // build causes problems updating single dependencies via PRs
         disable += "GradleDependency"
+
+        // Deliberate until necessary notification changes are made
+        disable += "OldTargetApi"
     }
 
     testOptions {
