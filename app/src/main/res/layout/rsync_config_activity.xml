@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine|textNoSuggestions"
         android:scrollHorizontally="false"
+        android:typeface="monospace"
         android:minHeight="48dp" />
 
     <TextView
@@ -34,5 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine|textNoSuggestions"
+        android:typeface="monospace"
         android:minHeight="48dp" />
 </LinearLayout>
