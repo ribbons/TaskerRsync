@@ -7,7 +7,9 @@
 package com.nerdoftheherd.tasker.rsync
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
@@ -17,6 +19,16 @@ import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import java.io.BufferedReader
 
 class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
+    override val notificationProperties get() = NotificationProperties(
+        iconResId = R.drawable.ic_notification
+    ) { context ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setColor(ContextCompat.getColor(context, R.color.primary))
+        } else {
+            this
+        }
+    }
+
     override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
         if (input.regular.checkForUpdates) {
             UpdateNotifier.checkInBackground(context)
