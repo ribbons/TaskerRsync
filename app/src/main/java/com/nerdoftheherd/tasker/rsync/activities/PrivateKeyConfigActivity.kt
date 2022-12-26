@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
@@ -68,11 +69,11 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
             override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
 
-        taskerHelper.onCreate()
-    }
+        onBackPressedDispatcher.addCallback(this) {
+            taskerHelper.onBackPressed()
+        }
 
-    override fun onBackPressed() {
-        taskerHelper.onBackPressed()
+        taskerHelper.onCreate()
     }
 
     override fun assignFromInput(input: TaskerInput<PrivateKeyConfig>) = input.regular.run {

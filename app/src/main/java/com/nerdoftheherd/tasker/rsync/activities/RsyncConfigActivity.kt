@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
@@ -29,10 +30,14 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         binding = RsyncConfigActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onBackPressedDispatcher.addCallback(this) {
+            backPressed()
+        }
+
         taskerHelper.onCreate()
     }
 
-    override fun onBackPressed() {
+    private fun backPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             binding.checkForUpdates.isChecked &&
             context.checkSelfPermission(
