@@ -16,5 +16,6 @@ class DbclientConfig @JvmOverloads constructor(
     var args: String? = "user@example.com true",
     @field:TaskerInputField("knownHosts", R.string.known_hosts)
     var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
+    @field:TaskerInputField("checkForUpdates", R.string.check_for_updates)
     var checkForUpdates: Boolean = true
 )

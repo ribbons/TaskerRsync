@@ -16,5 +16,6 @@ class RsyncConfig @JvmOverloads constructor(
     var args: String? = "-rv /source/ user@example.com:dest/",
     @field:TaskerInputField("knownHosts", R.string.known_hosts)
     var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
+    @field:TaskerInputField("checkForUpdates", R.string.check_for_updates)
     var checkForUpdates: Boolean = true
 )

@@ -43,7 +43,7 @@ android {
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 19
-        targetSdk = 32
+        targetSdk = 33
         versionCode = gitVersionCode()
         versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -87,9 +87,6 @@ android {
         // Dependabot notifies us about new versions and failing the
         // build causes problems updating single dependencies via PRs
         disable += "GradleDependency"
-
-        // Deliberate until necessary notification changes are made
-        disable += "OldTargetApi"
     }
 
     testOptions {

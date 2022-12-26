@@ -37,4 +37,12 @@
         android:inputType="textMultiLine|textNoSuggestions"
         android:typeface="monospace"
         android:minHeight="48dp" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/checkForUpdates"
+        android:text="@string/check_for_updates"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp" />
 </LinearLayout>
