@@ -1,0 +1,73 @@
+/*
+ * Copyright © 2022 Matt Robinson
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+package com.nerdoftheherd.tasker.rsync.activities
+
+import android.content.Intent
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nerdoftheherd.tasker.rsync.R
+import com.nerdoftheherd.tasker.rsync.Version
+import com.nerdoftheherd.tasker.rsync.VersionInfo
+import org.hamcrest.Matchers.not
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.net.URL
+
+@RunWith(AndroidJUnit4::class)
+class UpdateActivityTest {
+    @Test
+    fun newerVersion() {
+        val versionInfo = VersionInfo(
+            Version("9999"),
+            URL("http://example.com/"),
+            URL("http://example.org/")
+        )
+
+        val intent = Intent(
+            ApplicationProvider.getApplicationContext(),
+            UpdateActivity::class.java
+        )
+
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.putExtra("info", versionInfo)
+
+        launchActivity<UpdateActivity>(intent).use {
+            onView(withId(R.id.buttonUpdate)).check(matches(isEnabled()))
+            onView(withId(R.id.textInfo)).check(matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun sameVersion() {
+        val versionInfo = VersionInfo(
+            Version.current(ApplicationProvider.getApplicationContext()),
+            URL("http://example.com/"),
+            URL("http://example.org/")
+        )
+
+        val intent = Intent(
+            ApplicationProvider.getApplicationContext(),
+            UpdateActivity::class.java
+        )
+
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.putExtra("info", versionInfo)
+
+        launchActivity<UpdateActivity>(intent).use {
+            onView(withId(R.id.textSummary)).check(matches(withText(R.string.updated_summary)))
+            onView(withId(R.id.buttonUpdate)).check(matches(not(isEnabled())))
+            onView(withId(R.id.textInfo)).check(matches(not(isDisplayed())))
+        }
+    }
+}

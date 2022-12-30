@@ -12,8 +12,10 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.nerdoftheherd.tasker.rsync.R
+import com.nerdoftheherd.tasker.rsync.Version
 import com.nerdoftheherd.tasker.rsync.VersionInfo
 import com.nerdoftheherd.tasker.rsync.databinding.UpdateActivityBinding
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +43,12 @@ class UpdateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textSummary.text = getString(R.string.update_summary, info.version)
+
+        if (info.version <= Version.current(this)) {
+            binding.textSummary.text = getString(R.string.updated_summary)
+            binding.buttonUpdate.isEnabled = false
+            binding.textInfo.isVisible = false
+        }
 
         binding.buttonUpdate.setOnClickListener {
             binding.buttonUpdate.isEnabled = false

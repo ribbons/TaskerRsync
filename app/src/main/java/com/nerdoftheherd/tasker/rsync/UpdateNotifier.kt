@@ -11,7 +11,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager.PackageInfoFlags
 import android.os.Build
 import android.util.AtomicFile
 import android.util.Log
@@ -30,27 +29,13 @@ class UpdateNotifier {
         private const val NOTIF_CHANNEL = "updates"
         private const val NOTIF_ID = 0
 
-        private fun currentVersion(context: Context): Version {
-            val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                context.packageManager.getPackageInfo(
-                    context.packageName,
-                    PackageInfoFlags.of(0)
-                )
-            } else {
-                @Suppress("DEPRECATION")
-                context.packageManager.getPackageInfo(context.packageName, 0)
-            }
-
-            return Version(info.versionName)
-        }
-
         fun checkInBackground(context: Context) {
             thread { check(context) }
         }
 
         @Synchronized
         private fun check(context: Context) {
-            val current = currentVersion(context)
+            val current = Version.current(context)
 
             val remoteURL = URL("$VERSION_URL?v=$current")
             val httpConn = remoteURL.openConnection() as HttpURLConnection
