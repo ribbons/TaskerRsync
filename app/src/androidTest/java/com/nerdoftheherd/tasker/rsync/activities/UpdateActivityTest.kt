@@ -6,6 +6,8 @@
 
 package com.nerdoftheherd.tasker.rsync.activities
 
+import android.app.Activity
+import android.app.Instrumentation
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
@@ -13,6 +15,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
 import androidx.test.espresso.intent.rule.IntentsRule
@@ -98,7 +101,11 @@ class UpdateActivityTest {
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
+            intending(hasAction(Intent.ACTION_VIEW))
+                .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
+
             onView(withId(R.id.buttonMoreInfo)).perform(click())
+
             intended(
                 allOf(
                     hasAction(Intent.ACTION_VIEW),
