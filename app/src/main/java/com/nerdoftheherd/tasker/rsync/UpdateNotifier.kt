@@ -1,16 +1,18 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package com.nerdoftheherd.tasker.rsync
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.AtomicFile
 import android.util.Log
@@ -69,6 +71,14 @@ class UpdateNotifier {
         }
 
         private fun showNotification(context: Context, info: VersionInfo) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                context.checkSelfPermission(
+                        Manifest.permission.POST_NOTIFICATIONS
+                    ) == PackageManager.PERMISSION_DENIED
+            ) {
+                return
+            }
+
             val updateIntent = Intent(context, UpdateActivity::class.java)
             updateIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             updateIntent.putExtra("info", info)
