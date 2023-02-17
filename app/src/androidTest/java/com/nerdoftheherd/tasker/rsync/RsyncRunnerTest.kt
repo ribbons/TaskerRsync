@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -55,7 +55,8 @@ class RsyncRunnerTest {
             TestUtils.setManageStoragePermission(context, true)
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             InstrumentationRegistry.getInstrumentation().uiAutomation.grantRuntimePermission(
-                context.packageName, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                context.packageName,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         }
 
@@ -71,7 +72,8 @@ class RsyncRunnerTest {
 
         val config = RsyncConfig(
             "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
-            "", false
+            "",
+            false
         )
         RsyncRunner().run(context, TaskerInput(config))
 

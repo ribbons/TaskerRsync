@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -86,7 +86,7 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
         PrivateKeyConfig(
             binding.keyType.selectedItem.toString(),
             binding.keySize.selectedItem as Int,
-            binding.overwrite.isChecked,
+            binding.overwrite.isChecked
         )
     )
 }

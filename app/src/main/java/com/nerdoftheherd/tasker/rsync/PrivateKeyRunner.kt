@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -49,9 +49,12 @@ class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
         val dropbearkey = Runtime.getRuntime().exec(
             arrayOf(
                 "$libDir/libdropbearkey.so",
-                "-t", input.regular.keyType.lowercase(),
-                "-s", input.regular.keySize.toString(),
-                "-f", privateKey.absolutePath
+                "-t",
+                input.regular.keyType.lowercase(),
+                "-s",
+                input.regular.keySize.toString(),
+                "-f",
+                privateKey.absolutePath
             )
         )
 
