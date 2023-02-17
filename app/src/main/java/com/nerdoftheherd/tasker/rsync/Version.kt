@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -18,6 +18,7 @@ import java.util.Objects
 class Version(private val value: String) : Parcelable {
     @IgnoredOnParcel
     private val numParts: List<Int>
+
     @IgnoredOnParcel
     private val suffixRevs: Int
 

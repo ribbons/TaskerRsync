@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -45,7 +45,8 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
                 ) == PackageManager.PERMISSION_DENIED
         ) {
             this.requestPermissions(
-                arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                0
             )
             return
         }
@@ -77,7 +78,7 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         RsyncConfig(
             binding.editTextArgs.text.toString(),
             binding.editTextKnownHosts.text.toString(),
-            binding.checkForUpdates.isChecked,
+            binding.checkForUpdates.isChecked
         )
     )
 }

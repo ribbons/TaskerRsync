@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -19,5 +19,5 @@ class PrivateKeyConfig @JvmOverloads constructor(
     var keySize: Int = 256,
 
     @field:TaskerInputField("overwrite", R.string.overwrite_key)
-    var overwrite: Boolean = false,
+    var overwrite: Boolean = false
 )

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,5 +13,5 @@ import com.nerdoftheherd.tasker.rsync.R
 @TaskerOutputObject
 class PublicKeyOutput(
     @get:TaskerOutputVariable("pubkey", R.string.public_key, R.string.public_key_desc)
-    var pubkey: String,
+    var pubkey: String
 )

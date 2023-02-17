@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -16,5 +16,5 @@ class CommandOutput(
     var stdout: String?,
 
     @get:TaskerOutputVariable("stderr", R.string.standard_error, R.string.standard_error_desc)
-    var stderr: String?,
+    var stderr: String?
 )
