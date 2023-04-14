@@ -37,7 +37,7 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
 
         keyTypeAdapter = ArrayAdapter<String>(
             this,
-            R.layout.support_simple_spinner_dropdown_item
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
         ).also {
             it.addAll("Ed25519", "ECDSA", "RSA")
             binding.keyType.adapter = it
@@ -45,7 +45,7 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
 
         keySizeAdapter = ArrayAdapter<Int>(
             this,
-            R.layout.support_simple_spinner_dropdown_item
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
         ).also {
             binding.keySize.adapter = it
         }

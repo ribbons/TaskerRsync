@@ -8,10 +8,9 @@ package com.nerdoftheherd.tasker.rsync.output
 
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputObject
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
-import com.nerdoftheherd.tasker.rsync.R
 
 @TaskerOutputObject
 class PublicKeyOutput(
-    @get:TaskerOutputVariable("pubkey", R.string.public_key, R.string.public_key_desc)
+    @get:TaskerOutputVariable("pubkey", labelResIdName = "public_key", htmlLabelResIdName = "public_key_desc")
     var pubkey: String
 )

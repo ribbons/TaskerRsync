@@ -1,5 +1,5 @@
 ---
-# Copyright © 2021-2022 Matt Robinson
+# Copyright © 2021-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: adopt
-          java-version: 11
+          java-version: 17
 
       - name: Generate release bundle
         uses: gradle/gradle-build-action@v2
