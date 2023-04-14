@@ -1,19 +1,19 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Rsync for Tasker</string>
     <string name="arguments">Arguments</string>
     <string name="arguments_hint">whitespace separated command arguments</string>
     <string name="known_hosts">Known host keys</string>
     <string name="known_hosts_hint">ssh host keys, one per line</string>
-    <string name="standard_error">Standard error</string>
-    <string name="standard_error_desc">Output written to the standard error stream</string>
-    <string name="standard_output">Standard output</string>
-    <string name="standard_output_desc">Output written to the standard output stream</string>
+    <string name="standard_error" tools:ignore="UnusedResources">Standard error</string>
+    <string name="standard_error_desc" tools:ignore="UnusedResources">Output written to the standard error stream</string>
+    <string name="standard_output" tools:ignore="UnusedResources">Standard output</string>
+    <string name="standard_output_desc" tools:ignore="UnusedResources">Output written to the standard output stream</string>
     <string name="key_type">Key type</string>
     <string name="key_size">Key size (bits)</string>
     <string name="overwrite_key">Overwrite existing key</string>
     <string name="key_exists">Private key already exists</string>
-    <string name="public_key">Public key</string>
-    <string name="public_key_desc">The public key in OpenSSH format</string>
+    <string name="public_key" tools:ignore="UnusedResources">Public key</string>
+    <string name="public_key_desc" tools:ignore="UnusedResources">The public key in OpenSSH format</string>
     <string name="no_private_key">Private key was not found.  Run the \'Generate Private Key\' action first.</string>
     <string name="channel_updates">Updates</string>
     <string name="update_available">Update available</string>
