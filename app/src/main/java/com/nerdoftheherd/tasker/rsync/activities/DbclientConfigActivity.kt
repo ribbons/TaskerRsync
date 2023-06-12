@@ -71,6 +71,7 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
     override fun assignFromInput(input: TaskerInput<DbclientConfig>) = input.regular.run {
         binding.editTextArgs.setText(this.args)
         binding.editTextKnownHosts.setText(this.knownHosts)
+        binding.editTextTimeoutSeconds.setText(this.timeoutSeconds.toString())
         binding.checkForUpdates.isChecked = this.checkForUpdates
     }
 
@@ -78,6 +79,7 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         DbclientConfig(
             binding.editTextArgs.text.toString(),
             binding.editTextKnownHosts.text.toString(),
+            binding.editTextTimeoutSeconds.text.toString().toInt(),
             binding.checkForUpdates.isChecked
         )
     )

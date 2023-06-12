@@ -15,6 +15,8 @@ class DbclientConfig @JvmOverloads constructor(
     var args: String? = "user@example.com true",
     @field:TaskerInputField("knownHosts", labelResIdName = "known_hosts")
     var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
+    @field:TaskerInputField("timeoutSeconds", labelResIdName = "timeout_seconds")
+    var timeoutSeconds: Int = 59,
     @field:TaskerInputField("checkForUpdates", labelResIdName = "check_for_updates")
     var checkForUpdates: Boolean = true
 )

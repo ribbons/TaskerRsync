@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -9,8 +9,12 @@ package com.nerdoftheherd.tasker.rsync
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
+import com.nerdoftheherd.tasker.rsync.output.CommandOutput
+import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
@@ -25,7 +29,7 @@ class DbclientRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("-h", "", false)
+        val config = DbclientConfig("-h", "", 0, false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -38,7 +42,49 @@ class DbclientRunnerTest {
     @Test
     fun errorFromFailure() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("localhost", "", false)
+        val config = DbclientConfig("localhost", "", 0, false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        expecter.expect(RuntimeException::class.java)
+        DbclientRunner().run(context, TaskerInput(config))
+    }
+
+    @Test
+    fun successFromNormalExit() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = DbclientConfig("-h", "", 0, false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val output = DbclientRunner().run(context, TaskerInput(config))
+        assertTrue(output.success)
+    }
+
+    @Test
+    fun captureStderr() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = DbclientConfig("-h", "", 0, false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val output = DbclientRunner().run(context, TaskerInput(config))
+        val outputSuccess = output as TaskerPluginResultSucess<CommandOutput>
+        val stderr = outputSuccess.regular?.stderr!!
+
+        assertTrue(stderr.startsWith("Dropbear SSH client v20"))
+        assertTrue(stderr.contains(" [command]\n"))
+    }
+
+    @Test(timeout = 1500)
+    fun errorFromTimeout() {
+        val assets = InstrumentationRegistry.getInstrumentation().context.assets
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = DbclientConfig("test@example.com", "", 1, false)
+
+        File(context.filesDir, "id_dropbear").outputStream().use { fileOut ->
+            assets.open("private_key_ed25519").copyTo(fileOut)
+        }
 
         expecter.expect(RuntimeException::class.java)
         DbclientRunner().run(context, TaskerInput(config))
