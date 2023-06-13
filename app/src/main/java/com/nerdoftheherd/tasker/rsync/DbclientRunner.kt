@@ -51,13 +51,16 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
         val builder = ProcessBuilder(args)
         val stdout = StringBuilder()
         val stderr = StringBuilder()
+        var aborted = false
+        var stdoutEnded = false
+        var stderrEnded = false
 
         ProcessEnv(context, builder, input.regular.knownHosts).use {
             val dbclient = builder.start()
 
             thread {
                 dbclient.inputStream.bufferedReader().use {
-                    while (true) {
+                    while (!aborted) {
                         try {
                             val line = it.readLine() ?: break
                             stdout.appendLine(line)
@@ -65,12 +68,14 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                             break
                         }
                     }
+
+                    stdoutEnded = true
                 }
             }
 
             thread {
                 dbclient.errorStream.bufferedReader().use {
-                    while (true) {
+                    while (!aborted) {
                         try {
                             val line = it.readLine() ?: break
                             stderr.appendLine(line)
@@ -78,6 +83,8 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                             break
                         }
                     }
+
+                    stderrEnded = true
                 }
             }
 
@@ -85,6 +92,7 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (!dbclient.waitFor(input.regular.timeoutSeconds.toLong(), TimeUnit.SECONDS)) {
                         dbclient.destroyForcibly()
+                        aborted = true
                     }
                 } else {
                     val end = System.currentTimeMillis() + input.regular.timeoutSeconds * 1000
@@ -100,11 +108,16 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
 
                     if (end < System.currentTimeMillis()) {
                         dbclient.destroy()
+                        aborted = true
                     }
                 }
             }
 
             val result = dbclient.waitFor()
+
+            while (!stdoutEnded || !stderrEnded) {
+                Thread.sleep(100)
+            }
 
             Log.d(TAG, "Run completed, exit code $result")
 

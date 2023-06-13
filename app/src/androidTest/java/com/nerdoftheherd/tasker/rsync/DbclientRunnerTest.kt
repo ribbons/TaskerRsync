@@ -73,7 +73,7 @@ class DbclientRunnerTest {
         val stderr = outputSuccess.regular?.stderr!!
 
         assertTrue(stderr.startsWith("Dropbear SSH client v20"))
-        assertTrue(stderr.contains(" [command]\n"))
+        assertTrue(stderr.contains("-V    Version\n"))
     }
 
     @Test(timeout = 1500)
