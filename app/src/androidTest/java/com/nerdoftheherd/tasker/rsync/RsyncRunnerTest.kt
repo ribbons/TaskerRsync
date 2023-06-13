@@ -12,7 +12,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
+import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -47,6 +49,32 @@ class RsyncRunnerTest {
 
         expecter.expect(RuntimeException::class.java)
         RsyncRunner().run(context, TaskerInput(config))
+    }
+
+    @Test
+    fun successFromNormalExit() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = RsyncConfig("-V", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertTrue(output.success)
+    }
+
+    @Test
+    fun captureStdout() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = RsyncConfig("-h", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        val outputSuccess = output as TaskerPluginResultSucess<CommandOutput>
+        val stdout = outputSuccess.regular?.stdout!!
+
+        assertTrue(stdout.startsWith("rsync  version "))
+        assertTrue(stdout.contains("for full documentation.\n"))
     }
 
     @Test
