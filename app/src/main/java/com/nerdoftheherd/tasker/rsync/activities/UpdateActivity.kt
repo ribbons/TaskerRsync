@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -45,6 +45,7 @@ class UpdateActivity : AppCompatActivity() {
         binding.textSummary.text = getString(R.string.update_summary, info.version)
 
         if (info.version <= Version.current(this)) {
+            setTitle(R.string.update_installed)
             binding.textSummary.text = getString(R.string.updated_summary)
             binding.buttonUpdate.isEnabled = false
             binding.textInfo.isVisible = false

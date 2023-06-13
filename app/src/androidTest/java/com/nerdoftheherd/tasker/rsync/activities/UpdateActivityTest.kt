@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -19,6 +19,7 @@ import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
 import androidx.test.espresso.intent.rule.IntentsRule
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -56,6 +57,9 @@ class UpdateActivityTest {
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
+            onView(withId(androidx.appcompat.R.id.action_bar)).check(
+                matches(hasDescendant(withText(R.string.update_available)))
+            )
             onView(withId(R.id.buttonUpdate)).check(matches(isEnabled()))
             onView(withId(R.id.textInfo)).check(matches(isDisplayed()))
         }
@@ -78,6 +82,9 @@ class UpdateActivityTest {
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
+            onView(withId(androidx.appcompat.R.id.action_bar)).check(
+                matches(hasDescendant(withText(R.string.update_installed)))
+            )
             onView(withId(R.id.textSummary)).check(matches(withText(R.string.updated_summary)))
             onView(withId(R.id.buttonUpdate)).check(matches(not(isEnabled())))
             onView(withId(R.id.textInfo)).check(matches(not(isDisplayed())))

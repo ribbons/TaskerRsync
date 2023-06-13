@@ -17,6 +17,7 @@
     <string name="no_private_key">Private key was not found.  Run the \'Generate Private Key\' action first.</string>
     <string name="channel_updates">Updates</string>
     <string name="update_available">Update available</string>
+    <string name="update_installed">Update installed</string>
     <string name="update_notif_text">Version %1$s of Rsync for Tasker is available</string>
     <string name="update_summary">Version %1$s of Rsync for Tasker has been released.</string>
     <string name="updated_summary">The latest version of Rsync for Tasker is installed.</string>
