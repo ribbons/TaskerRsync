@@ -43,6 +43,8 @@ class RsyncRunnerTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("--invalid", "", false)
 
+        File(context.filesDir, "id_dropbear").createNewFile()
+
         expecter.expect(RuntimeException::class.java)
         RsyncRunner().run(context, TaskerInput(config))
     }
