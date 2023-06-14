@@ -1,5 +1,5 @@
 ---
-# Copyright © 2022 Matt Robinson
+# Copyright © 2022-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -27,11 +27,11 @@ jobs:
       - name: Draft release notes
         run: |
           lasttag=$(git describe --abbrev=0 HEAD)
-          pattern='^Bump ([^ ]+) from [0-9.]+ to ([0-9.]+)$'
+          pattern='^Bump ([^ ]+)( from [0-9.]+ to ([0-9.]+))?$'
 
           while read -r message; do
             if [[ $message =~ $pattern ]]; then
-              ver=${BASH_REMATCH[2]}
+              ver=${BASH_REMATCH[3]}
               case "${BASH_REMATCH[1]}" in
                 android-dropbear)
                   echo "* Updated bundled Dropbear binaries to $ver."
