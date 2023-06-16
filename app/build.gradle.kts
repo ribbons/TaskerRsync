@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -80,9 +80,6 @@ android {
     lint {
         warningsAsErrors = true
         textReport = true
-
-        // https://github.com/joaomgcd/TaskerPluginSample/issues/7
-        disable += "NonConstantResourceId"
 
         // Dependabot notifies us about new versions and failing the
         // build causes problems updating single dependencies via PRs
