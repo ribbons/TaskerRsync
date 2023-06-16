@@ -84,6 +84,11 @@ android {
         // Dependabot notifies us about new versions and failing the
         // build causes problems updating single dependencies via PRs
         disable += "GradleDependency"
+
+        // Looks like an update to taskerpluginlibrary will be needed
+        // before we can target API level 34 due to foreground service
+        // types now being required
+        disable += "OldTargetApi"
     }
 
     testOptions {
