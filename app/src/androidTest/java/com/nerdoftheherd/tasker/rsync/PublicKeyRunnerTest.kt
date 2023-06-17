@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,19 +13,15 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
-import org.junit.Rule
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class PublicKeyRunnerTest {
-    @Rule @JvmField
-    val expecter: ExpectedException = ExpectedException.none()
-
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -33,9 +29,11 @@ class PublicKeyRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        expecter.expect(RuntimeException::class.java)
-        expecter.expectMessage(context.getString(R.string.no_private_key))
-        PublicKeyRunner().run(context, TaskerInput(Unit))
+        val exp = assertThrows(RuntimeException::class.java) {
+            PublicKeyRunner().run(context, TaskerInput(Unit))
+        }
+
+        assertEquals(context.getString(R.string.no_private_key), exp.message)
     }
 
     @Test

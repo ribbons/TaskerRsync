@@ -15,18 +15,15 @@ import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
-import junit.framework.TestCase.assertTrue
-import org.junit.Rule
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class RsyncRunnerTest {
-    @Rule @JvmField
-    val expecter: ExpectedException = ExpectedException.none()
-
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -35,9 +32,11 @@ class RsyncRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        expecter.expect(RuntimeException::class.java)
-        expecter.expectMessage(context.getString(R.string.no_private_key))
-        RsyncRunner().run(context, TaskerInput(config))
+        val exp = assertThrows(RuntimeException::class.java) {
+            RsyncRunner().run(context, TaskerInput(config))
+        }
+
+        assertEquals(context.getString(R.string.no_private_key), exp.message)
     }
 
     @Test
@@ -47,8 +46,9 @@ class RsyncRunnerTest {
 
         File(context.filesDir, "id_dropbear").createNewFile()
 
-        expecter.expect(RuntimeException::class.java)
-        RsyncRunner().run(context, TaskerInput(config))
+        assertThrows(RuntimeException::class.java) {
+            RsyncRunner().run(context, TaskerInput(config))
+        }
     }
 
     @Test
