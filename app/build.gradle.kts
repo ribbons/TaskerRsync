@@ -116,7 +116,7 @@ dependencies {
     implementation("com.nerdoftheherd:android-dropbear:2022.83")
     implementation("com.nerdoftheherd:android-rsync:3.2.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
 
