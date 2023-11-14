@@ -60,7 +60,7 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
 
       - name: Trigger website update
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.PUBLISH_NOTH_PAT }}
           script: |
