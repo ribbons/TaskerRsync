@@ -21,17 +21,21 @@ import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
-    override val notificationProperties get() = NotificationProperties(
-        iconResId = R.drawable.ic_notification
-    ) { context ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setColor(ContextCompat.getColor(context, R.color.primary))
-        } else {
-            this
+    override val notificationProperties get() =
+        NotificationProperties(
+            iconResId = R.drawable.ic_notification,
+        ) { context ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setColor(ContextCompat.getColor(context, R.color.primary))
+            } else {
+                this
+            }
         }
-    }
 
-    override fun run(context: Context, input: TaskerInput<DbclientConfig>): TaskerPluginResult<CommandOutput> {
+    override fun run(
+        context: Context,
+        input: TaskerInput<DbclientConfig>,
+    ): TaskerPluginResult<CommandOutput> {
         if (input.regular.checkForUpdates) {
             UpdateNotifier.checkInBackground(context)
         }
@@ -101,7 +105,8 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                         try {
                             dbclient.exitValue()
                             break
-                        } catch (_: IllegalThreadStateException) { }
+                        } catch (_: IllegalThreadStateException) {
+                        }
 
                         Thread.sleep(250)
                     }

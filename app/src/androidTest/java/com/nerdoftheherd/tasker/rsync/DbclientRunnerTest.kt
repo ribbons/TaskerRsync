@@ -31,9 +31,10 @@ class DbclientRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        val exp = assertThrows(RuntimeException::class.java) {
-            DbclientRunner().run(context, TaskerInput(config))
-        }
+        val exp =
+            assertThrows(RuntimeException::class.java) {
+                DbclientRunner().run(context, TaskerInput(config))
+            }
 
         assertEquals(context.getString(R.string.no_private_key), exp.message)
     }

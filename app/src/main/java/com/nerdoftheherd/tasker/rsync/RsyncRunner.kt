@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -19,17 +19,21 @@ import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import java.io.BufferedReader
 
 class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
-    override val notificationProperties get() = NotificationProperties(
-        iconResId = R.drawable.ic_notification
-    ) { context ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setColor(ContextCompat.getColor(context, R.color.primary))
-        } else {
-            this
+    override val notificationProperties get() =
+        NotificationProperties(
+            iconResId = R.drawable.ic_notification,
+        ) { context ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setColor(ContextCompat.getColor(context, R.color.primary))
+            } else {
+                this
+            }
         }
-    }
 
-    override fun run(context: Context, input: TaskerInput<RsyncConfig>): TaskerPluginResult<CommandOutput> {
+    override fun run(
+        context: Context,
+        input: TaskerInput<RsyncConfig>,
+    ): TaskerPluginResult<CommandOutput> {
         if (input.regular.checkForUpdates) {
             UpdateNotifier.checkInBackground(context)
         }

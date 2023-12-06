@@ -23,8 +23,9 @@ class Version(private val value: String) : Parcelable {
     private val suffixRevs: Int
 
     init {
-        val matches = verPattern.matchEntire(value)
-            ?: throw IllegalArgumentException("Unexpected version format \"$value\"")
+        val matches =
+            verPattern.matchEntire(value)
+                ?: throw IllegalArgumentException("Unexpected version format \"$value\"")
 
         numParts = matches.groupValues[1].split('.').map { it.toInt() }
         suffixRevs = matches.groups[2]?.value?.toInt() ?: 0
@@ -66,15 +67,16 @@ class Version(private val value: String) : Parcelable {
         private val verPattern = Regex("([0-9]+(?:[.][0-9]+)*)(?:-([0-9]+)-[a-f0-9]+)?")
 
         fun current(context: Context): Version {
-            val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                context.packageManager.getPackageInfo(
-                    context.packageName,
-                    PackageManager.PackageInfoFlags.of(0)
-                )
-            } else {
-                @Suppress("DEPRECATION")
-                context.packageManager.getPackageInfo(context.packageName, 0)
-            }
+            val info =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    context.packageManager.getPackageInfo(
+                        context.packageName,
+                        PackageManager.PackageInfoFlags.of(0),
+                    )
+                } else {
+                    @Suppress("DEPRECATION")
+                    context.packageManager.getPackageInfo(context.packageName, 0)
+                }
 
             return Version(info.versionName)
         }

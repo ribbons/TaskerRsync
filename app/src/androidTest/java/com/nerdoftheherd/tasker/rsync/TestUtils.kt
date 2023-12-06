@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -31,11 +31,14 @@ class TestUtils {
             return Environment.getExternalStorageDirectory()
         }
 
-        fun setManageStoragePermission(context: Context, enabled: Boolean) {
+        fun setManageStoragePermission(
+            context: Context,
+            enabled: Boolean,
+        ) {
             val newstate = if (enabled) "allow" else "deny"
 
             InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
-                "appops set --uid ${context.packageName} MANAGE_EXTERNAL_STORAGE $newstate"
+                "appops set --uid ${context.packageName} MANAGE_EXTERNAL_STORAGE $newstate",
             )
 
             val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
@@ -44,7 +47,7 @@ class TestUtils {
                 appOps.unsafeCheckOpNoThrow(
                     "android:manage_external_storage",
                     Process.myUid(),
-                    context.packageName
+                    context.packageName,
                 ) != AppOpsManager.MODE_ALLOWED == enabled
             ) {
                 Thread.sleep(1)

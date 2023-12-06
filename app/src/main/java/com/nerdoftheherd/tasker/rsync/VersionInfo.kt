@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -35,7 +35,7 @@ data class VersionInfo(
     @Serializable(with = URLSerializer::class)
     val download: URL,
     @Serializable(with = URLSerializer::class)
-    val info: URL
+    val info: URL,
 ) : Parcelable {
     private object VersionSerializer : KSerializer<Version> {
         override val descriptor: SerialDescriptor =
@@ -49,7 +49,10 @@ data class VersionInfo(
             }
         }
 
-        override fun serialize(encoder: Encoder, value: Version) {
+        override fun serialize(
+            encoder: Encoder,
+            value: Version,
+        ) {
             encoder.encodeString(value.toString())
         }
     }
@@ -66,7 +69,10 @@ data class VersionInfo(
             }
         }
 
-        override fun serialize(encoder: Encoder, value: URL) {
+        override fun serialize(
+            encoder: Encoder,
+            value: URL,
+        ) {
             encoder.encodeString(value.toString())
         }
     }
@@ -80,7 +86,7 @@ data class VersionInfo(
 
         fun fetch(
             httpConn: HttpURLConnection,
-            cacheFile: AtomicFile
+            cacheFile: AtomicFile,
         ): VersionInfo {
             var info: VersionInfo? = null
             val cacheModified = cacheFile.baseFile.lastModified()

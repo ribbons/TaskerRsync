@@ -57,24 +57,29 @@ class UpdateNotifier {
                 return
             }
 
-            val channel = NotificationChannel(
-                NOTIF_CHANNEL,
-                context.getString(R.string.channel_updates),
-                NotificationManager.IMPORTANCE_LOW
-            )
+            val channel =
+                NotificationChannel(
+                    NOTIF_CHANNEL,
+                    context.getString(R.string.channel_updates),
+                    NotificationManager.IMPORTANCE_LOW,
+                )
 
-            val notificationManager = context.getSystemService(
-                Context.NOTIFICATION_SERVICE
-            ) as NotificationManager
+            val notificationManager =
+                context.getSystemService(
+                    Context.NOTIFICATION_SERVICE,
+                ) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
         }
 
-        private fun showNotification(context: Context, info: VersionInfo) {
+        private fun showNotification(
+            context: Context,
+            info: VersionInfo,
+        ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 context.checkSelfPermission(
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ) == PackageManager.PERMISSION_DENIED
+                    Manifest.permission.POST_NOTIFICATIONS,
+                ) == PackageManager.PERMISSION_DENIED
             ) {
                 return
             }
@@ -83,20 +88,22 @@ class UpdateNotifier {
             updateIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             updateIntent.putExtra("info", info)
 
-            val pendingFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            } else {
-                PendingIntent.FLAG_UPDATE_CURRENT
-            }
+            val pendingFlags =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                } else {
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                }
 
             val updatePI = PendingIntent.getActivity(context, 0, updateIntent, pendingFlags)
 
-            val notifBuilder = NotificationCompat.Builder(context, NOTIF_CHANNEL)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(context.getString(R.string.update_available))
-                .setContentText(context.getString(R.string.update_notif_text, info.version))
-                .setContentIntent(updatePI)
-                .setColor(ContextCompat.getColor(context, R.color.primary))
+            val notifBuilder =
+                NotificationCompat.Builder(context, NOTIF_CHANNEL)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(context.getString(R.string.update_available))
+                    .setContentText(context.getString(R.string.update_notif_text, info.version))
+                    .setContentIntent(updatePI)
+                    .setColor(ContextCompat.getColor(context, R.color.primary))
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 notifBuilder.priority = NotificationCompat.PRIORITY_LOW

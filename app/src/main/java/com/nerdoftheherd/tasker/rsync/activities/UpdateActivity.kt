@@ -32,12 +32,13 @@ class UpdateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("info", VersionInfo::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra("info")
-        }!!
+        info =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("info", VersionInfo::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                intent.getParcelableExtra("info")
+            }!!
 
         binding = UpdateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,17 +57,18 @@ class UpdateActivity : AppCompatActivity() {
             binding.textInfo.text = getString(R.string.update_downloading)
 
             lifecycleScope.launch {
-                val contentUri = FileProvider.getUriForFile(
-                    this@UpdateActivity,
-                    "${applicationContext.packageName}.provider",
-                    download()
-                )
+                val contentUri =
+                    FileProvider.getUriForFile(
+                        this@UpdateActivity,
+                        "${applicationContext.packageName}.provider",
+                        download(),
+                    )
 
                 val installIntent = Intent(Intent.ACTION_VIEW)
                 installIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 installIntent.setDataAndType(
                     contentUri,
-                    "application/vnd.android.package-archive"
+                    "application/vnd.android.package-archive",
                 )
 
                 startActivity(installIntent)
@@ -80,8 +82,8 @@ class UpdateActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(info.info.toString())
-                )
+                    Uri.parse(info.info.toString()),
+                ),
             )
         }
     }

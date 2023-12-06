@@ -19,19 +19,20 @@ import java.io.BufferedReader
 import java.util.Scanner
 
 class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
-    override val notificationProperties get() = NotificationProperties(
-        iconResId = R.drawable.ic_notification
-    ) { context ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setColor(ContextCompat.getColor(context, R.color.primary))
-        } else {
-            this
+    override val notificationProperties get() =
+        NotificationProperties(
+            iconResId = R.drawable.ic_notification,
+        ) { context ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setColor(ContextCompat.getColor(context, R.color.primary))
+            } else {
+                this
+            }
         }
-    }
 
     override fun run(
         context: Context,
-        input: TaskerInput<Unit>
+        input: TaskerInput<Unit>,
     ): TaskerPluginResult<PublicKeyOutput> {
         val libDir = context.applicationInfo.nativeLibraryDir
         val privateKey = Utils.privateKeyFile(context)
@@ -42,21 +43,22 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
 
         Log.d(TAG, "About to run dropbearkey")
 
-        val dropbearkey = Runtime.getRuntime().exec(
-            arrayOf(
-                "$libDir/libdropbearkey.so",
-                "-f",
-                privateKey.absolutePath,
-                "-y"
+        val dropbearkey =
+            Runtime.getRuntime().exec(
+                arrayOf(
+                    "$libDir/libdropbearkey.so",
+                    "-f",
+                    privateKey.absolutePath,
+                    "-y",
+                ),
             )
-        )
 
         val retcode = dropbearkey.waitFor()
         Log.d(TAG, "Completed, exit code $retcode")
 
         if (retcode != 0) {
             throw RuntimeException(
-                dropbearkey.errorStream.bufferedReader().use(BufferedReader::readText)
+                dropbearkey.errorStream.bufferedReader().use(BufferedReader::readText),
             )
         }
 
@@ -65,7 +67,7 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
 
         if (pubkey != null) {
             return TaskerPluginResultSucess(
-                PublicKeyOutput("${pubkey}rsync-for-tasker@android")
+                PublicKeyOutput("${pubkey}rsync-for-tasker@android"),
             )
         }
 
