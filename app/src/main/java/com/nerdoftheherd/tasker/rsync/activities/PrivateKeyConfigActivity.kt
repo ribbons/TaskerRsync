@@ -35,39 +35,47 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
         binding = PrivateKeyConfigActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        keyTypeAdapter = ArrayAdapter<String>(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
-        ).also {
-            it.addAll("Ed25519", "ECDSA", "RSA")
-            binding.keyType.adapter = it
-        }
-
-        keySizeAdapter = ArrayAdapter<Int>(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
-        ).also {
-            binding.keySize.adapter = it
-        }
-
-        binding.keyType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                keySizeAdapter.clear()
-
-                when (parent.getItemAtPosition(pos).toString()) {
-                    "Ed25519" -> keySizeAdapter.addAll(256)
-                    "ECDSA" -> keySizeAdapter.addAll(384, 521)
-                    "RSA" -> keySizeAdapter.addAll(2048, 4096)
-                }
-
-                if (initKeySize != null) {
-                    binding.keySize.setSelection(keySizeAdapter.getPosition(initKeySize))
-                    initKeySize = null
-                }
+        keyTypeAdapter =
+            ArrayAdapter<String>(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            ).also {
+                it.addAll("Ed25519", "ECDSA", "RSA")
+                binding.keyType.adapter = it
             }
 
-            override fun onNothingSelected(parentView: AdapterView<*>) {}
-        }
+        keySizeAdapter =
+            ArrayAdapter<Int>(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            ).also {
+                binding.keySize.adapter = it
+            }
+
+        binding.keyType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    pos: Int,
+                    id: Long,
+                ) {
+                    keySizeAdapter.clear()
+
+                    when (parent.getItemAtPosition(pos).toString()) {
+                        "Ed25519" -> keySizeAdapter.addAll(256)
+                        "ECDSA" -> keySizeAdapter.addAll(384, 521)
+                        "RSA" -> keySizeAdapter.addAll(2048, 4096)
+                    }
+
+                    if (initKeySize != null) {
+                        binding.keySize.setSelection(keySizeAdapter.getPosition(initKeySize))
+                        initKeySize = null
+                    }
+                }
+
+                override fun onNothingSelected(parentView: AdapterView<*>) {}
+            }
 
         onBackPressedDispatcher.addCallback(this) {
             taskerHelper.onBackPressed()
@@ -76,17 +84,19 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
         taskerHelper.onCreate()
     }
 
-    override fun assignFromInput(input: TaskerInput<PrivateKeyConfig>) = input.regular.run {
-        binding.keyType.setSelection(keyTypeAdapter.getPosition(input.regular.keyType))
-        initKeySize = input.regular.keySize
-        binding.overwrite.isChecked = input.regular.overwrite
-    }
+    override fun assignFromInput(input: TaskerInput<PrivateKeyConfig>) =
+        input.regular.run {
+            binding.keyType.setSelection(keyTypeAdapter.getPosition(input.regular.keyType))
+            initKeySize = input.regular.keySize
+            binding.overwrite.isChecked = input.regular.overwrite
+        }
 
-    override val inputForTasker get() = TaskerInput(
-        PrivateKeyConfig(
-            binding.keyType.selectedItem.toString(),
-            binding.keySize.selectedItem as Int,
-            binding.overwrite.isChecked
+    override val inputForTasker get() =
+        TaskerInput(
+            PrivateKeyConfig(
+                binding.keyType.selectedItem.toString(),
+                binding.keySize.selectedItem as Int,
+                binding.overwrite.isChecked,
+            ),
         )
-    )
 }

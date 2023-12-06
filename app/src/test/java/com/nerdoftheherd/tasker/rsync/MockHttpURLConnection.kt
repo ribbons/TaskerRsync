@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -14,7 +14,6 @@ import java.net.URL
 
 class MockHttpURLConnection(private val responseData: String?) :
     HttpURLConnection(URL("http://example.com/")) {
-
     var requestWasMade = false
         private set
 
@@ -27,6 +26,7 @@ class MockHttpURLConnection(private val responseData: String?) :
     }
 
     override fun disconnect() {}
+
     override fun usingProxy(): Boolean = false
 
     override fun getInputStream(): InputStream {

@@ -41,12 +41,12 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             binding.checkForUpdates.isChecked &&
             context.checkSelfPermission(
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_DENIED
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_DENIED
         ) {
             this.requestPermissions(
                 arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                0
+                0,
             )
             return
         }
@@ -57,7 +57,7 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -68,17 +68,19 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         }
     }
 
-    override fun assignFromInput(input: TaskerInput<RsyncConfig>) = input.regular.run {
-        binding.editTextArgs.setText(this.args)
-        binding.editTextKnownHosts.setText(this.knownHosts)
-        binding.checkForUpdates.isChecked = this.checkForUpdates
-    }
+    override fun assignFromInput(input: TaskerInput<RsyncConfig>) =
+        input.regular.run {
+            binding.editTextArgs.setText(this.args)
+            binding.editTextKnownHosts.setText(this.knownHosts)
+            binding.checkForUpdates.isChecked = this.checkForUpdates
+        }
 
-    override val inputForTasker get() = TaskerInput(
-        RsyncConfig(
-            binding.editTextArgs.text.toString(),
-            binding.editTextKnownHosts.text.toString(),
-            binding.checkForUpdates.isChecked
+    override val inputForTasker get() =
+        TaskerInput(
+            RsyncConfig(
+                binding.editTextArgs.text.toString(),
+                binding.editTextKnownHosts.text.toString(),
+                binding.checkForUpdates.isChecked,
+            ),
         )
-    )
 }

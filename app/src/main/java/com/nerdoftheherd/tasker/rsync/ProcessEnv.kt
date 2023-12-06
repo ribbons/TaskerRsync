@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -16,7 +16,7 @@ import java.util.UUID
 class ProcessEnv constructor(
     context: Context,
     builder: ProcessBuilder,
-    knownHosts: String?
+    knownHosts: String?,
 ) : Closeable {
     val home = File(context.cacheDir, UUID.randomUUID().toString())
     val pathDir = File(context.cacheDir, UUID.randomUUID().toString())
@@ -25,9 +25,10 @@ class ProcessEnv constructor(
         home.mkdir()
         pathDir.mkdir()
 
-        val sshDir = File(home, ".ssh").apply {
-            this.mkdir()
-        }
+        val sshDir =
+            File(home, ".ssh").apply {
+                this.mkdir()
+            }
 
         val srcKey = Utils.privateKeyFile(context)
 

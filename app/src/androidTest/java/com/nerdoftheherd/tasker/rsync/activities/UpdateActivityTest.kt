@@ -42,23 +42,25 @@ class UpdateActivityTest {
 
     @Test
     fun newerVersion() {
-        val versionInfo = VersionInfo(
-            Version("9999"),
-            URL("http://example.com/"),
-            URL("http://example.org/")
-        )
+        val versionInfo =
+            VersionInfo(
+                Version("9999"),
+                URL("http://example.com/"),
+                URL("http://example.org/"),
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            UpdateActivity::class.java
-        )
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                UpdateActivity::class.java,
+            )
 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
             onView(withId(androidx.appcompat.R.id.action_bar)).check(
-                matches(hasDescendant(withText(R.string.update_available)))
+                matches(hasDescendant(withText(R.string.update_available))),
             )
             onView(withId(R.id.buttonUpdate)).check(matches(isEnabled()))
             onView(withId(R.id.textInfo)).check(matches(isDisplayed()))
@@ -67,23 +69,25 @@ class UpdateActivityTest {
 
     @Test
     fun sameVersion() {
-        val versionInfo = VersionInfo(
-            Version.current(ApplicationProvider.getApplicationContext()),
-            URL("http://example.com/"),
-            URL("http://example.org/")
-        )
+        val versionInfo =
+            VersionInfo(
+                Version.current(ApplicationProvider.getApplicationContext()),
+                URL("http://example.com/"),
+                URL("http://example.org/"),
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            UpdateActivity::class.java
-        )
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                UpdateActivity::class.java,
+            )
 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
             onView(withId(androidx.appcompat.R.id.action_bar)).check(
-                matches(hasDescendant(withText(R.string.update_installed)))
+                matches(hasDescendant(withText(R.string.update_installed))),
             )
             onView(withId(R.id.textSummary)).check(matches(withText(R.string.updated_summary)))
             onView(withId(R.id.buttonUpdate)).check(matches(not(isEnabled())))
@@ -93,16 +97,18 @@ class UpdateActivityTest {
 
     @Test
     fun moreInfoViewsUrl() {
-        val versionInfo = VersionInfo(
-            Version("9999"),
-            URL("http://example.com/"),
-            URL("http://example.org/")
-        )
+        val versionInfo =
+            VersionInfo(
+                Version("9999"),
+                URL("http://example.com/"),
+                URL("http://example.org/"),
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            UpdateActivity::class.java
-        )
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                UpdateActivity::class.java,
+            )
 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra("info", versionInfo)
@@ -116,8 +122,8 @@ class UpdateActivityTest {
             intended(
                 allOf(
                     hasAction(Intent.ACTION_VIEW),
-                    hasData(versionInfo.info.toString())
-                )
+                    hasData(versionInfo.info.toString()),
+                ),
             )
         }
     }

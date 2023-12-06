@@ -32,9 +32,10 @@ class RsyncRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        val exp = assertThrows(RuntimeException::class.java) {
-            RsyncRunner().run(context, TaskerInput(config))
-        }
+        val exp =
+            assertThrows(RuntimeException::class.java) {
+                RsyncRunner().run(context, TaskerInput(config))
+            }
 
         assertEquals(context.getString(R.string.no_private_key), exp.message)
     }
@@ -86,7 +87,7 @@ class RsyncRunnerTest {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             InstrumentationRegistry.getInstrumentation().uiAutomation.grantRuntimePermission(
                 context.packageName,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             )
         }
 
@@ -100,11 +101,12 @@ class RsyncRunnerTest {
         File(sourceDir, "testfile").createNewFile()
         targetDir.deleteRecursively()
 
-        val config = RsyncConfig(
-            "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
-            "",
-            false
-        )
+        val config =
+            RsyncConfig(
+                "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
+                "",
+                false,
+            )
         RsyncRunner().run(context, TaskerInput(config))
 
         assertTrue(File(targetDir, "testfile").exists())

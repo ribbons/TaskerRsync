@@ -29,9 +29,10 @@ class PublicKeyRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        val exp = assertThrows(RuntimeException::class.java) {
-            PublicKeyRunner().run(context, TaskerInput(Unit))
-        }
+        val exp =
+            assertThrows(RuntimeException::class.java) {
+                PublicKeyRunner().run(context, TaskerInput(Unit))
+            }
 
         assertEquals(context.getString(R.string.no_private_key), exp.message)
     }
@@ -51,7 +52,7 @@ class PublicKeyRunnerTest {
         val output = result as TaskerPluginResultSucess<PublicKeyOutput>
         assertEquals(
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIhSZ6CSqV74qSOMgd3dZOGufal53zMe1CVTEpdyXrMY rsync-for-tasker@android",
-            output.regular?.pubkey
+            output.regular?.pubkey,
         )
     }
 }

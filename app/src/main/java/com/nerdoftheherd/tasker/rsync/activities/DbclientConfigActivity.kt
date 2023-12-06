@@ -41,12 +41,12 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             binding.checkForUpdates.isChecked &&
             context.checkSelfPermission(
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_DENIED
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_DENIED
         ) {
             this.requestPermissions(
                 arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                0
+                0,
             )
             return
         }
@@ -57,7 +57,7 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -68,19 +68,21 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         }
     }
 
-    override fun assignFromInput(input: TaskerInput<DbclientConfig>) = input.regular.run {
-        binding.editTextArgs.setText(this.args)
-        binding.editTextKnownHosts.setText(this.knownHosts)
-        binding.editTextTimeoutSeconds.setText(this.timeoutSeconds.toString())
-        binding.checkForUpdates.isChecked = this.checkForUpdates
-    }
+    override fun assignFromInput(input: TaskerInput<DbclientConfig>) =
+        input.regular.run {
+            binding.editTextArgs.setText(this.args)
+            binding.editTextKnownHosts.setText(this.knownHosts)
+            binding.editTextTimeoutSeconds.setText(this.timeoutSeconds.toString())
+            binding.checkForUpdates.isChecked = this.checkForUpdates
+        }
 
-    override val inputForTasker get() = TaskerInput(
-        DbclientConfig(
-            binding.editTextArgs.text.toString(),
-            binding.editTextKnownHosts.text.toString(),
-            binding.editTextTimeoutSeconds.text.toString().toInt(),
-            binding.checkForUpdates.isChecked
+    override val inputForTasker get() =
+        TaskerInput(
+            DbclientConfig(
+                binding.editTextArgs.text.toString(),
+                binding.editTextKnownHosts.text.toString(),
+                binding.editTextTimeoutSeconds.text.toString().toInt(),
+                binding.checkForUpdates.isChecked,
+            ),
         )
-    )
 }

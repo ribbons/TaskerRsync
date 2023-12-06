@@ -12,5 +12,5 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 @TaskerOutputObject
 class PublicKeyOutput(
     @get:TaskerOutputVariable("pubkey", labelResIdName = "public_key", htmlLabelResIdName = "public_key_desc")
-    var pubkey: String
+    var pubkey: String,
 )
