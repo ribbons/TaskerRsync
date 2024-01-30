@@ -1,5 +1,5 @@
 ---
-# Copyright © 2021-2023 Matt Robinson
+# Copyright © 2021-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -30,7 +30,7 @@ jobs:
           java-version: 17
 
       - name: Generate release bundle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: assembleRelease
         env:
