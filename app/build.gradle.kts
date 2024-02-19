@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -98,7 +98,7 @@ android {
         }
     }
 
-    packagingOptions {
+    packaging {
         jniLibs.excludes.add("lib/*/libdropbear.so")
         jniLibs.excludes.add("lib/*/libdropbearconvert.so")
         jniLibs.excludes.add("lib/*/libscp.so")
