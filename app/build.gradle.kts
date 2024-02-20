@@ -43,7 +43,7 @@ android {
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 19
-        targetSdk = 33
+        targetSdk = 34
         versionCode = gitVersionCode()
         versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -86,9 +86,8 @@ android {
         // build causes problems updating single dependencies via PRs
         disable += "GradleDependency"
 
-        // Looks like an update to taskerpluginlibrary will be needed
-        // before we can target API level 34 due to foreground service
-        // types now being required
+        // GitHub Actions installs pre-release SDKs which triggers
+        // this before the final SDK, AGP & Android Studio release
         disable += "OldTargetApi"
     }
 
