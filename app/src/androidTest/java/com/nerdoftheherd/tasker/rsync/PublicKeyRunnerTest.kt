@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -11,10 +11,11 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,12 +30,23 @@ class PublicKeyRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        val exp =
-            assertThrows(RuntimeException::class.java) {
-                PublicKeyRunner().run(context, TaskerInput(Unit))
-            }
+        val output = PublicKeyRunner().run(context, TaskerInput(Unit))
+        assertFalse(output.success)
 
-        assertEquals(context.getString(R.string.no_private_key), exp.message)
+        val error = output as TaskerPluginResultErrorWithOutput<PublicKeyOutput>
+        assertEquals(context.getString(R.string.no_private_key), error.message)
+    }
+
+    @Test
+    fun errorFromFailure() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val output = PublicKeyRunner().run(context, TaskerInput(Unit))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<PublicKeyOutput>
+        assertEquals("Exited: Bad buf_getptr\n", error.message)
     }
 
     @Test

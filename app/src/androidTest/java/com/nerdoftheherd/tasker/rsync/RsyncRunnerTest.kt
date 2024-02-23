@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -12,11 +12,12 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,12 +33,11 @@ class RsyncRunnerTest {
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
 
-        val exp =
-            assertThrows(RuntimeException::class.java) {
-                RsyncRunner().run(context, TaskerInput(config))
-            }
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
 
-        assertEquals(context.getString(R.string.no_private_key), exp.message)
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+        assertEquals(context.getString(R.string.no_private_key), error.message)
     }
 
     @Test
@@ -47,9 +47,11 @@ class RsyncRunnerTest {
 
         File(context.filesDir, "id_dropbear").createNewFile()
 
-        assertThrows(RuntimeException::class.java) {
-            RsyncRunner().run(context, TaskerInput(config))
-        }
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+        assertTrue(error.message.startsWith("rsync: --invalid: unknown option"))
     }
 
     @Test

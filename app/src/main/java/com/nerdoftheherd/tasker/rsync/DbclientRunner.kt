@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
@@ -43,7 +44,10 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
         val libDir = context.applicationInfo.nativeLibraryDir
 
         if (!Utils.privateKeyFile(context).exists()) {
-            throw java.lang.RuntimeException(context.getString(R.string.no_private_key))
+            return TaskerPluginResultErrorWithOutput(
+                Utils.ERROR_NO_PRIVATE_KEY,
+                context.getString(R.string.no_private_key),
+            )
         }
 
         Log.d(TAG, "About to run dbclient")
@@ -130,7 +134,7 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                 return TaskerPluginResultSucess(CommandOutput(stdout.toString(), stderr.toString()))
             }
 
-            throw RuntimeException(stderr.toString())
+            return TaskerPluginResultErrorWithOutput(result, stderr.toString())
         }
     }
 }

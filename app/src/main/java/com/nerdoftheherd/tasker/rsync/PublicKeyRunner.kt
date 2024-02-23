@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerActionNoInput
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
+import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
 import java.io.BufferedReader
@@ -38,7 +39,10 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
         val privateKey = Utils.privateKeyFile(context)
 
         if (!privateKey.exists()) {
-            throw java.lang.RuntimeException(context.getString(R.string.no_private_key))
+            return TaskerPluginResultErrorWithOutput(
+                Utils.ERROR_NO_PRIVATE_KEY,
+                context.getString(R.string.no_private_key),
+            )
         }
 
         Log.d(TAG, "About to run dropbearkey")
@@ -57,7 +61,8 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
         Log.d(TAG, "Completed, exit code $retcode")
 
         if (retcode != 0) {
-            throw RuntimeException(
+            return TaskerPluginResultErrorWithOutput(
+                retcode,
                 dropbearkey.errorStream.bufferedReader().use(BufferedReader::readText),
             )
         }
