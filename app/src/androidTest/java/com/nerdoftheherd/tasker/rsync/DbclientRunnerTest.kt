@@ -27,7 +27,7 @@ class DbclientRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("-h", "", 0, false)
+        val config = DbclientConfig("-h", "", false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -42,7 +42,7 @@ class DbclientRunnerTest {
     @Test
     fun errorFromFailure() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("localhost", "", 0, false)
+        val config = DbclientConfig("localhost", "", false)
 
         File(context.filesDir, "id_dropbear").createNewFile()
 
@@ -56,7 +56,7 @@ class DbclientRunnerTest {
     @Test
     fun successFromNormalExit() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("-h", "", 0, false)
+        val config = DbclientConfig("-h", "", false)
 
         File(context.filesDir, "id_dropbear").createNewFile()
 
@@ -67,7 +67,7 @@ class DbclientRunnerTest {
     @Test
     fun captureStderr() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("-h", "", 0, false)
+        val config = DbclientConfig("-h", "", false)
 
         File(context.filesDir, "id_dropbear").createNewFile()
 
@@ -83,13 +83,13 @@ class DbclientRunnerTest {
     fun errorFromTimeout() {
         val assets = InstrumentationRegistry.getInstrumentation().context.assets
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = DbclientConfig("test@example.com", "", 1, false)
+        val config = DbclientConfig("test@example.com", "", false)
 
         File(context.filesDir, "id_dropbear").outputStream().use { fileOut ->
             assets.open("private_key_ed25519").copyTo(fileOut)
         }
 
-        val output = DbclientRunner().run(context, TaskerInput(config))
+        val output = DbclientRunner(1500).run(context, TaskerInput(config))
         assertFalse(output.success)
     }
 }

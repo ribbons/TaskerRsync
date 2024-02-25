@@ -21,7 +21,10 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
-class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
+private const val TIMEOUT_MARGIN = 1000
+
+class DbclientRunner(private val timeoutOverride: Int? = null) :
+    TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
@@ -59,6 +62,7 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
         val builder = ProcessBuilder(args)
         val stdout = StringBuilder()
         val stderr = StringBuilder()
+        val timeoutMS = timeoutOverride ?: this.requestedTimeout ?: 0
         var aborted = false
         var stdoutEnded = false
         var stderrEnded = false
@@ -96,14 +100,18 @@ class DbclientRunner : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>()
                 }
             }
 
-            if (input.regular.timeoutSeconds > 0) {
+            if (timeoutMS > TIMEOUT_MARGIN) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (!dbclient.waitFor(input.regular.timeoutSeconds.toLong(), TimeUnit.SECONDS)) {
+                    if (!dbclient.waitFor(
+                            timeoutMS.toLong() - TIMEOUT_MARGIN,
+                            TimeUnit.MILLISECONDS,
+                        )
+                    ) {
                         dbclient.destroyForcibly()
                         aborted = true
                     }
                 } else {
-                    val end = System.currentTimeMillis() + input.regular.timeoutSeconds * 1000
+                    val end = System.currentTimeMillis() + timeoutMS - TIMEOUT_MARGIN
 
                     while (end > System.currentTimeMillis()) {
                         try {

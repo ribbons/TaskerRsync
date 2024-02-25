@@ -38,20 +38,6 @@
         android:typeface="monospace"
         android:minHeight="48dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/timeout_seconds"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/editTextTimeoutSeconds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:importantForAutofill="no" />
-
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/checkForUpdates"
         android:text="@string/check_for_updates"

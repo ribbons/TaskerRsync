@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -72,7 +72,6 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         input.regular.run {
             binding.editTextArgs.setText(this.args)
             binding.editTextKnownHosts.setText(this.knownHosts)
-            binding.editTextTimeoutSeconds.setText(this.timeoutSeconds.toString())
             binding.checkForUpdates.isChecked = this.checkForUpdates
         }
 
@@ -81,7 +80,6 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
             DbclientConfig(
                 binding.editTextArgs.text.toString(),
                 binding.editTextKnownHosts.text.toString(),
-                binding.editTextTimeoutSeconds.text.toString().toInt(),
                 binding.checkForUpdates.isChecked,
             ),
         )
