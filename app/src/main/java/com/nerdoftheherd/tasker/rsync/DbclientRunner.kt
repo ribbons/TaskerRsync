@@ -142,6 +142,12 @@ class DbclientRunner(private val timeoutOverride: Int? = null) :
                 return TaskerPluginResultSucess(CommandOutput(stdout.toString(), stderr.toString()))
             }
 
+            if (aborted) {
+                stderr.appendLine(
+                    context.getString(R.string.process_killed_timeout),
+                )
+            }
+
             return TaskerPluginResultErrorWithOutput(result, stderr.toString())
         }
     }

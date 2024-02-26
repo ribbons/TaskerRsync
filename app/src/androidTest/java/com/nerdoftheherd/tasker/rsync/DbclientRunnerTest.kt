@@ -91,5 +91,8 @@ class DbclientRunnerTest {
 
         val output = DbclientRunner(1500).run(context, TaskerInput(config))
         assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+        assertTrue(error.message.endsWith("${context.getString(R.string.process_killed_timeout)}\n"))
     }
 }
