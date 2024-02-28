@@ -17,9 +17,9 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
-import java.io.BufferedReader
 
-class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
+class RsyncRunner(private val timeoutOverride: Int? = null) :
+    TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
@@ -55,21 +55,19 @@ class RsyncRunner : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
         args.addAll(ArgumentParser.parse(input.regular.args))
 
         val builder = ProcessBuilder(args)
+        val timeoutMS = timeoutOverride ?: this.requestedTimeout ?: 0
 
         ProcessEnv(context, builder, input.regular.knownHosts).use {
-            val rsync = builder.start()
-
-            val result = rsync.waitFor()
-            val stdout = rsync.inputStream.bufferedReader().use(BufferedReader::readText)
-            val stderr = rsync.errorStream.bufferedReader().use(BufferedReader::readText)
-
-            Log.d(TAG, "Run completed, exit code $result")
+            val handler = ProcessHandler(context, builder, timeoutMS)
+            val result = handler.run()
 
             if (result == 0) {
-                return TaskerPluginResultSucess(CommandOutput(stdout, stderr))
+                return TaskerPluginResultSucess(
+                    CommandOutput(handler.stdout.toString(), handler.stderr.toString()),
+                )
             }
 
-            return TaskerPluginResultErrorWithOutput(result, stderr)
+            return TaskerPluginResultErrorWithOutput(result, handler.stderr.toString())
         }
     }
 }

@@ -17,11 +17,6 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
-import java.io.IOException
-import java.util.concurrent.TimeUnit
-import kotlin.concurrent.thread
-
-private const val TIMEOUT_MARGIN = 1000
 
 class DbclientRunner(private val timeoutOverride: Int? = null) :
     TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
@@ -60,95 +55,19 @@ class DbclientRunner(private val timeoutOverride: Int? = null) :
         args.addAll(ArgumentParser.parse(input.regular.args))
 
         val builder = ProcessBuilder(args)
-        val stdout = StringBuilder()
-        val stderr = StringBuilder()
         val timeoutMS = timeoutOverride ?: this.requestedTimeout ?: 0
-        var aborted = false
-        var stdoutEnded = false
-        var stderrEnded = false
 
         ProcessEnv(context, builder, input.regular.knownHosts).use {
-            val dbclient = builder.start()
-
-            thread {
-                dbclient.inputStream.bufferedReader().use {
-                    while (!aborted) {
-                        try {
-                            val line = it.readLine() ?: break
-                            stdout.appendLine(line)
-                        } catch (_: IOException) {
-                            break
-                        }
-                    }
-
-                    stdoutEnded = true
-                }
-            }
-
-            thread {
-                dbclient.errorStream.bufferedReader().use {
-                    while (!aborted) {
-                        try {
-                            val line = it.readLine() ?: break
-                            stderr.appendLine(line)
-                        } catch (_: IOException) {
-                            break
-                        }
-                    }
-
-                    stderrEnded = true
-                }
-            }
-
-            if (timeoutMS > TIMEOUT_MARGIN) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (!dbclient.waitFor(
-                            timeoutMS.toLong() - TIMEOUT_MARGIN,
-                            TimeUnit.MILLISECONDS,
-                        )
-                    ) {
-                        dbclient.destroyForcibly()
-                        aborted = true
-                    }
-                } else {
-                    val end = System.currentTimeMillis() + timeoutMS - TIMEOUT_MARGIN
-
-                    while (end > System.currentTimeMillis()) {
-                        try {
-                            dbclient.exitValue()
-                            break
-                        } catch (_: IllegalThreadStateException) {
-                        }
-
-                        Thread.sleep(250)
-                    }
-
-                    if (end < System.currentTimeMillis()) {
-                        dbclient.destroy()
-                        aborted = true
-                    }
-                }
-            }
-
-            val result = dbclient.waitFor()
-
-            while (!stdoutEnded || !stderrEnded) {
-                Thread.sleep(100)
-            }
-
-            Log.d(TAG, "Run completed, exit code $result")
+            val handler = ProcessHandler(context, builder, timeoutMS)
+            val result = handler.run()
 
             if (result == 0) {
-                return TaskerPluginResultSucess(CommandOutput(stdout.toString(), stderr.toString()))
-            }
-
-            if (aborted) {
-                stderr.appendLine(
-                    context.getString(R.string.process_killed_timeout),
+                return TaskerPluginResultSucess(
+                    CommandOutput(handler.stdout.toString(), handler.stderr.toString()),
                 )
             }
 
-            return TaskerPluginResultErrorWithOutput(result, stderr.toString())
+            return TaskerPluginResultErrorWithOutput(result, handler.stderr.toString())
         }
     }
 }

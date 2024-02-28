@@ -115,4 +115,21 @@ class RsyncRunnerTest {
         sourceDir.deleteRecursively()
         targetDir.deleteRecursively()
     }
+
+    @Test(timeout = 1500)
+    fun errorFromTimeout() {
+        val assets = InstrumentationRegistry.getInstrumentation().context.assets
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = RsyncConfig("-v test@example.com:remote local", "", false)
+
+        File(context.filesDir, "id_dropbear").outputStream().use { fileOut ->
+            assets.open("private_key_ed25519").copyTo(fileOut)
+        }
+
+        val output = RsyncRunner(1500).run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+        assertTrue(error.message.endsWith("\n${context.getString(R.string.process_killed_timeout)}\n"))
+    }
 }
