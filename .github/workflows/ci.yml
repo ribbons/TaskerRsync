@@ -65,7 +65,7 @@ jobs:
     strategy:
       matrix:
         api-level:
-          - 19
+          - 21
           - 29
           - 30
       fail-fast: false
@@ -91,7 +91,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.api-level == 30 && 'aosp_atd' || 'default' }}
-          sdcard-path-or-size: ${{ matrix.api-level == 19 && '100M' || '' }}
+          sdcard-path-or-size: ${{ matrix.api-level == 21 && '100M' || '' }}
           script: for i in {1..3}; do
             ./gradlew connectedCheck && r=0 && break || r=$?; done; exit $r
         env:
