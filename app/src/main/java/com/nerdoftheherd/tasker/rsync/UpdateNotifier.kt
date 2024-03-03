@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022-2023 Matt Robinson
+ * Copyright © 2022-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -7,6 +7,7 @@
 package com.nerdoftheherd.tasker.rsync
 
 import android.Manifest
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -16,9 +17,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.AtomicFile
 import android.util.Log
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import com.nerdoftheherd.tasker.rsync.activities.UpdateActivity
 import java.io.File
 import java.net.HttpURLConnection
@@ -47,35 +45,30 @@ class UpdateNotifier {
 
             if (info.version > current) {
                 Log.d(TAG, "Update found, about to show notification")
-                createNotificationChannel(context)
                 showNotification(context, info)
             }
-        }
-
-        private fun createNotificationChannel(context: Context) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                return
-            }
-
-            val channel =
-                NotificationChannel(
-                    NOTIF_CHANNEL,
-                    context.getString(R.string.channel_updates),
-                    NotificationManager.IMPORTANCE_LOW,
-                )
-
-            val notificationManager =
-                context.getSystemService(
-                    Context.NOTIFICATION_SERVICE,
-                ) as NotificationManager
-
-            notificationManager.createNotificationChannel(channel)
         }
 
         private fun showNotification(
             context: Context,
             info: VersionInfo,
         ) {
+            val manager =
+                context.getSystemService(
+                    Context.NOTIFICATION_SERVICE,
+                ) as NotificationManager
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel =
+                    NotificationChannel(
+                        NOTIF_CHANNEL,
+                        context.getString(R.string.channel_updates),
+                        NotificationManager.IMPORTANCE_LOW,
+                    )
+
+                manager.createNotificationChannel(channel)
+            }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 context.checkSelfPermission(
                     Manifest.permission.POST_NOTIFICATIONS,
@@ -98,19 +91,25 @@ class UpdateNotifier {
             val updatePI = PendingIntent.getActivity(context, 0, updateIntent, pendingFlags)
 
             val notifBuilder =
-                NotificationCompat.Builder(context, NOTIF_CHANNEL)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Notification.Builder(context, NOTIF_CHANNEL)
+                } else {
+                    @Suppress("DEPRECATION")
+                    Notification.Builder(context)
+                }
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(context.getString(R.string.update_available))
                     .setContentText(context.getString(R.string.update_notif_text, info.version))
                     .setContentIntent(updatePI)
-                    .setColor(ContextCompat.getColor(context, R.color.primary))
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                notifBuilder.priority = NotificationCompat.PRIORITY_LOW
+                @Suppress("DEPRECATION")
+                notifBuilder.setPriority(Notification.PRIORITY_LOW)
+            } else {
+                notifBuilder.setColor(context.getColor(R.color.primary))
             }
 
-            NotificationManagerCompat.from(context)
-                .notify(NOTIF_ID, notifBuilder.build())
+            manager.notify(NOTIF_ID, notifBuilder.build())
         }
     }
 }
