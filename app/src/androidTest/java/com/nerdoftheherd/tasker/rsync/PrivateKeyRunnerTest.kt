@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -28,12 +28,16 @@ class PrivateKeyRunnerTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = TaskerInput(PrivateKeyConfig())
 
-        val keyFile = File(context.filesDir, "id_dropbear")
-        keyFile.delete()
+        val privKeyFile = File(context.filesDir, "id_dropbear")
+        privKeyFile.delete()
+
+        val pubKeyFile = File(context.filesDir, "id_dropbear.pub")
+        pubKeyFile.delete()
 
         val result = PrivateKeyRunner().run(context, config)
         assertTrue(result.success)
-        assertTrue(keyFile.exists())
+        assertTrue(privKeyFile.exists())
+        assertFalse(pubKeyFile.exists())
     }
 
     @Test

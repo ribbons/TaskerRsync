@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -17,6 +17,7 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultError
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import java.io.BufferedReader
+import java.io.File
 
 class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
     override val notificationProperties get() =
@@ -65,6 +66,7 @@ class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
 
         val retcode = dropbearkey.waitFor()
         Log.d(TAG, "Completed, exit code $retcode")
+        File(context.filesDir, "${Utils.KEY_FILENAME}.pub").delete()
 
         return if (retcode == 0) {
             TaskerPluginResultSucess()
