@@ -18,6 +18,25 @@ This app provides the following actions for use within Tasker:
 The packaged native binaries of [Dropbear][2] and [rsync][3] are my own builds
 which I keep updated with new releases.
 
+Reasons for requested permissions:
+
+- `FOREGROUND_SERVICE` \
+  Run actions for more than a short time when triggered from older versions of
+  Tasker.
+- `INTERNET` \
+  Allow connecting to SSH servers (even if the SSH server is on your local
+  network Android prevents connections without this permission).
+- `MANAGE_EXTERNAL_STORAGE` \
+  (Android 11+) To read or write the files on your device with rsync.
+- `WRITE_EXTERNAL_STORAGE` \
+  (Android 10 and below) To read or write the files on your device with rsync.
+- `POST_NOTIFICATIONS` \
+  Show a notification that a new version is available (if checking for updates
+  is enabled).
+- `REQUEST_INSTALL_PACKAGES` \
+  Prompt to install an update after you have tapped on the update notification
+  and chosen 'Download'.
+
 [1]: https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm
 [2]: https://matt.ucc.asn.au/dropbear/dropbear.html
 [3]: https://rsync.samba.org/
