@@ -4,6 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import groovy.util.Node
+import groovy.util.NodeList
+import groovy.xml.XmlParser
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import java.io.ByteArrayOutputStream
 
@@ -102,6 +105,55 @@ android {
         jniLibs.excludes.add("lib/*/libdropbearconvert.so")
         jniLibs.excludes.add("lib/*/libscp.so")
     }
+}
+
+abstract class ReadmePermsCheckTask : DefaultTask() {
+    @get:InputFiles
+    var manifestDir: FileCollection = project.objects.fileCollection()
+
+    @get:InputFile
+    val readmeFile = project.objects.fileProperty()
+
+    @get:Input
+    val applicationId = project.objects.property<String>()
+
+    @TaskAction
+    fun execute() {
+        val permNodes =
+            XmlParser(false, false).parse(
+                File(manifestDir.singleFile, "AndroidManifest.xml"),
+            ).get("uses-permission") as NodeList
+
+        val manifestPerms =
+            permNodes.map { perm ->
+                (perm as Node).attribute("android:name").toString()
+                    .removePrefix("android.permission.")
+            }.filter { !it.startsWith(applicationId.get()) }
+
+        val permLine = Regex("""^ - `([A-Z_]+)` \\$""")
+        val readmePerms =
+            readmeFile.get().asFile.readLines().mapNotNull { line ->
+                permLine.matchEntire(line)?.groupValues?.get(1)
+            }
+
+        if (manifestPerms.sorted() != readmePerms.sorted()) {
+            throw GradleException(
+                "Manifest permissions mismatch with readme:\n" +
+                    "  AndroidManifest.xml: $manifestPerms\n" +
+                    "  README.md: $readmePerms",
+            )
+        }
+    }
+}
+
+tasks.register<ReadmePermsCheckTask>("readmePermsCheck") {
+    manifestDir = tasks.getByName("processDebugManifest").outputs.files
+    readmeFile = file("../README.md")
+    applicationId = android.defaultConfig.applicationId
+}
+
+tasks.check {
+    dependsOn("readmePermsCheck")
 }
 
 dependencies {
