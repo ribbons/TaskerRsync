@@ -35,7 +35,7 @@ class DbclientRunner(private val timeoutOverride: Int? = null) :
         context: Context,
         input: TaskerInput<DbclientConfig>,
     ): TaskerPluginResult<CommandOutput> {
-        if (input.regular.checkForUpdates) {
+        if (input.regular.checkForUpdates != false) {
             UpdateNotifier.checkInBackground(context)
         }
 

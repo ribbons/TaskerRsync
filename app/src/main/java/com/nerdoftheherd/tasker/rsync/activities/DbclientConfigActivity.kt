@@ -8,6 +8,7 @@ package com.nerdoftheherd.tasker.rsync.activities
 
 import android.Manifest
 import android.content.Context
+import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -72,7 +73,14 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         input.regular.run {
             binding.editTextArgs.setText(this.args)
             binding.editTextKnownHosts.setText(this.knownHosts)
-            binding.checkForUpdates.isChecked = this.checkForUpdates
+            binding.checkForUpdates.isChecked =
+                this.checkForUpdates ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    context.packageManager.getInstallSourceInfo(
+                        context.packageName,
+                    ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE
+                } else {
+                    true
+                }
         }
 
     override val inputForTasker get() =

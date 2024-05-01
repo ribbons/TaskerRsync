@@ -35,7 +35,7 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
         context: Context,
         input: TaskerInput<RsyncConfig>,
     ): TaskerPluginResult<CommandOutput> {
-        if (input.regular.checkForUpdates) {
+        if (input.regular.checkForUpdates != false) {
             UpdateNotifier.checkInBackground(context)
         }
 

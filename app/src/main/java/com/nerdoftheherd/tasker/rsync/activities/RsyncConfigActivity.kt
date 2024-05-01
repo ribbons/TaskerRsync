@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -8,6 +8,7 @@ package com.nerdoftheherd.tasker.rsync.activities
 
 import android.Manifest
 import android.content.Context
+import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -72,7 +73,14 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         input.regular.run {
             binding.editTextArgs.setText(this.args)
             binding.editTextKnownHosts.setText(this.knownHosts)
-            binding.checkForUpdates.isChecked = this.checkForUpdates
+            binding.checkForUpdates.isChecked =
+                this.checkForUpdates ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    context.packageManager.getInstallSourceInfo(
+                        context.packageName,
+                    ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE
+                } else {
+                    true
+                }
         }
 
     override val inputForTasker get() =
