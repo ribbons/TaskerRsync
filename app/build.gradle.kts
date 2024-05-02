@@ -158,7 +158,7 @@ tasks.check {
 
 dependencies {
     implementation(kotlin("stdlib", KotlinCompilerVersion.VERSION))
-    implementation("androidx.core:core-ktx:1.13.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
