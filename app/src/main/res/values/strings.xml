@@ -25,6 +25,7 @@
     <string name="update_downloading">Downloading update…</string>
     <string name="update">Update</string>
     <string name="more_info">More Info</string>
-    <string name="check_for_updates">Weekly update check (in background)</string>
+    <string name="check_for_updates">Check for app updates</string>
+    <string name="check_for_updates_info">When enabled, check for updates in the background when this action is run (if the app last checked more than a week ago).  A notification is shown if an update is available.</string>
     <string name="process_killed_timeout">Process killed due to impending timeout</string>
 </resources>
