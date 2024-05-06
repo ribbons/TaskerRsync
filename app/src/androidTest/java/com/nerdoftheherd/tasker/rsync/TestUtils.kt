@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -24,10 +24,6 @@ class TestUtils {
                 return volume.directory!!
             }
 
-            // Fall back to using getExternalStorageDirectory even though it is
-            // deprecated as it appears to be the only way of getting this
-            // before Android 11
-            @Suppress("DEPRECATION")
             return Environment.getExternalStorageDirectory()
         }
 
