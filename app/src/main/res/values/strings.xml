@@ -28,4 +28,6 @@
     <string name="check_for_updates">Check for app updates</string>
     <string name="check_for_updates_info">When enabled, check for updates in the background when this action is run (if the app last checked more than a week ago).  A notification is shown if an update is available.</string>
     <string name="process_killed_timeout">Process killed due to impending timeout</string>
+    <string name="missing_legacy_storage_permission">Rsync for Tasker is missing the \'Storage\' permission needed to access \'%1$s\'.  This can usually be found under Apps &amp; notifications -> Permission manager -> Storage.</string>
+    <string name="missing_storage_permission">Rsync for Tasker is missing the \'All files access\' permission needed to access \'%1$s\'.  This can usually be found under Apps -> Special app access -> All files access.</string>
 </resources>

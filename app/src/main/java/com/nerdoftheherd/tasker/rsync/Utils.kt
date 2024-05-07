@@ -12,6 +12,7 @@ import java.io.File
 class Utils {
     companion object {
         const val ERROR_NO_PRIVATE_KEY = 100
+        const val ERROR_MISSING_STORAGE_PERMISSION = 101
         const val KEY_FILENAME = "id_dropbear"
 
         fun privateKeyFile(context: Context): File {

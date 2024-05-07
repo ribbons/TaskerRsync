@@ -27,26 +27,44 @@ class TestUtils {
             return Environment.getExternalStorageDirectory()
         }
 
-        fun setManageStoragePermission(
+        fun setExternalStoragePermission(
             context: Context,
             enabled: Boolean,
         ) {
-            val newstate = if (enabled) "allow" else "deny"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                val permAllowed = fun(): Boolean {
+                    return appOps.unsafeCheckOpNoThrow(
+                        "android:manage_external_storage",
+                        Process.myUid(),
+                        context.packageName,
+                    ) == AppOpsManager.MODE_ALLOWED
+                }
 
-            InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
-                "appops set --uid ${context.packageName} MANAGE_EXTERNAL_STORAGE $newstate",
-            )
+                if (permAllowed() == enabled) {
+                    return
+                }
 
-            val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
+                    "appops set ${context.packageName} MANAGE_EXTERNAL_STORAGE " +
+                        if (enabled) "allow" else "deny",
+                )
 
-            while (
-                appOps.unsafeCheckOpNoThrow(
-                    "android:manage_external_storage",
-                    Process.myUid(),
-                    context.packageName,
-                ) != AppOpsManager.MODE_ALLOWED == enabled
-            ) {
-                Thread.sleep(1)
+                while (permAllowed() != enabled) {
+                    Thread.sleep(1)
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (enabled) {
+                    InstrumentationRegistry.getInstrumentation().uiAutomation.grantRuntimePermission(
+                        context.packageName,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else {
+                    InstrumentationRegistry.getInstrumentation().uiAutomation.revokeRuntimePermission(
+                        context.packageName,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                }
             }
         }
     }

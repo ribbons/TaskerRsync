@@ -19,10 +19,13 @@ import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import java.io.File
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class RsyncRunnerTest {
     @Test
@@ -81,19 +84,10 @@ class RsyncRunnerTest {
     }
 
     @Test
-    fun copyFromAndToPrimaryStorage() {
+    fun syncFromAndToPrimaryStorage() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            TestUtils.setManageStoragePermission(context, true)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            InstrumentationRegistry.getInstrumentation().uiAutomation.grantRuntimePermission(
-                context.packageName,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-        }
-
         File(context.filesDir, "id_dropbear").createNewFile()
+        TestUtils.setExternalStoragePermission(context, true)
 
         val pkgName = context.applicationContext.packageName
         val sourceDir = File(TestUtils.primaryStorageDir(context), "$pkgName-source")
@@ -109,7 +103,9 @@ class RsyncRunnerTest {
                 "",
                 false,
             )
-        RsyncRunner().run(context, TaskerInput(config))
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertTrue(output.success)
 
         assertTrue(File(targetDir, "testfile").exists())
         sourceDir.deleteRecursively()
@@ -131,5 +127,132 @@ class RsyncRunnerTest {
 
         val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
         assertTrue(error.message.endsWith("\n${context.getString(R.string.process_killed_timeout)}\n"))
+    }
+
+    @Test
+    fun errorMessageFromMissingSrcPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val srcPath = "${TestUtils.primaryStorageDir(context)}/src"
+        val config = RsyncConfig("$srcPath dest", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+        TestUtils.setExternalStoragePermission(context, false)
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            assertEquals(
+                context.getString(R.string.missing_legacy_storage_permission, srcPath),
+                error.message,
+            )
+            return
+        }
+
+        assertEquals(
+            context.getString(R.string.missing_storage_permission, srcPath),
+            error.message,
+        )
+    }
+
+    @Test
+    fun errorMessageFromMissingDestPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val destPath = "${TestUtils.primaryStorageDir(context)}/dest"
+        val config = RsyncConfig("src $destPath", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+        TestUtils.setExternalStoragePermission(context, false)
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            assertEquals(
+                context.getString(R.string.missing_legacy_storage_permission, destPath),
+                error.message,
+            )
+            return
+        }
+
+        assertEquals(
+            context.getString(R.string.missing_storage_permission, destPath),
+            error.message,
+        )
+    }
+
+    @Test
+    fun errorMessageFromMissingLogPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val logPath = "${TestUtils.primaryStorageDir(context)}/rsync.log"
+        val config = RsyncConfig("--log-file=$logPath src dest", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+        TestUtils.setExternalStoragePermission(context, false)
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            assertEquals(
+                context.getString(R.string.missing_legacy_storage_permission, logPath),
+                error.message,
+            )
+            return
+        }
+
+        assertEquals(
+            context.getString(R.string.missing_storage_permission, logPath),
+            error.message,
+        )
+    }
+
+    @Test
+    fun errorMessageFromMissingSdcardPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val config = RsyncConfig("/sdcard/src dest", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+        TestUtils.setExternalStoragePermission(context, false)
+
+        val output = RsyncRunner().run(context, TaskerInput(config))
+        assertFalse(output.success)
+
+        val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            assertEquals(
+                context.getString(R.string.missing_legacy_storage_permission, "/sdcard/src"),
+                error.message,
+            )
+            return
+        }
+
+        assertEquals(
+            context.getString(R.string.missing_storage_permission, "/sdcard/src"),
+            error.message,
+        )
     }
 }
