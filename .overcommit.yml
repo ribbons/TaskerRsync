@@ -30,3 +30,8 @@ PreCommit:
   YamlLint:
     enabled: true
     on_warn: fail
+
+  TestedApiLevels:
+    description: Check CI instrumented test coverage of API levels
+    enabled: true
+    include: app/build.gradle.kts
