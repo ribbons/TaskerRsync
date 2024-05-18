@@ -33,10 +33,10 @@ jobs:
             if [[ $message =~ $pattern ]]; then
               ver=${BASH_REMATCH[3]}
               case "${BASH_REMATCH[1]}" in
-                android-dropbear)
+                com.nerdoftheherd:android-dropbear)
                   echo "* Updated bundled Dropbear binaries to $ver."
                   ;;
-                android-rsync)
+                com.nerdoftheherd:android-rsync)
                   echo "* Updated bundled rsync binary to $ver."
                   ;;
                 *)
