@@ -1,5 +1,5 @@
 ---
-# Copyright © 2022-2023 Matt Robinson
+# Copyright © 2022-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -63,7 +63,6 @@ jobs:
       - name: Create draft release
         uses: actions/github-script@v7
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs')
             const relnotes = fs.readFileSync('relnotes', 'utf8')
