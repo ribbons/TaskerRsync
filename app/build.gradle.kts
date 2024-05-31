@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
-        minSdk = 19
+        minSdk = 21
         targetSdk = 34
         versionCode = gitVersionCode()
         versionName = gitVersionName()

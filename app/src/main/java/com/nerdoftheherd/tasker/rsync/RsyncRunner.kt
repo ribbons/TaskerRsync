@@ -30,10 +30,10 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
         ) { context ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 setColor(ContextCompat.getColor(context, R.color.primary))
             } else {
-                this
+                setColor(context.getColor(R.color.primary))
             }
         }
 

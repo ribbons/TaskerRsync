@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -7,7 +7,6 @@
 package com.nerdoftheherd.tasker.rsync
 
 import android.content.Context
-import android.os.Build
 import android.system.Os
 import java.io.Closeable
 import java.io.File
@@ -41,15 +40,10 @@ class ProcessEnv constructor(
             knownHostsFile.writeText(knownHosts)
         }
 
-        val target = "${context.applicationInfo.nativeLibraryDir}/libdbclient.so"
-        val linkname = "${pathDir.path}/ssh"
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Os.symlink(target, linkname)
-        } else {
-            val ln = ProcessBuilder("ln", "-s", target, linkname)
-            ln.start().waitFor()
-        }
+        Os.symlink(
+            "${context.applicationInfo.nativeLibraryDir}/libdbclient.so",
+            "${pathDir.path}/ssh",
+        )
 
         val env = builder.environment()
         env["HOME"] = home.path
