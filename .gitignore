@@ -13,6 +13,7 @@
 /.idea/jarRepositories.xml
 /.idea/kotlinc.xml
 /.idea/misc.xml
+/.idea/other.xml
 /build
 /captures
 .externalNativeBuild
