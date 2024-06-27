@@ -14,6 +14,7 @@ updates:
       interval: daily
     labels:
       - dependencies
+    open-pull-requests-limit: 3
 
   - package-ecosystem: gradle
     directory: /
@@ -23,3 +24,4 @@ updates:
       - dependencies
     registries:
       - github
+    open-pull-requests-limit: 3
