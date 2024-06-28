@@ -162,7 +162,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
-    implementation("androidx.tracing:tracing:1.2.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.10")
     implementation("com.nerdoftheherd:android-dropbear:2024.85")
