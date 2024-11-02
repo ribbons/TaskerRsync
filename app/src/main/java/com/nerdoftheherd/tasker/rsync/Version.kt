@@ -1,14 +1,11 @@
 /*
- * Copyright © 2022-2023 Matt Robinson
+ * Copyright © 2022-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package com.nerdoftheherd.tasker.rsync
 
-import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -66,19 +63,8 @@ class Version(private val value: String) : Parcelable {
     companion object {
         private val verPattern = Regex("([0-9]+(?:[.][0-9]+)*)(?:-([0-9]+)-[a-f0-9]+)?")
 
-        fun current(context: Context): Version {
-            val info =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    context.packageManager.getPackageInfo(
-                        context.packageName,
-                        PackageManager.PackageInfoFlags.of(0),
-                    )
-                } else {
-                    @Suppress("DEPRECATION")
-                    context.packageManager.getPackageInfo(context.packageName, 0)
-                }
-
-            return Version(info.versionName)
+        val current: Version by lazy {
+            Version(BuildConfig.VERSION_NAME)
         }
     }
 }

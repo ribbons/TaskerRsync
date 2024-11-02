@@ -47,7 +47,7 @@ java {
 
 android {
     namespace = "com.nerdoftheherd.tasker.rsync"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
@@ -74,6 +74,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 
