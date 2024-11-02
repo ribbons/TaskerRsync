@@ -35,7 +35,7 @@ class UpdateNotifier {
 
         @Synchronized
         private fun check(context: Context) {
-            val current = Version.current(context)
+            val current = Version.current
 
             val remoteURL = URL("$VERSION_URL?v=$current")
             val httpConn = remoteURL.openConnection() as HttpURLConnection

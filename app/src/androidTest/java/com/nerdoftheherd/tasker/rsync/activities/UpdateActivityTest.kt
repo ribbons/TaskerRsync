@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022-2023 Matt Robinson
+ * Copyright © 2022-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -71,7 +71,7 @@ class UpdateActivityTest {
     fun sameVersion() {
         val versionInfo =
             VersionInfo(
-                Version.current(ApplicationProvider.getApplicationContext()),
+                Version.current,
                 URL("http://example.com/"),
                 URL("http://example.org/"),
             )
