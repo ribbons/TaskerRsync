@@ -34,9 +34,6 @@ jobs:
 
       - name: Generate release bundle
         run: ./gradlew assembleRelease
-        env:
-          PKG_USERNAME: github-actions
-          PKG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sign release apk
         run: |
