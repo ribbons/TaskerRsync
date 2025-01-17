@@ -7,7 +7,6 @@
 import groovy.util.Node
 import groovy.util.NodeList
 import groovy.xml.XmlParser
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -158,7 +157,6 @@ tasks.check {
 }
 
 dependencies {
-    implementation(kotlin("stdlib", KotlinCompilerVersion.VERSION))
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.activity:activity-ktx:1.10.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
