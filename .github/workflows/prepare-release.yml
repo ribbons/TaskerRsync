@@ -1,5 +1,5 @@
 ---
-# Copyright © 2022-2024 Matt Robinson
+# Copyright © 2022-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -27,7 +27,7 @@ jobs:
       - name: Draft release notes
         run: |
           lasttag=$(git describe --abbrev=0 HEAD)
-          pattern='^Bump ([^ ]+)( from [0-9.]+ to ([0-9.]+))?$'
+          pattern='^Bump ([^ ]+)( from [0-9.-]+ to ([0-9.-]+))?$'
 
           while read -r message; do
             if [[ $message =~ $pattern ]]; then
