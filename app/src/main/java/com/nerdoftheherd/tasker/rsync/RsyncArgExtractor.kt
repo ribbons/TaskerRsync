@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Matt Robinson
+ * Copyright © 2024-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -8,6 +8,8 @@ package com.nerdoftheherd.tasker.rsync
 
 class RsyncArgExtractor(args: List<String>) {
     val paths = ArrayList<String>()
+    var remoteSrcOrDest: Boolean = false
+        private set
 
     companion object {
         private val pathArgs =
@@ -38,6 +40,10 @@ class RsyncArgExtractor(args: List<String>) {
 
             if (!arg.startsWith("-")) {
                 paths += arg
+
+                if (arg.contains(':')) {
+                    remoteSrcOrDest = true
+                }
             }
         }
     }

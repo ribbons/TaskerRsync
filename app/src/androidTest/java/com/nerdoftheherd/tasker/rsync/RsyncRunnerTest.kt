@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -31,7 +31,7 @@ class RsyncRunnerTest {
     @Test
     fun noPrivateKey() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("-h", "", false)
+        val config = RsyncConfig("-V src user@example.com:dest", "", false)
 
         val keyFile = File(context.filesDir, "id_dropbear")
         keyFile.delete()
@@ -48,8 +48,6 @@ class RsyncRunnerTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("--invalid", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
-
         val output = RsyncRunner().run(context, TaskerInput(config))
         assertFalse(output.success)
 
@@ -62,8 +60,6 @@ class RsyncRunnerTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("-V", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
-
         val output = RsyncRunner().run(context, TaskerInput(config))
         assertTrue(output.success)
     }
@@ -72,8 +68,6 @@ class RsyncRunnerTest {
     fun captureStdout() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("-h", "", false)
-
-        File(context.filesDir, "id_dropbear").createNewFile()
 
         val output = RsyncRunner().run(context, TaskerInput(config))
         val outputSuccess = output as TaskerPluginResultSucess<CommandOutput>
@@ -86,7 +80,7 @@ class RsyncRunnerTest {
     @Test
     fun syncFromAndToPrimaryStorage() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        File(context.filesDir, "id_dropbear").createNewFile()
+        File(context.filesDir, "id_dropbear").delete()
         TestUtils.setExternalStoragePermission(context, true)
 
         val pkgName = context.applicationContext.packageName
@@ -139,7 +133,6 @@ class RsyncRunnerTest {
         val srcPath = "${TestUtils.primaryStorageDir(context)}/src"
         val config = RsyncConfig("$srcPath dest", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
         TestUtils.setExternalStoragePermission(context, false)
 
         val output = RsyncRunner().run(context, TaskerInput(config))
@@ -171,7 +164,6 @@ class RsyncRunnerTest {
         val destPath = "${TestUtils.primaryStorageDir(context)}/dest"
         val config = RsyncConfig("src $destPath", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
         TestUtils.setExternalStoragePermission(context, false)
 
         val output = RsyncRunner().run(context, TaskerInput(config))
@@ -203,7 +195,6 @@ class RsyncRunnerTest {
         val logPath = "${TestUtils.primaryStorageDir(context)}/rsync.log"
         val config = RsyncConfig("--log-file=$logPath src dest", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
         TestUtils.setExternalStoragePermission(context, false)
 
         val output = RsyncRunner().run(context, TaskerInput(config))
@@ -234,7 +225,6 @@ class RsyncRunnerTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("/sdcard/src dest", "", false)
 
-        File(context.filesDir, "id_dropbear").createNewFile()
         TestUtils.setExternalStoragePermission(context, false)
 
         val output = RsyncRunner().run(context, TaskerInput(config))

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Matt Robinson
+ * Copyright © 2024-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -91,5 +91,35 @@ class RsyncArgExtractorTest {
             listOf("exclude=file", "src", "dest"),
             extractor.paths,
         )
+    }
+
+    @Test
+    fun localSrcAndDest() {
+        val extractor = RsyncArgExtractor(listOf("src", "dest"))
+        assertEquals(false, extractor.remoteSrcOrDest)
+    }
+
+    @Test
+    fun remoteSrc() {
+        val extractor = RsyncArgExtractor(listOf("user@example.com:src", "dest"))
+        assertEquals(true, extractor.remoteSrcOrDest)
+    }
+
+    @Test
+    fun remoteDest() {
+        val extractor = RsyncArgExtractor(listOf("src", "user@example.com:dest"))
+        assertEquals(true, extractor.remoteSrcOrDest)
+    }
+
+    @Test
+    fun remoteNoUser() {
+        val extractor = RsyncArgExtractor(listOf("src", "example.com:dest"))
+        assertEquals(true, extractor.remoteSrcOrDest)
+    }
+
+    @Test
+    fun remoteHomeDir() {
+        val extractor = RsyncArgExtractor(listOf("src", "user@example.com:"))
+        assertEquals(true, extractor.remoteSrcOrDest)
     }
 }

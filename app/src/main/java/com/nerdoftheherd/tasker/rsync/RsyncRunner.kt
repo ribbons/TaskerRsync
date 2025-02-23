@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -110,7 +110,9 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
         val parsedArgs = ArgumentParser.parse(input.regular.args)
         val argExtractor = RsyncArgExtractor(parsedArgs)
 
-        if (!Utils.privateKeyFile(context).exists()) {
+        if (argExtractor.remoteSrcOrDest &&
+            !Utils.privateKeyFile(context).exists()
+        ) {
             return TaskerPluginResultErrorWithOutput(
                 Utils.ERROR_NO_PRIVATE_KEY,
                 context.getString(R.string.no_private_key),
