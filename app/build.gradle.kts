@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -169,6 +169,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.12.0")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
