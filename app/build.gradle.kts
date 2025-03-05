@@ -7,7 +7,6 @@
 import groovy.util.Node
 import groovy.util.NodeList
 import groovy.xml.XmlParser
-import java.io.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
@@ -17,25 +16,21 @@ plugins {
 }
 
 fun gitVersionCode(): Int {
-    val out = ByteArrayOutputStream()
+    val result =
+        providers.exec {
+            commandLine = arrayListOf("git", "rev-list", "--count", "HEAD")
+        }
 
-    exec {
-        commandLine = arrayListOf("git", "rev-list", "--count", "HEAD")
-        standardOutput = out
-    }
-
-    return out.toString().trimEnd().toInt()
+    return result.standardOutput.asText.get().trimEnd().toInt()
 }
 
 fun gitVersionName(): String {
-    val out = ByteArrayOutputStream()
+    val result =
+        providers.exec {
+            commandLine = arrayListOf("git", "describe", "--tags", "--always")
+        }
 
-    exec {
-        commandLine = arrayListOf("git", "describe", "--tags", "--always")
-        standardOutput = out
-    }
-
-    return out.toString().trimEnd().replace("-g", "-")
+    return result.standardOutput.asText.get().trimEnd().replace("-g", "-")
 }
 
 java {
