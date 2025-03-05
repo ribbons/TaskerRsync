@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022-2024 Matt Robinson
+ * Copyright © 2022-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -7,11 +7,11 @@
 package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.nerdoftheherd.tasker.rsync.R
@@ -82,7 +82,7 @@ class UpdateActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(info.info.toString()),
+                    info.info.toString().toUri(),
                 ),
             )
         }
