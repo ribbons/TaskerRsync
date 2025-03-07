@@ -11,7 +11,8 @@ functionality.
 
 This app provides the following actions for use within Tasker:
  - Generate Private Key - Generates a private key to use for SSH authentication
- - Get Public Key - Retrieves a public key from a previously generated private key
+ - Get Public Key - Retrieves a public key from a previously generated private
+   key and returns it in the variable `%pubkey`
  - rsync - Run an rsync command to synchronise files to or from the device
  - dbclient - Run an SSH command non-interactively (experimental)
 
