@@ -74,7 +74,8 @@ class ProcessHandler(
                     aborted = true
                 }
             } else {
-                val end = System.currentTimeMillis() + timeoutMS - TIMEOUT_MARGIN
+                val end =
+                    System.currentTimeMillis() + timeoutMS - TIMEOUT_MARGIN
 
                 while (end >= System.currentTimeMillis()) {
                     try {

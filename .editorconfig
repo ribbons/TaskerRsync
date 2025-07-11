@@ -1,0 +1,5 @@
+# https://editorconfig.org
+root = true
+
+[*.{kt,kts}]
+max_line_length = 80

@@ -25,7 +25,8 @@ import kotlin.concurrent.thread
 
 class UpdateNotifier {
     companion object {
-        private const val VERSION_URL = "https://nerdoftheherd.com/projects/rsync-for-tasker/version.json"
+        private const val VERSION_URL =
+            "https://nerdoftheherd.com/projects/rsync-for-tasker/version.json"
         private const val NOTIF_CHANNEL = "updates"
         private const val NOTIF_ID = 0
 
@@ -78,17 +79,28 @@ class UpdateNotifier {
             }
 
             val updateIntent = Intent(context, UpdateActivity::class.java)
-            updateIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            updateIntent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK
+
             updateIntent.putExtra("info", info)
 
             val pendingFlags =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_UPDATE_CURRENT or
+                        PendingIntent.FLAG_IMMUTABLE
                 } else {
                     PendingIntent.FLAG_UPDATE_CURRENT
                 }
 
-            val updatePI = PendingIntent.getActivity(context, 0, updateIntent, pendingFlags)
+            val updatePI =
+                PendingIntent.getActivity(
+                    context,
+                    0,
+                    updateIntent,
+                    pendingFlags,
+                )
 
             val notifBuilder =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -98,8 +110,15 @@ class UpdateNotifier {
                     Notification.Builder(context)
                 }
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setContentTitle(context.getString(R.string.update_available))
-                    .setContentText(context.getString(R.string.update_notif_text, info.version))
+                    .setContentTitle(
+                        context.getString(R.string.update_available),
+                    )
+                    .setContentText(
+                        context.getString(
+                            R.string.update_notif_text,
+                            info.version,
+                        ),
+                    )
                     .setContentIntent(updatePI)
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

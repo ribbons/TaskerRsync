@@ -20,7 +20,9 @@ import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import com.nerdoftheherd.tasker.rsync.databinding.PrivateKeyConfigActivityBinding
 import com.nerdoftheherd.tasker.rsync.helpers.PrivateKeyHelper
 
-class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<PrivateKeyConfig> {
+class PrivateKeyConfigActivity :
+    AppCompatActivity(),
+    TaskerPluginConfig<PrivateKeyConfig> {
     override val context: Context get() = applicationContext
     private val taskerHelper by lazy { PrivateKeyHelper(this) }
 
@@ -38,7 +40,8 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
         keyTypeAdapter =
             ArrayAdapter<String>(
                 this,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                androidx.appcompat.R.layout
+                    .support_simple_spinner_dropdown_item,
             ).also {
                 it.addAll("Ed25519", "ECDSA", "RSA")
                 binding.keyType.adapter = it
@@ -47,7 +50,8 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
         keySizeAdapter =
             ArrayAdapter<Int>(
                 this,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                androidx.appcompat.R.layout
+                    .support_simple_spinner_dropdown_item,
             ).also {
                 binding.keySize.adapter = it
             }
@@ -69,7 +73,9 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
                     }
 
                     if (initKeySize != null) {
-                        binding.keySize.setSelection(keySizeAdapter.getPosition(initKeySize))
+                        binding.keySize.setSelection(
+                            keySizeAdapter.getPosition(initKeySize),
+                        )
                         initKeySize = null
                     }
                 }
@@ -86,7 +92,9 @@ class PrivateKeyConfigActivity : AppCompatActivity(), TaskerPluginConfig<Private
 
     override fun assignFromInput(input: TaskerInput<PrivateKeyConfig>) =
         input.regular.run {
-            binding.keyType.setSelection(keyTypeAdapter.getPosition(input.regular.keyType))
+            binding.keyType.setSelection(
+                keyTypeAdapter.getPosition(input.regular.keyType),
+            )
             initKeySize = input.regular.keySize
             binding.overwrite.isChecked = input.regular.overwrite
         }

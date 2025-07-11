@@ -62,14 +62,18 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val manager =
-                context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
+                context.getSystemService(
+                    Context.STORAGE_SERVICE,
+                ) as StorageManager
 
             externalPaths +=
                 manager.storageVolumes.mapNotNull {
                     it.directory?.absolutePath
                 }
         } else {
-            externalPaths += Environment.getExternalStorageDirectory().absolutePath
+            externalPaths +=
+                Environment.getExternalStorageDirectory()
+                    .absolutePath
         }
 
         // If the legacy /sdcard symlink points to an external storage
@@ -84,12 +88,18 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     return TaskerPluginResultErrorWithOutput(
                         Utils.ERROR_MISSING_STORAGE_PERMISSION,
-                        context.getString(R.string.missing_storage_permission, path),
+                        context.getString(
+                            R.string.missing_storage_permission,
+                            path,
+                        ),
                     )
                 } else {
                     return TaskerPluginResultErrorWithOutput(
                         Utils.ERROR_MISSING_STORAGE_PERMISSION,
-                        context.getString(R.string.missing_legacy_storage_permission, path),
+                        context.getString(
+                            R.string.missing_legacy_storage_permission,
+                            path,
+                        ),
                     )
                 }
             }
@@ -138,11 +148,17 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
 
             if (result == 0) {
                 return TaskerPluginResultSucess(
-                    CommandOutput(handler.stdout.toString(), handler.stderr.toString()),
+                    CommandOutput(
+                        handler.stdout.toString(),
+                        handler.stderr.toString(),
+                    ),
                 )
             }
 
-            return TaskerPluginResultErrorWithOutput(result, handler.stderr.toString())
+            return TaskerPluginResultErrorWithOutput(
+                result,
+                handler.stderr.toString(),
+            )
         }
     }
 }

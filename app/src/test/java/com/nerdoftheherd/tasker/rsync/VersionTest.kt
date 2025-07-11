@@ -46,8 +46,12 @@ class VersionTest {
     fun newerThanCommitSuffix() {
         Assertions.assertTrue(Version("2-5-abcd123") > Version("2"))
         Assertions.assertTrue(Version("2.1") > Version("2-3-abcd123"))
-        Assertions.assertTrue(Version("2.1-5-123abcd") > Version("2.1-3-abcd123"))
-        Assertions.assertTrue(Version("2.1-10-321abcd") > Version("2.1-5-123abcd"))
+        Assertions.assertTrue(
+            Version("2.1-5-123abcd") > Version("2.1-3-abcd123"),
+        )
+        Assertions.assertTrue(
+            Version("2.1-10-321abcd") > Version("2.1-5-123abcd"),
+        )
         Assertions.assertTrue(Version("2.1.1") > Version("2.1-10-321abcd"))
     }
 }

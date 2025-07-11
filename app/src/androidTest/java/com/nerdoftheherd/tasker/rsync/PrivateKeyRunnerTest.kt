@@ -52,7 +52,11 @@ class PrivateKeyRunnerTest {
         assertFalse(result.success)
 
         val resultError = result as TaskerPluginResultError
-        assertEquals(context.getString(R.string.key_exists), resultError.message)
+
+        assertEquals(
+            context.getString(R.string.key_exists),
+            resultError.message,
+        )
     }
 
     @Test

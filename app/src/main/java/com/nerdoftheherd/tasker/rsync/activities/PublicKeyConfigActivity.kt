@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfigNoInput
 import com.nerdoftheherd.tasker.rsync.helpers.PublicKeyHelper
 
-class PublicKeyConfigActivity : AppCompatActivity(), TaskerPluginConfigNoInput {
+class PublicKeyConfigActivity :
+    AppCompatActivity(),
+    TaskerPluginConfigNoInput {
     override val context: Context get() = applicationContext
     private val taskerHelper by lazy { PublicKeyHelper(this) }
 

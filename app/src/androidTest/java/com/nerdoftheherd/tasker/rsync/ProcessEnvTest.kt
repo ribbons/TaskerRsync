@@ -49,7 +49,9 @@ class ProcessEnvTest {
     @Test
     fun writesKnownHostsToEnvHome() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val knownHosts = "example.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMBh0B+Tfy/wEJWyejoOHclat7UPGKTqKey+rfVQr94I"
+        val knownHosts =
+            "example.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMBh0B+Tfy" +
+                "/wEJWyejoOHclat7UPGKTqKey+rfVQr94I"
 
         ProcessEnv(context, ProcessBuilder("test"), knownHosts).use { env ->
             val sshDir = File(env.home, ".ssh")

@@ -73,7 +73,9 @@ class PrivateKeyRunner : TaskerPluginRunnerActionNoOutput<PrivateKeyConfig>() {
         } else {
             TaskerPluginResultError(
                 retcode,
-                dropbearkey.errorStream.bufferedReader().use(BufferedReader::readText),
+                dropbearkey.errorStream.bufferedReader().use(
+                    BufferedReader::readText,
+                ),
             )
         }
     }

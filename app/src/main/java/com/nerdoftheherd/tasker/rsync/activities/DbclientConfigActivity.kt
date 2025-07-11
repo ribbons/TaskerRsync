@@ -20,7 +20,9 @@ import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import com.nerdoftheherd.tasker.rsync.databinding.DbclientConfigActivityBinding
 import com.nerdoftheherd.tasker.rsync.helpers.DbclientHelper
 
-class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientConfig> {
+class DbclientConfigActivity :
+    AppCompatActivity(),
+    TaskerPluginConfig<DbclientConfig> {
     override val context: Context get() = applicationContext
     private val taskerHelper by lazy { DbclientHelper(this) }
     private lateinit var binding: DbclientConfigActivityBinding
@@ -60,7 +62,11 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
         permissions: Array<String>,
         grantResults: IntArray,
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults,
+        )
 
         if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
             taskerHelper.finishForTasker()
@@ -74,7 +80,9 @@ class DbclientConfigActivity : AppCompatActivity(), TaskerPluginConfig<DbclientC
             binding.editTextArgs.setText(this.args)
             binding.editTextKnownHosts.setText(this.knownHosts)
             binding.checkForUpdates.isChecked =
-                this.checkForUpdates ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.checkForUpdates ?: if (
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ) {
                     context.packageManager.getInstallSourceInfo(
                         context.packageName,
                     ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE

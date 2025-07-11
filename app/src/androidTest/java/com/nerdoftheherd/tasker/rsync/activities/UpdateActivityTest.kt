@@ -55,7 +55,10 @@ class UpdateActivityTest {
                 UpdateActivity::class.java,
             )
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or
+            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
@@ -82,14 +85,19 @@ class UpdateActivityTest {
                 UpdateActivity::class.java,
             )
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or
+            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
             onView(withId(androidx.appcompat.R.id.action_bar)).check(
                 matches(hasDescendant(withText(R.string.update_installed))),
             )
-            onView(withId(R.id.textSummary)).check(matches(withText(R.string.updated_summary)))
+            onView(withId(R.id.textSummary)).check(
+                matches(withText(R.string.updated_summary)),
+            )
             onView(withId(R.id.buttonUpdate)).check(matches(not(isEnabled())))
             onView(withId(R.id.textInfo)).check(matches(not(isDisplayed())))
         }
@@ -110,12 +118,17 @@ class UpdateActivityTest {
                 UpdateActivity::class.java,
             )
 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or
+            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
             intending(hasAction(Intent.ACTION_VIEW))
-                .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
+                .respondWith(
+                    Instrumentation.ActivityResult(Activity.RESULT_OK, null),
+                )
 
             onView(withId(R.id.buttonMoreInfo)).perform(click())
 

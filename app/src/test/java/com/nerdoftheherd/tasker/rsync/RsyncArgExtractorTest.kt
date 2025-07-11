@@ -101,13 +101,15 @@ class RsyncArgExtractorTest {
 
     @Test
     fun remoteSrc() {
-        val extractor = RsyncArgExtractor(listOf("user@example.com:src", "dest"))
+        val extractor =
+            RsyncArgExtractor(listOf("user@example.com:src", "dest"))
         assertEquals(true, extractor.remoteSrcOrDest)
     }
 
     @Test
     fun remoteDest() {
-        val extractor = RsyncArgExtractor(listOf("src", "user@example.com:dest"))
+        val extractor =
+            RsyncArgExtractor(listOf("src", "user@example.com:dest"))
         assertEquals(true, extractor.remoteSrcOrDest)
     }
 

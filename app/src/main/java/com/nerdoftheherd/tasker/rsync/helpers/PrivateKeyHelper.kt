@@ -12,7 +12,9 @@ import com.nerdoftheherd.tasker.rsync.PrivateKeyRunner
 import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 
 class PrivateKeyHelper(config: TaskerPluginConfig<PrivateKeyConfig>) :
-    TaskerPluginConfigHelperNoOutput<PrivateKeyConfig, PrivateKeyRunner>(config) {
+    TaskerPluginConfigHelperNoOutput<PrivateKeyConfig, PrivateKeyRunner>(
+        config,
+    ) {
     override val runnerClass = PrivateKeyRunner::class.java
     override val inputClass = PrivateKeyConfig::class.java
 }

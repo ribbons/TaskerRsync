@@ -43,7 +43,8 @@ class UpdateActivity : AppCompatActivity() {
         binding = UpdateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.textSummary.text = getString(R.string.update_summary, info.version)
+        binding.textSummary.text =
+            getString(R.string.update_summary, info.version)
 
         if (info.version <= Version.current) {
             setTitle(R.string.update_installed)

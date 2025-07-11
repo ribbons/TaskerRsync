@@ -21,8 +21,9 @@ class Version(private val value: String) : Parcelable {
 
     init {
         val matches =
-            verPattern.matchEntire(value)
-                ?: throw IllegalArgumentException("Unexpected version format \"$value\"")
+            verPattern.matchEntire(value) ?: throw IllegalArgumentException(
+                "Unexpected version format \"$value\"",
+            )
 
         numParts = matches.groupValues[1].split('.').map { it.toInt() }
         suffixRevs = matches.groups[2]?.value?.toInt() ?: 0
@@ -61,7 +62,8 @@ class Version(private val value: String) : Parcelable {
     }
 
     companion object {
-        private val verPattern = Regex("([0-9]+(?:[.][0-9]+)*)(?:-([0-9]+)-[a-f0-9]+)?")
+        private val verPattern =
+            Regex("([0-9]+(?:[.][0-9]+)*)(?:-([0-9]+)-[a-f0-9]+)?")
 
         val current: Version by lazy {
             Version(BuildConfig.VERSION_NAME)

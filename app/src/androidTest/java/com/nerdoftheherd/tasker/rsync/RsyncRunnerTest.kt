@@ -84,8 +84,10 @@ class RsyncRunnerTest {
         TestUtils.setExternalStoragePermission(context, true)
 
         val pkgName = context.applicationContext.packageName
-        val sourceDir = File(TestUtils.primaryStorageDir(context), "$pkgName-source")
-        val targetDir = File(TestUtils.primaryStorageDir(context), "$pkgName-target")
+        val sourceDir =
+            File(TestUtils.primaryStorageDir(context), "$pkgName-source")
+        val targetDir =
+            File(TestUtils.primaryStorageDir(context), "$pkgName-target")
 
         sourceDir.mkdir()
         File(sourceDir, "testfile").createNewFile()
@@ -120,7 +122,11 @@ class RsyncRunnerTest {
         assertFalse(output.success)
 
         val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
-        assertTrue(error.message.endsWith("\n${context.getString(R.string.process_killed_timeout)}\n"))
+        assertTrue(
+            error.message.endsWith(
+                "\n${context.getString(R.string.process_killed_timeout)}\n",
+            ),
+        )
     }
 
     @Test
@@ -142,7 +148,10 @@ class RsyncRunnerTest {
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             assertEquals(
-                context.getString(R.string.missing_legacy_storage_permission, srcPath),
+                context.getString(
+                    R.string.missing_legacy_storage_permission,
+                    srcPath,
+                ),
                 error.message,
             )
             return
@@ -173,7 +182,10 @@ class RsyncRunnerTest {
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             assertEquals(
-                context.getString(R.string.missing_legacy_storage_permission, destPath),
+                context.getString(
+                    R.string.missing_legacy_storage_permission,
+                    destPath,
+                ),
                 error.message,
             )
             return
@@ -204,7 +216,10 @@ class RsyncRunnerTest {
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             assertEquals(
-                context.getString(R.string.missing_legacy_storage_permission, logPath),
+                context.getString(
+                    R.string.missing_legacy_storage_permission,
+                    logPath,
+                ),
                 error.message,
             )
             return
@@ -234,14 +249,20 @@ class RsyncRunnerTest {
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             assertEquals(
-                context.getString(R.string.missing_legacy_storage_permission, "/sdcard/src"),
+                context.getString(
+                    R.string.missing_legacy_storage_permission,
+                    "/sdcard/src",
+                ),
                 error.message,
             )
             return
         }
 
         assertEquals(
-            context.getString(R.string.missing_storage_permission, "/sdcard/src"),
+            context.getString(
+                R.string.missing_storage_permission,
+                "/sdcard/src",
+            ),
             error.message,
         )
     }

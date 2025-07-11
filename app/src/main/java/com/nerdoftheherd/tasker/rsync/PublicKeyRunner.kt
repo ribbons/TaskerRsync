@@ -63,12 +63,18 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
         if (retcode != 0) {
             return TaskerPluginResultErrorWithOutput(
                 retcode,
-                dropbearkey.errorStream.bufferedReader().use(BufferedReader::readText),
+                dropbearkey.errorStream.bufferedReader().use(
+                    BufferedReader::readText,
+                ),
             )
         }
 
         val scanner = Scanner(dropbearkey.inputStream)
-        val pubkey = scanner.findWithinHorizon("(?<=\n)ssh-[a-z0-9]+ [a-zA-Z0-9+/]+={0,2} ", 0)
+        val pubkey =
+            scanner.findWithinHorizon(
+                "(?<=\n)ssh-[a-z0-9]+ [a-zA-Z0-9+/]+={0,2} ",
+                0,
+            )
 
         if (pubkey != null) {
             return TaskerPluginResultSucess(
@@ -76,6 +82,8 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
             )
         }
 
-        throw RuntimeException("Unable to find public key in dropbearkey output")
+        throw RuntimeException(
+            "Unable to find public key in dropbearkey output",
+        )
     }
 }

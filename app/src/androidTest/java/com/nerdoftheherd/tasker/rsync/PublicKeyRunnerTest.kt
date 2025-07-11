@@ -63,7 +63,8 @@ class PublicKeyRunnerTest {
 
         val output = result as TaskerPluginResultSucess<PublicKeyOutput>
         assertEquals(
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIhSZ6CSqV74qSOMgd3dZOGufal53zMe1CVTEpdyXrMY rsync-for-tasker@android",
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIhSZ6CSqV74qSOMgd3dZOGufal" +
+                "53zMe1CVTEpdyXrMY rsync-for-tasker@android",
             output.regular?.pubkey,
         )
     }

@@ -50,7 +50,9 @@ class DbclientRunnerTest {
         assertFalse(output.success)
 
         val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
-        assertTrue(error.message.endsWith("Connect failed: Connection refused\n"))
+        assertTrue(
+            error.message.endsWith("Connect failed: Connection refused\n"),
+        )
     }
 
     @Test
@@ -93,6 +95,10 @@ class DbclientRunnerTest {
         assertFalse(output.success)
 
         val error = output as TaskerPluginResultErrorWithOutput<CommandOutput>
-        assertTrue(error.message.endsWith("${context.getString(R.string.process_killed_timeout)}\n"))
+        assertTrue(
+            error.message.endsWith(
+                "${context.getString(R.string.process_killed_timeout)}\n",
+            ),
+        )
     }
 }

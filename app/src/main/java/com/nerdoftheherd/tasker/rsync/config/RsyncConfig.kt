@@ -17,6 +17,9 @@ class RsyncConfig
         var args: String? = "-rv /source/ user@example.com:dest/",
         @field:TaskerInputField("knownHosts", labelResIdName = "known_hosts")
         var knownHosts: String? = "example.com ssh-rsa ABCD1234...=",
-        @field:TaskerInputField("checkForUpdates", labelResIdName = "check_for_updates")
+        @field:TaskerInputField(
+            "checkForUpdates",
+            labelResIdName = "check_for_updates",
+        )
         var checkForUpdates: Boolean? = null,
     )

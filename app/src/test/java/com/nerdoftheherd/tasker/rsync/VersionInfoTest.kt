@@ -163,7 +163,12 @@ class VersionInfoTest {
                 "download
             """.trimIndent()
 
-        val cache = File.createTempFile(::fetchIgnoreInvalidCachedJson.name, null)
+        val cache =
+            File.createTempFile(
+                ::fetchIgnoreInvalidCachedJson.name,
+                null,
+            )
+
         cache.writeText(cachedData)
 
         val remoteInfo =
@@ -191,7 +196,12 @@ class VersionInfoTest {
             }
             """.trimIndent()
 
-        val cache = File.createTempFile(::fetchIgnoreInvalidCachedVersion.name, null)
+        val cache =
+            File.createTempFile(
+                ::fetchIgnoreInvalidCachedVersion.name,
+                null,
+            )
+
         cache.writeText(cachedData)
 
         val remoteInfo =
@@ -219,7 +229,12 @@ class VersionInfoTest {
             }
             """.trimIndent()
 
-        val cache = File.createTempFile(::fetchIgnoreInvalidCachedURL.name, null)
+        val cache =
+            File.createTempFile(
+                ::fetchIgnoreInvalidCachedURL.name,
+                null,
+            )
+
         cache.writeText(cachedData)
 
         val remoteInfo =
@@ -249,7 +264,12 @@ class VersionInfoTest {
             }
             """.trimIndent()
 
-        val cache = File.createTempFile(::fetchIgnoreInvalidCachedURL.name, null)
+        val cache =
+            File.createTempFile(
+                ::fetchIgnoreInvalidCachedURL.name,
+                null,
+            )
+
         cache.writeText(cachedData)
 
         val remoteInfo =

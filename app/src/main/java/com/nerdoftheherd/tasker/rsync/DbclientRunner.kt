@@ -63,11 +63,17 @@ class DbclientRunner(private val timeoutOverride: Int? = null) :
 
             if (result == 0) {
                 return TaskerPluginResultSucess(
-                    CommandOutput(handler.stdout.toString(), handler.stderr.toString()),
+                    CommandOutput(
+                        handler.stdout.toString(),
+                        handler.stderr.toString(),
+                    ),
                 )
             }
 
-            return TaskerPluginResultErrorWithOutput(result, handler.stderr.toString())
+            return TaskerPluginResultErrorWithOutput(
+                result,
+                handler.stderr.toString(),
+            )
         }
     }
 }

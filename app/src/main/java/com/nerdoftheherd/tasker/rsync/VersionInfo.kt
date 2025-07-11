@@ -104,7 +104,10 @@ data class VersionInfo(
             }
 
             if (info == null) {
-                val data = httpConn.inputStream.bufferedReader().use(BufferedReader::readText)
+                val data =
+                    httpConn.inputStream.bufferedReader()
+                        .use(BufferedReader::readText)
+
                 info = ignoreUnknownJson.decodeFromString<VersionInfo>(data)
                 cacheFile.writeText(data)
             }

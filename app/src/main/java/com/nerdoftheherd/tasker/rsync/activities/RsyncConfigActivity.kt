@@ -20,7 +20,9 @@ import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
 import com.nerdoftheherd.tasker.rsync.databinding.RsyncConfigActivityBinding
 import com.nerdoftheherd.tasker.rsync.helpers.RsyncHelper
 
-class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig> {
+class RsyncConfigActivity :
+    AppCompatActivity(),
+    TaskerPluginConfig<RsyncConfig> {
     override val context: Context get() = applicationContext
     private val taskerHelper by lazy { RsyncHelper(this) }
     private lateinit var binding: RsyncConfigActivityBinding
@@ -60,7 +62,11 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
         permissions: Array<String>,
         grantResults: IntArray,
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults,
+        )
 
         if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
             taskerHelper.finishForTasker()
@@ -74,7 +80,9 @@ class RsyncConfigActivity : AppCompatActivity(), TaskerPluginConfig<RsyncConfig>
             binding.editTextArgs.setText(this.args)
             binding.editTextKnownHosts.setText(this.knownHosts)
             binding.checkForUpdates.isChecked =
-                this.checkForUpdates ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.checkForUpdates ?: if (
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ) {
                     context.packageManager.getInstallSourceInfo(
                         context.packageName,
                     ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE
