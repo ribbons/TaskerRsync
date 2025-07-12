@@ -12,7 +12,7 @@ plugins {
     id("com.android.application")
     id("kotlin-parcelize")
     kotlin("android")
-    kotlin("plugin.serialization") version("1.9.0")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 fun gitVersionCode(): Int {
@@ -21,7 +21,10 @@ fun gitVersionCode(): Int {
             commandLine = arrayListOf("git", "rev-list", "--count", "HEAD")
         }
 
-    return result.standardOutput.asText.get().trimEnd().toInt()
+    return result.standardOutput.asText
+        .get()
+        .trimEnd()
+        .toInt()
 }
 
 fun gitVersionName(): String {
@@ -30,7 +33,10 @@ fun gitVersionName(): String {
             commandLine = arrayListOf("git", "describe", "--tags", "--always")
         }
 
-    return result.standardOutput.asText.get().trimEnd().replace("-g", "-")
+    return result.standardOutput.asText
+        .get()
+        .trimEnd()
+        .replace("-g", "-")
 }
 
 java {
@@ -118,15 +124,19 @@ abstract class ReadmePermsCheckTask : DefaultTask() {
     @TaskAction
     fun execute() {
         val permNodes =
-            XmlParser(false, false).parse(
-                File(manifestDir.singleFile, "AndroidManifest.xml"),
-            ).get("uses-permission") as NodeList
+            XmlParser(false, false)
+                .parse(
+                    File(manifestDir.singleFile, "AndroidManifest.xml"),
+                ).get("uses-permission") as NodeList
 
         val manifestPerms =
-            permNodes.map { perm ->
-                (perm as Node).attribute("android:name").toString()
-                    .removePrefix("android.permission.")
-            }.filter { !it.startsWith(applicationId.get()) }
+            permNodes
+                .map { perm ->
+                    (perm as Node)
+                        .attribute("android:name")
+                        .toString()
+                        .removePrefix("android.permission.")
+                }.filter { !it.startsWith(applicationId.get()) }
 
         val permLine = Regex("""^ - `([A-Z_]+)` \\$""")
         val readmePerms =

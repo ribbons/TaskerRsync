@@ -10,18 +10,14 @@ import android.util.AtomicFile
 import java.io.File
 import java.io.FileOutputStream
 
-class FakeAtomicFile(private val baseFile: File) : AtomicFile(baseFile) {
-    override fun getBaseFile(): File {
-        return baseFile
-    }
+class FakeAtomicFile(
+    private val baseFile: File,
+) : AtomicFile(baseFile) {
+    override fun getBaseFile(): File = baseFile
 
-    override fun readFully(): ByteArray {
-        return baseFile.readBytes()
-    }
+    override fun readFully(): ByteArray = baseFile.readBytes()
 
-    override fun startWrite(): FileOutputStream {
-        return baseFile.outputStream()
-    }
+    override fun startWrite(): FileOutputStream = baseFile.outputStream()
 
     override fun finishWrite(str: FileOutputStream?) {
         str?.flush()

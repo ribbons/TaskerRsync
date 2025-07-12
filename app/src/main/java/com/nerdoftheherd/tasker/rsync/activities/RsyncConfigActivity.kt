@@ -83,9 +83,10 @@ class RsyncConfigActivity :
                 this.checkForUpdates ?: if (
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 ) {
-                    context.packageManager.getInstallSourceInfo(
-                        context.packageName,
-                    ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE
+                    context.packageManager
+                        .getInstallSourceInfo(
+                            context.packageName,
+                        ).packageSource != PackageInstaller.PACKAGE_SOURCE_STORE
                 } else {
                     true
                 }

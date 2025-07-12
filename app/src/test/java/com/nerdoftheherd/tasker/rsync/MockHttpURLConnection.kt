@@ -12,8 +12,9 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class MockHttpURLConnection(private val responseData: String?) :
-    HttpURLConnection(URL("http://example.com/")) {
+class MockHttpURLConnection(
+    private val responseData: String?,
+) : HttpURLConnection(URL("http://example.com/")) {
     var requestWasMade = false
         private set
 

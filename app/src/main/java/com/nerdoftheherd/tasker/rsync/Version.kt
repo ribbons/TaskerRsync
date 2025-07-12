@@ -12,7 +12,9 @@ import kotlinx.parcelize.Parcelize
 import java.util.Objects
 
 @Parcelize
-class Version(private val value: String) : Parcelable {
+class Version(
+    private val value: String,
+) : Parcelable {
     @IgnoredOnParcel
     private val numParts: List<Int>
 
@@ -57,9 +59,7 @@ class Version(private val value: String) : Parcelable {
 
     override fun hashCode() = Objects.hash(value)
 
-    override fun toString(): String {
-        return value
-    }
+    override fun toString(): String = value
 
     companion object {
         private val verPattern =

@@ -24,8 +24,9 @@ import com.nerdoftheherd.tasker.rsync.config.RsyncConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 import java.io.File
 
-class RsyncRunner(private val timeoutOverride: Int? = null) :
-    TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
+class RsyncRunner(
+    private val timeoutOverride: Int? = null,
+) : TaskerPluginRunnerAction<RsyncConfig, CommandOutput>() {
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
@@ -72,7 +73,8 @@ class RsyncRunner(private val timeoutOverride: Int? = null) :
                 }
         } else {
             externalPaths +=
-                Environment.getExternalStorageDirectory()
+                Environment
+                    .getExternalStorageDirectory()
                     .absolutePath
         }
 

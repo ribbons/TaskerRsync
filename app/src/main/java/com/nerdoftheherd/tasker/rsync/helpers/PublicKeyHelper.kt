@@ -11,8 +11,9 @@ import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfigNoInput
 import com.nerdoftheherd.tasker.rsync.PublicKeyRunner
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
 
-class PublicKeyHelper(config: TaskerPluginConfigNoInput) :
-    TaskerPluginConfigHelperNoInput<PublicKeyOutput, PublicKeyRunner>(config) {
+class PublicKeyHelper(
+    config: TaskerPluginConfigNoInput,
+) : TaskerPluginConfigHelperNoInput<PublicKeyOutput, PublicKeyRunner>(config) {
     override val runnerClass = PublicKeyRunner::class.java
     override val outputClass = PublicKeyOutput::class.java
 }

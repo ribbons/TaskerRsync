@@ -18,8 +18,9 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import com.nerdoftheherd.tasker.rsync.output.CommandOutput
 
-class DbclientRunner(private val timeoutOverride: Int? = null) :
-    TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
+class DbclientRunner(
+    private val timeoutOverride: Int? = null,
+) : TaskerPluginRunnerAction<DbclientConfig, CommandOutput>() {
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
