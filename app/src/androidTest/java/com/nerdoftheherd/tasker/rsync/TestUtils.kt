@@ -41,19 +41,20 @@ class TestUtils {
                         Context.APP_OPS_SERVICE,
                     ) as AppOpsManager
 
-                val permAllowed = fun(): Boolean {
-                    return appOps.unsafeCheckOpNoThrow(
+                val permAllowed = fun(): Boolean =
+                    appOps.unsafeCheckOpNoThrow(
                         "android:manage_external_storage",
                         Process.myUid(),
                         context.packageName,
                     ) == AppOpsManager.MODE_ALLOWED
-                }
 
                 if (permAllowed() == enabled) {
                     return
                 }
 
-                InstrumentationRegistry.getInstrumentation().uiAutomation
+                InstrumentationRegistry
+                    .getInstrumentation()
+                    .uiAutomation
                     .executeShellCommand(
                         "appops set ${context.packageName} " +
                             "MANAGE_EXTERNAL_STORAGE " +
@@ -65,13 +66,17 @@ class TestUtils {
                 }
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (enabled) {
-                    InstrumentationRegistry.getInstrumentation().uiAutomation
+                    InstrumentationRegistry
+                        .getInstrumentation()
+                        .uiAutomation
                         .grantRuntimePermission(
                             context.packageName,
                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         )
                 } else {
-                    InstrumentationRegistry.getInstrumentation().uiAutomation
+                    InstrumentationRegistry
+                        .getInstrumentation()
+                        .uiAutomation
                         .revokeRuntimePermission(
                             context.packageName,
                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,

@@ -15,8 +15,7 @@ class Utils {
         const val ERROR_MISSING_STORAGE_PERMISSION = 101
         const val KEY_FILENAME = "id_dropbear"
 
-        fun privateKeyFile(context: Context): File {
-            return File(context.filesDir, KEY_FILENAME)
-        }
+        fun privateKeyFile(context: Context): File =
+            File(context.filesDir, KEY_FILENAME)
     }
 }

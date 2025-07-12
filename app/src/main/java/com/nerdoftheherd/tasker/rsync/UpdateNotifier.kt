@@ -108,18 +108,15 @@ class UpdateNotifier {
                 } else {
                     @Suppress("DEPRECATION")
                     Notification.Builder(context)
-                }
-                    .setSmallIcon(R.drawable.ic_notification)
+                }.setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(
                         context.getString(R.string.update_available),
-                    )
-                    .setContentText(
+                    ).setContentText(
                         context.getString(
                             R.string.update_notif_text,
                             info.version,
                         ),
-                    )
-                    .setContentIntent(updatePI)
+                    ).setContentIntent(updatePI)
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 @Suppress("DEPRECATION")

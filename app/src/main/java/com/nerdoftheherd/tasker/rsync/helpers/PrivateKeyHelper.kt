@@ -11,8 +11,9 @@ import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfigHelperNoOutput
 import com.nerdoftheherd.tasker.rsync.PrivateKeyRunner
 import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 
-class PrivateKeyHelper(config: TaskerPluginConfig<PrivateKeyConfig>) :
-    TaskerPluginConfigHelperNoOutput<PrivateKeyConfig, PrivateKeyRunner>(
+class PrivateKeyHelper(
+    config: TaskerPluginConfig<PrivateKeyConfig>,
+) : TaskerPluginConfigHelperNoOutput<PrivateKeyConfig, PrivateKeyRunner>(
         config,
     ) {
     override val runnerClass = PrivateKeyRunner::class.java

@@ -89,8 +89,8 @@ class UpdateActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun download(): File {
-        return withContext(Dispatchers.IO) {
+    private suspend fun download(): File =
+        withContext(Dispatchers.IO) {
             val conn = info.download.openConnection() as HttpURLConnection
             conn.connect()
 
@@ -104,5 +104,4 @@ class UpdateActivity : AppCompatActivity() {
             stream.close()
             file
         }
-    }
 }

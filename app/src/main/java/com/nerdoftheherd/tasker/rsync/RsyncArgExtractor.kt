@@ -6,7 +6,9 @@
 
 package com.nerdoftheherd.tasker.rsync
 
-class RsyncArgExtractor(args: List<String>) {
+class RsyncArgExtractor(
+    args: List<String>,
+) {
     val paths = ArrayList<String>()
     var remoteSrcOrDest: Boolean = false
         private set
