@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -25,6 +25,11 @@ class PrivateKeyConfigActivityTest {
     @get:Rule
     var activityRule: ActivityScenarioRule<PrivateKeyConfigActivity> =
         ActivityScenarioRule(PrivateKeyConfigActivity::class.java)
+
+    @Test
+    fun recreate() {
+        activityRule.scenario.recreate()
+    }
 
     @Test
     fun defaultKeyType() {

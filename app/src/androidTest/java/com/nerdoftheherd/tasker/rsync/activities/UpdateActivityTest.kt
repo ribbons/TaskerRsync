@@ -61,12 +61,13 @@ class UpdateActivityTest {
 
         intent.putExtra("info", versionInfo)
 
-        launchActivity<UpdateActivity>(intent).use {
+        launchActivity<UpdateActivity>(intent).use { scenario ->
             onView(withId(R.id.toolbar)).check(
                 matches(hasDescendant(withText(R.string.update_available))),
             )
             onView(withId(R.id.buttonUpdate)).check(matches(isEnabled()))
             onView(withId(R.id.textInfo)).check(matches(isDisplayed()))
+            scenario.recreate()
         }
     }
 
@@ -91,7 +92,7 @@ class UpdateActivityTest {
 
         intent.putExtra("info", versionInfo)
 
-        launchActivity<UpdateActivity>(intent).use {
+        launchActivity<UpdateActivity>(intent).use { scenario ->
             onView(withId(R.id.toolbar)).check(
                 matches(hasDescendant(withText(R.string.update_installed))),
             )
@@ -100,6 +101,7 @@ class UpdateActivityTest {
             )
             onView(withId(R.id.buttonUpdate)).check(matches(not(isEnabled())))
             onView(withId(R.id.textInfo)).check(matches(not(isDisplayed())))
+            scenario.recreate()
         }
     }
 
