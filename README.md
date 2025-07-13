@@ -1,8 +1,6 @@
 Rsync for Tasker
 ================
 
-![CI status](https://github.com/ribbons/TaskerRsync/workflows/CI/badge.svg)
-
 An Android app providing Tasker plugin actions to allow running rsync over SSH.
 
 [Tasker][1] is a very useful and widely used automation app for Android with a
