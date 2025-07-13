@@ -66,7 +66,7 @@ jobs:
           - 21
           - 29
           - 30
-          - 34
+          - 35
       fail-fast: false
     timeout-minutes: 30
     steps:

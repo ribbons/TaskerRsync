@@ -52,7 +52,7 @@ android {
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = gitVersionCode()
         versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
