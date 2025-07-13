@@ -4,40 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_padding"
     tools:context=".activities.UpdateActivity">
 
-    <TextView
-        android:id="@+id/textSummary"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/update_summary" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimary" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_padding">
-        <Button
-            android:id="@+id/buttonUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/update"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/buttonMoreInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/more_info"
-            android:layout_marginStart="@dimen/activity_padding"
-            style="?android:attr/buttonBarButtonStyle" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textInfo"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/update_choices"
-        android:layout_marginTop="@dimen/activity_padding"/>
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/content_padding">
+
+            <TextView
+                android:id="@+id/textSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_summary" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding">
+                <Button
+                    android:id="@+id/buttonUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/buttonMoreInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_info"
+                    android:layout_marginStart="@dimen/content_padding"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_choices"
+                android:layout_marginTop="@dimen/content_padding"/>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

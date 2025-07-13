@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -10,12 +10,16 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.addCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
+import com.nerdoftheherd.tasker.rsync.Utils
 import com.nerdoftheherd.tasker.rsync.config.DbclientConfig
 import com.nerdoftheherd.tasker.rsync.databinding.DbclientConfigActivityBinding
 import com.nerdoftheherd.tasker.rsync.helpers.DbclientHelper
@@ -29,9 +33,12 @@ class DbclientConfigActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT))
 
         binding = DbclientConfigActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        Utils.setInsetsListeners(binding.toolbar, binding.content)
 
         onBackPressedDispatcher.addCallback(this) {
             backPressed()

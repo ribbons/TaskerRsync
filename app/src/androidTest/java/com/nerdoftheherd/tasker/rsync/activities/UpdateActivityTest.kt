@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022-2024 Matt Robinson
+ * Copyright © 2022-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -62,7 +62,7 @@ class UpdateActivityTest {
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
-            onView(withId(androidx.appcompat.R.id.action_bar)).check(
+            onView(withId(R.id.toolbar)).check(
                 matches(hasDescendant(withText(R.string.update_available))),
             )
             onView(withId(R.id.buttonUpdate)).check(matches(isEnabled()))
@@ -92,7 +92,7 @@ class UpdateActivityTest {
         intent.putExtra("info", versionInfo)
 
         launchActivity<UpdateActivity>(intent).use {
-            onView(withId(androidx.appcompat.R.id.action_bar)).check(
+            onView(withId(R.id.toolbar)).check(
                 matches(hasDescendant(withText(R.string.update_installed))),
             )
             onView(withId(R.id.textSummary)).check(

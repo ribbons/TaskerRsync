@@ -7,14 +7,18 @@
 package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.nerdoftheherd.tasker.rsync.R
+import com.nerdoftheherd.tasker.rsync.Utils
 import com.nerdoftheherd.tasker.rsync.Version
 import com.nerdoftheherd.tasker.rsync.VersionInfo
 import com.nerdoftheherd.tasker.rsync.databinding.UpdateActivityBinding
@@ -31,6 +35,7 @@ class UpdateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT))
 
         info =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -42,6 +47,8 @@ class UpdateActivity : AppCompatActivity() {
 
         binding = UpdateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        Utils.setInsetsListeners(binding.toolbar, binding.content)
 
         binding.textSummary.text =
             getString(R.string.update_summary, info.version)

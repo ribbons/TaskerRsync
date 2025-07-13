@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2023 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -7,15 +7,18 @@
 package com.nerdoftheherd.tasker.rsync.activities
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.SystemBarStyle
 import androidx.activity.addCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
-import com.nerdoftheherd.tasker.rsync.R
+import com.nerdoftheherd.tasker.rsync.Utils
 import com.nerdoftheherd.tasker.rsync.config.PrivateKeyConfig
 import com.nerdoftheherd.tasker.rsync.databinding.PrivateKeyConfigActivityBinding
 import com.nerdoftheherd.tasker.rsync.helpers.PrivateKeyHelper
@@ -33,9 +36,12 @@ class PrivateKeyConfigActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT))
 
         binding = PrivateKeyConfigActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        Utils.setInsetsListeners(binding.toolbar, binding.content)
 
         keyTypeAdapter =
             ArrayAdapter<String>(

@@ -3,51 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_padding"
     tools:context=".activities.DbclientConfigActivity">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/arguments" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimary" />
 
-    <EditText
-        android:hint="@string/arguments_hint"
-        android:id="@+id/editTextArgs"
-        android:importantForAutofill="no"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:scrollHorizontally="false"
-        android:typeface="monospace"
-        android:minHeight="48dp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/known_hosts"
-        android:layout_marginTop="16dp" />
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/content_padding">
 
-    <EditText
-        android:hint="@string/known_hosts_hint"
-        android:id="@+id/editTextKnownHosts"
-        android:importantForAutofill="no"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:typeface="monospace"
-        android:minHeight="48dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/arguments" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/checkForUpdates"
-        android:text="@string/check_for_updates"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp" />
+            <EditText
+                android:hint="@string/arguments_hint"
+                android:id="@+id/editTextArgs"
+                android:importantForAutofill="no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:scrollHorizontally="false"
+                android:typeface="monospace"
+                android:minHeight="48dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/check_for_updates_info" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/known_hosts"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:hint="@string/known_hosts_hint"
+                android:id="@+id/editTextKnownHosts"
+                android:importantForAutofill="no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:typeface="monospace"
+                android:minHeight="48dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/checkForUpdates"
+                android:text="@string/check_for_updates"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/check_for_updates_info" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -7,7 +7,11 @@
 package com.nerdoftheherd.tasker.rsync
 
 import android.content.Context
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import java.io.File
+import kotlin.math.max
 
 class Utils {
     companion object {
@@ -17,5 +21,48 @@ class Utils {
 
         fun privateKeyFile(context: Context): File =
             File(context.filesDir, KEY_FILENAME)
+
+        fun setInsetsListeners(
+            toolbar: View,
+            content: View,
+        ) {
+            ViewCompat.setOnApplyWindowInsetsListener(
+                toolbar,
+            ) { view, windowInsets ->
+                windowInsets
+                    .getInsets(
+                        WindowInsetsCompat.Type.systemBars() or
+                            WindowInsetsCompat.Type.displayCutout(),
+                    ).apply {
+                        view.setPadding(this.left, this.top, 0, 0)
+                    }
+
+                WindowInsetsCompat.CONSUMED
+            }
+
+            ViewCompat.setOnApplyWindowInsetsListener(
+                content,
+            ) { view, windowInsets ->
+                val contentPadding =
+                    view.context.resources
+                        .getDimension(R.dimen.content_padding)
+                        .toInt()
+
+                windowInsets
+                    .getInsets(
+                        WindowInsetsCompat.Type.systemBars() or
+                            WindowInsetsCompat.Type.displayCutout(),
+                    ).apply {
+                        view.setPadding(
+                            max(this.left, contentPadding),
+                            contentPadding,
+                            max(this.right, contentPadding),
+                            max(this.bottom, contentPadding),
+                        )
+                    }
+
+                WindowInsetsCompat.CONSUMED
+            }
+        }
     }
 }
