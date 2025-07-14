@@ -12,7 +12,7 @@ plugins {
     id("com.android.application")
     id("kotlin-parcelize")
     kotlin("android")
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "2.2.0"
 }
 
 fun gitVersionCode(): Int {
