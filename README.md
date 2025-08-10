@@ -49,3 +49,5 @@ Download
 
 You can find a link to the latest download at
 http://nerdoftheherd.com/projects/rsync-for-tasker/.
+
+You can also [get it at IzzyOnDroid](https://apt.izzysoft.de/packages/com.nerdoftheherd.tasker.rsync).
