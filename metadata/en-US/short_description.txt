@@ -1,0 +1,1 @@
+Tasker plugin actions to allow running rsync over SSH
