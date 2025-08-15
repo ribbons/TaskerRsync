@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -42,7 +42,7 @@ class TestUtils {
                     ) as AppOpsManager
 
                 val permAllowed = fun(): Boolean =
-                    appOps.unsafeCheckOpNoThrow(
+                    appOps.checkOpNoThrow(
                         "android:manage_external_storage",
                         Process.myUid(),
                         context.packageName,
