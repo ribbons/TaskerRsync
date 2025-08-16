@@ -78,8 +78,10 @@ android {
         viewBinding = true
     }
 
-    kotlinOptions {
-        allWarningsAsErrors = true
+    kotlin {
+        compilerOptions {
+            allWarningsAsErrors = true
+        }
     }
 
     lint {
