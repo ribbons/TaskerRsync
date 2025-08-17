@@ -12,6 +12,8 @@ PreCommit:
 
   TrailingWhitespace:
     enabled: true
+    exclude:
+      - metadata/en-US/full_description.txt
 
   FileEncoding:
     description: Check text files are valid UTF-8
@@ -35,3 +37,11 @@ PreCommit:
     description: Check CI instrumented test coverage of API levels
     enabled: true
     include: app/build.gradle.kts
+
+  Metadata:
+    description: Check that metadata matches the readme
+    enabled: true
+    include:
+      - README.md
+      - metadata/en-US/short_description.txt
+      - metadata/en-US/full_description.txt
