@@ -49,7 +49,7 @@ jobs:
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Build
         run: ./gradlew build
@@ -85,7 +85,7 @@ jobs:
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Enable hardware acceleration for emulator
         run: echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666",
