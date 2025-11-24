@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = gitVersionCode()
         versionName = gitVersionName()
@@ -105,9 +105,14 @@ android {
     }
 
     packaging {
-        jniLibs.excludes.add("lib/*/libdropbear.so")
-        jniLibs.excludes.add("lib/*/libdropbearconvert.so")
-        jniLibs.excludes.add("lib/*/libscp.so")
+        jniLibs {
+            excludes.add("lib/*/libdropbear.so")
+            excludes.add("lib/*/libdropbearconvert.so")
+            excludes.add("lib/*/libscp.so")
+
+            // Compress the binaries so they are extracted to nativeLibraryDir
+            useLegacyPackaging = true
+        }
     }
 }
 
