@@ -86,20 +86,13 @@ class UpdateNotifier {
 
             updateIntent.putExtra("info", info)
 
-            val pendingFlags =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PendingIntent.FLAG_UPDATE_CURRENT or
-                        PendingIntent.FLAG_IMMUTABLE
-                } else {
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                }
-
             val updatePI =
                 PendingIntent.getActivity(
                     context,
                     0,
                     updateIntent,
-                    pendingFlags,
+                    PendingIntent.FLAG_UPDATE_CURRENT or
+                        PendingIntent.FLAG_IMMUTABLE,
                 )
 
             val notifBuilder =

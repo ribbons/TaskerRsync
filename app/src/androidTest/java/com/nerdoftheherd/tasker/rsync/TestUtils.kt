@@ -135,7 +135,7 @@ class TestUtils {
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Process.myUserHandle(),
                 )
-            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            } else {
                 val uiAutomation =
                     InstrumentationRegistry
                         .getInstrumentation()

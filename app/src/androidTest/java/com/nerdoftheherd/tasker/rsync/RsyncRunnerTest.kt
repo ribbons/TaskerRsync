@@ -131,10 +131,6 @@ class RsyncRunnerTest {
 
     @Test
     fun errorMessageFromMissingSrcPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
-
         val context = ApplicationProvider.getApplicationContext<Context>()
         val srcPath = "${TestUtils.primaryStorageDir(context)}/src"
         val config = RsyncConfig("$srcPath dest", "", false)
@@ -165,10 +161,6 @@ class RsyncRunnerTest {
 
     @Test
     fun errorMessageFromMissingDestPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
-
         val context = ApplicationProvider.getApplicationContext<Context>()
         val destPath = "${TestUtils.primaryStorageDir(context)}/dest"
         val config = RsyncConfig("src $destPath", "", false)
@@ -199,10 +191,6 @@ class RsyncRunnerTest {
 
     @Test
     fun errorMessageFromMissingLogPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
-
         val context = ApplicationProvider.getApplicationContext<Context>()
         val logPath = "${TestUtils.primaryStorageDir(context)}/rsync.log"
         val config = RsyncConfig("--log-file=$logPath src dest", "", false)
@@ -233,10 +221,6 @@ class RsyncRunnerTest {
 
     @Test
     fun errorMessageFromMissingSdcardPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
-
         val context = ApplicationProvider.getApplicationContext<Context>()
         val config = RsyncConfig("/sdcard/src dest", "", false)
 

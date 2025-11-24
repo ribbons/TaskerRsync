@@ -14,7 +14,6 @@ import android.os.Build
 import android.os.Environment
 import android.os.storage.StorageManager
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
@@ -30,22 +29,12 @@ class RsyncRunner(
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
-        ) { context ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                setColor(ContextCompat.getColor(context, R.color.primary))
-            } else {
-                setColor(context.getColor(R.color.primary))
-            }
-        }
+        ) { context -> setColor(context.getColor(R.color.primary)) }
 
     private fun checkForMissingPermission(
         context: Context,
         args: RsyncArgExtractor,
     ): TaskerPluginResult<CommandOutput>? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return null
-        }
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (context.checkSelfPermission(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,

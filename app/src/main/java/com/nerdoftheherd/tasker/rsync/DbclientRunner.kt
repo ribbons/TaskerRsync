@@ -7,9 +7,7 @@
 package com.nerdoftheherd.tasker.rsync
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
@@ -24,13 +22,7 @@ class DbclientRunner(
     override val notificationProperties get() =
         NotificationProperties(
             iconResId = R.drawable.ic_notification,
-        ) { context ->
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                setColor(ContextCompat.getColor(context, R.color.primary))
-            } else {
-                setColor(context.getColor(R.color.primary))
-            }
-        }
+        ) { context -> setColor(context.getColor(R.color.primary)) }
 
     override fun run(
         context: Context,
