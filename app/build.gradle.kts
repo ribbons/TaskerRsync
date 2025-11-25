@@ -100,10 +100,8 @@ android {
         disable += "OldTargetApi"
     }
 
-    testOptions {
-        tasks.withType<Test> {
-            useJUnitPlatform()
-        }
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 
     packaging {
