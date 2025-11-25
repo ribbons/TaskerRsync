@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023-2024 Matt Robinson
+ * Copyright © 2023-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -111,6 +111,15 @@ class ProcessHandler(
 
         while (!stdoutEnded || !stderrEnded) {
             Thread.sleep(100)
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O &&
+            stderr
+                .lines()
+                .first()
+                .endsWith(".so: unsupported flags DT_FLAGS_1=0x8000001")
+        ) {
+            stderr.delete(0, stderr.indexOf("\n") + 1)
         }
 
         if (aborted) {

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2025 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -16,7 +16,6 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultErrorWithOutput
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import com.nerdoftheherd.tasker.rsync.output.PublicKeyOutput
-import java.io.BufferedReader
 import java.util.Scanner
 
 class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
@@ -47,9 +46,9 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
 
         Log.d(TAG, "About to run dropbearkey")
 
-        val dropbearkey =
-            Runtime.getRuntime().exec(
-                arrayOf(
+        val builder =
+            ProcessBuilder(
+                arrayListOf(
                     "$libDir/libdropbearkey.so",
                     "-f",
                     privateKey.absolutePath,
@@ -57,19 +56,18 @@ class PublicKeyRunner : TaskerPluginRunnerActionNoInput<PublicKeyOutput>() {
                 ),
             )
 
-        val retcode = dropbearkey.waitFor()
-        Log.d(TAG, "Completed, exit code $retcode")
+        val timeoutMS = this.requestedTimeout ?: 0
+        val handler = ProcessHandler(context, builder, timeoutMS)
+        val result = handler.run()
 
-        if (retcode != 0) {
+        if (result != 0) {
             return TaskerPluginResultErrorWithOutput(
-                retcode,
-                dropbearkey.errorStream.bufferedReader().use(
-                    BufferedReader::readText,
-                ),
+                result,
+                handler.stderr.toString(),
             )
         }
 
-        val scanner = Scanner(dropbearkey.inputStream)
+        val scanner = Scanner(handler.stdout.toString())
         val pubkey =
             scanner.findWithinHorizon(
                 "(?<=\n)ssh-[a-z0-9]+ [a-zA-Z0-9+/]+={0,2} ",
