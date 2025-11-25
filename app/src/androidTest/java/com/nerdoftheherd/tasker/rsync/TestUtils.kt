@@ -64,8 +64,19 @@ class TestUtils {
                 while (permAllowed() != enabled) {
                     Thread.sleep(1)
                 }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 if (enabled) {
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+                        InstrumentationRegistry
+                            .getInstrumentation()
+                            .uiAutomation
+                            .grantRuntimePermission(
+                                context.packageName,
+                                android.Manifest.permission
+                                    .READ_EXTERNAL_STORAGE,
+                            )
+                    }
+
                     InstrumentationRegistry
                         .getInstrumentation()
                         .uiAutomation
@@ -74,6 +85,17 @@ class TestUtils {
                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         )
                 } else {
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+                        InstrumentationRegistry
+                            .getInstrumentation()
+                            .uiAutomation
+                            .revokeRuntimePermission(
+                                context.packageName,
+                                android.Manifest.permission
+                                    .READ_EXTERNAL_STORAGE,
+                            )
+                    }
+
                     InstrumentationRegistry
                         .getInstrumentation()
                         .uiAutomation
@@ -82,6 +104,82 @@ class TestUtils {
                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         )
                 }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val uiAutomation =
+                    InstrumentationRegistry
+                        .getInstrumentation()
+                        .uiAutomation
+
+                val updatePerm =
+                    uiAutomation::class.java.getMethod(
+                        if (enabled) {
+                            "grantRuntimePermission"
+                        } else {
+                            "revokeRuntimePermission"
+                        },
+                        String::class.java,
+                        String::class.java,
+                        Process.myUserHandle()::class.java,
+                    )
+
+                updatePerm.invoke(
+                    uiAutomation,
+                    context.packageName,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Process.myUserHandle(),
+                )
+
+                updatePerm.invoke(
+                    uiAutomation,
+                    context.packageName,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Process.myUserHandle(),
+                )
+            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                val uiAutomation =
+                    InstrumentationRegistry
+                        .getInstrumentation()
+                        .uiAutomation
+
+                val uiacField =
+                    uiAutomation::class.java.getDeclaredField(
+                        "mUiAutomationConnection",
+                    )
+
+                uiacField.isAccessible = true
+
+                val handle = Process.myUserHandle()
+                val getIdentifier =
+                    handle::class.java.getMethod("getIdentifier")
+
+                val updatePerm =
+                    Class
+                        .forName(
+                            "android.app.IUiAutomationConnection",
+                        ).getMethod(
+                            if (enabled) {
+                                "grantRuntimePermission"
+                            } else {
+                                "revokeRuntimePermission"
+                            },
+                            String::class.java,
+                            String::class.java,
+                            Integer.TYPE,
+                        )
+
+                updatePerm.invoke(
+                    uiacField.get(uiAutomation),
+                    context.packageName,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    getIdentifier.invoke(handle),
+                )
+
+                updatePerm.invoke(
+                    uiacField.get(uiAutomation),
+                    context.packageName,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getIdentifier.invoke(handle),
+                )
             }
         }
     }
