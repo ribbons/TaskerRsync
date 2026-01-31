@@ -11,7 +11,6 @@ import groovy.xml.XmlParser
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")
-    kotlin("android")
     kotlin("plugin.serialization") version "2.3.0"
 }
 
