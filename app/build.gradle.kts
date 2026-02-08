@@ -44,6 +44,12 @@ java {
     }
 }
 
+kotlin {
+    compilerOptions {
+        allWarningsAsErrors = true
+    }
+}
+
 android {
     namespace = "com.nerdoftheherd.tasker.rsync"
     compileSdk = 36
@@ -77,12 +83,6 @@ android {
         viewBinding = true
     }
 
-    kotlin {
-        compilerOptions {
-            allWarningsAsErrors = true
-        }
-    }
-
     lint {
         warningsAsErrors = true
         textReport = true
@@ -97,10 +97,6 @@ android {
         // GitHub Actions installs pre-release SDKs which triggers
         // this before the final SDK, AGP & Android Studio release
         disable += "OldTargetApi"
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 
     packaging {
@@ -166,6 +162,10 @@ tasks.register<ReadmePermsCheckTask>("readmePermsCheck") {
 
 tasks.check {
     dependsOn("readmePermsCheck")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 dependencies {
