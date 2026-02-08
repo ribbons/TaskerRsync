@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2025 Matt Robinson
+ * Copyright © 2021-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -57,7 +57,7 @@ android {
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = gitVersionCode()
         versionName = gitVersionName()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
