@@ -96,7 +96,7 @@ jobs:
 
       - name: Run Tests
         # yamllint disable-line rule:line-length
-        uses: reactivecircus/android-emulator-runner@5d6e86df22ab11632167a1a6b0c9ab0dc3469586
+        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level >= 31 && 'x86_64' || 'x86' }}
