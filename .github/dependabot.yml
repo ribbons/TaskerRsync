@@ -5,6 +5,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - dependencies
     open-pull-requests-limit: 3
@@ -13,6 +15,10 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
+      semver-minor-days: 9
+      semver-major-days: 11
     labels:
       - dependencies
     open-pull-requests-limit: 1
