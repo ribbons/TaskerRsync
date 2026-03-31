@@ -1,5 +1,5 @@
 ---
-# Copyright © 2021-2024 Matt Robinson
+# Copyright © 2021-2026 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -31,6 +31,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          build-scan-terms-of-use-url: https://gradle.com/terms-of-service
+          build-scan-terms-of-use-agree: 'yes'
 
       - name: Generate release bundle
         run: ./gradlew assembleRelease

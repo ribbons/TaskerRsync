@@ -50,6 +50,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          build-scan-terms-of-use-url: https://gradle.com/terms-of-service
+          build-scan-terms-of-use-agree: 'yes'
 
       - name: Build
         run: ./gradlew build
@@ -86,6 +89,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          build-scan-terms-of-use-url: https://gradle.com/terms-of-service
+          build-scan-terms-of-use-agree: 'yes'
 
       - name: Enable hardware acceleration for emulator
         run: echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666",
