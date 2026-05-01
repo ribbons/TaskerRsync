@@ -11,7 +11,7 @@ import groovy.xml.XmlParser
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "2.3.20"
+    kotlin("plugin.serialization") version "2.3.21"
 }
 
 fun gitVersionCode(): Int {
