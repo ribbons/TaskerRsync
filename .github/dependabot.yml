@@ -9,6 +9,9 @@ updates:
       timezone: Europe/London
     cooldown:
       default-days: 7
+      exclude:
+        - actions/*
+        - gradle/actions
     labels:
       - dependencies
     open-pull-requests-limit: 3
