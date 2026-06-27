@@ -52,7 +52,7 @@ kotlin {
 
 android {
     namespace = "com.nerdoftheherd.tasker.rsync"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.nerdoftheherd.tasker.rsync"
