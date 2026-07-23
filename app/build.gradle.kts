@@ -175,7 +175,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
     implementation("com.google.android.material:material:1.14.0")
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.10")
-    implementation("com.nerdoftheherd:android-dropbear:2026.92")
+    implementation("com.nerdoftheherd:android-dropbear:2026.93-1")
     implementation("com.nerdoftheherd:android-rsync:3.4.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
