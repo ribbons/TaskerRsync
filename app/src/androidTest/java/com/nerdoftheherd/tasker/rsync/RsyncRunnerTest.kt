@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2025 Matt Robinson
+ * Copyright © 2021-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -112,7 +112,12 @@ class RsyncRunnerTest {
     fun errorFromTimeout() {
         val assets = InstrumentationRegistry.getInstrumentation().context.assets
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val config = RsyncConfig("-v test@example.com:remote local", "", false)
+        val config =
+            RsyncConfig(
+                "-vv --stderr=all test@example.com:remote local",
+                "",
+                false,
+            )
 
         File(context.filesDir, "id_dropbear").outputStream().use { fileOut ->
             assets.open("private_key_ed25519").copyTo(fileOut)
