@@ -95,7 +95,12 @@ class RsyncRunnerTest {
 
         val config =
             RsyncConfig(
-                "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
+                    "--inplace -p "
+                } else {
+                    ""
+                } +
+                    "-r ${sourceDir.absolutePath}/ ${targetDir.absolutePath}/",
                 "",
                 false,
             )
