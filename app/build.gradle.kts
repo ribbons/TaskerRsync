@@ -85,7 +85,6 @@ android {
 
     lint {
         warningsAsErrors = true
-        textReport = true
 
         // Causes unrelated PR failures after a new Gradle release
         disable += "AndroidGradlePluginVersion"
