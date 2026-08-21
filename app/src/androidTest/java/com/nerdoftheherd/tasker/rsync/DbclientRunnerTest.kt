@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -79,6 +79,26 @@ class DbclientRunnerTest {
 
         assertTrue(stderr.startsWith("Dropbear SSH client v20"))
         assertTrue(stderr.contains("-V    Version\n"))
+    }
+
+    @Test
+    fun cleanBinaryNameInStderr() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val failconfig = DbclientConfig("-!", "", false)
+
+        File(context.filesDir, "id_dropbear").createNewFile()
+
+        val fail = DbclientRunner().run(context, TaskerInput(failconfig))
+        val error = fail as TaskerPluginResultErrorWithOutput<CommandOutput>
+        assertTrue(error.message.contains("\nUsage: dbclient [options] "))
+
+        val okconfig = DbclientConfig("-h", "", false)
+
+        val success = DbclientRunner().run(context, TaskerInput(okconfig))
+        val resultSuccess = success as TaskerPluginResultSucess<CommandOutput>
+        val stderr = resultSuccess.regular?.stderr!!
+
+        assertTrue(stderr.contains("\nUsage: dbclient [options] "))
     }
 
     @Test(timeout = 1500)

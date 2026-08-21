@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -32,7 +32,8 @@ class DbclientRunner(
             UpdateNotifier.checkInBackground(context)
         }
 
-        val libDir = context.applicationInfo.nativeLibraryDir
+        val binpath =
+            context.applicationInfo.nativeLibraryDir + "/libdbclient.so"
 
         if (!Utils.privateKeyFile(context).exists()) {
             return TaskerPluginResultErrorWithOutput(
@@ -44,7 +45,7 @@ class DbclientRunner(
         Log.d(TAG, "About to run dbclient")
 
         val args = ArrayList<String>()
-        args.add("$libDir/libdbclient.so")
+        args.add(binpath)
         args.addAll(ArgumentParser.parse(input.regular.args))
 
         val builder = ProcessBuilder(args)
@@ -53,20 +54,15 @@ class DbclientRunner(
         ProcessEnv(context, builder, input.regular.knownHosts).use {
             val handler = ProcessHandler(context, builder, timeoutMS)
             val result = handler.run()
+            val stderr = handler.stderr.toString().replace(binpath, "dbclient")
 
             if (result == 0) {
                 return TaskerPluginResultSucess(
-                    CommandOutput(
-                        handler.stdout.toString(),
-                        handler.stderr.toString(),
-                    ),
+                    CommandOutput(handler.stdout.toString(), stderr),
                 )
             }
 
-            return TaskerPluginResultErrorWithOutput(
-                result,
-                handler.stderr.toString(),
-            )
+            return TaskerPluginResultErrorWithOutput(result, stderr)
         }
     }
 }
