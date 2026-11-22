@@ -8,6 +8,10 @@ import groovy.util.Node
 import groovy.util.NodeList
 import groovy.xml.XmlParser
 
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")

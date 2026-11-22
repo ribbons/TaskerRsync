@@ -38,6 +38,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -53,9 +55,15 @@ jobs:
         with:
           build-scan-terms-of-use-url: https://gradle.com/terms-of-service
           build-scan-terms-of-use-agree: 'yes'
+          dependency-graph: generate-and-submit
 
       - name: Build
         run: ./gradlew build
+        env:
+          DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: >-
+            (?:debug|release|test|androidTest).+
+          DEPENDENCY_GRAPH_RUNTIME_INCLUDE_CONFIGURATIONS: >-
+            releaseRuntimeClasspath
 
   test:
     name: Instrumented Tests

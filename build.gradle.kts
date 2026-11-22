@@ -15,6 +15,10 @@ buildscript {
     }
 }
 
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
 }
